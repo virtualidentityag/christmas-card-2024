@@ -25,9 +25,9 @@ const createGame = (config, element) => (p5Instance: p5) => {
     p5Instance.resizeCanvas(p5Instance.windowWidth, p5Instance.windowHeight)
   }
 
-  function gameOver() {
+  function gameOver(score: number = store.getItems().length) {
     p5Instance.remove();
-    config.onGameOver?.();
+    config.onGameOver?.(score);
   }
 
   async function drawBackground() {
