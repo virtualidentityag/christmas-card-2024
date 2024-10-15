@@ -9,7 +9,8 @@
     "start-run": "browser-sync start --server -w --folder dist",
     "start-static": "onchange 'index.html' 'assets/*' -- run-s copy",
     "copy": "cp index.html dist/ & cp -r assets dist/assets",
-    "build": "mkdir -p dist & tsc & npm run copy"
+    "build": "mkdir -p dist && tsc && npm run copy && run-s log-dist",
+    "log-dist": "ls -R -l dist "
   },
   "homepage": "https://github.com/Gaweph/p5-typescript-starter#readme",
   "devDependencies": {
