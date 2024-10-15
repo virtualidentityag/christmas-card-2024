@@ -1,12 +1,18 @@
 const { GameObject } = await import('./game-object.js');
+const { ItemStore } = await import('./item-store.js');
 
 export class Sock extends GameObject {
-  connectedStorage = null;
+  storage = null;
   speed = 0;
   topSpeed = 7;
   inertia = 0.5;
   width: number = 150;
   height: number = 150;
+
+  constructor(game, x, y, spritePath) {
+    super(game, x, y, spritePath);
+    this.storage = new ItemStore();
+  }
 
   onReady() {
     this.x = this.p5.windowWidth / 2;
@@ -53,8 +59,9 @@ export class Sock extends GameObject {
   checkForItems(fallingItems) {
     for (const item of fallingItems) {
       if (this.checkIntersection(item)) {
+        item.onCaught();
         item.destroy();
-        this.connectedStorage?.addItem(item);
+        this.storage?.addItem(item);
       }
     }
   }

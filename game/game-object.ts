@@ -1,3 +1,5 @@
+import type { GameInstance } from './game-instance';
+
 export class GameObject {
   p5: p5 = null;
   x: number = 0;
@@ -7,11 +9,11 @@ export class GameObject {
   sprite: p5.Image = null;
   spritePath: string = "";
   render: boolean = false;
-  constructor(p5: p5, x: number, y: number, spritePath: string) {
+  constructor(game: GameInstance, x: number, y: number, spritePath: string) {
     if (new.target === GameObject) {
       throw new TypeError("Cannot construct GameObject instances directly");
     }
-    this.p5 = p5;
+    this.p5 = game.p5;
     this.x = x;
     this.y = y;
     this.spritePath = spritePath;

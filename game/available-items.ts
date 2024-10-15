@@ -1,4 +1,5 @@
 const { FallingItem } = await import('./falling-item.js');
+const { PowerUp } = await import('./power-up.js');
 
 export type ItemDefinition = {
   type: string;
@@ -10,7 +11,7 @@ export type ItemDefinition = {
 export const availableItems: ItemDefinition[] = [
   {
     type: "ball",
-    class: FallingItem,
+    class: PowerUp,
     spritePath: "assets/sprites/dd_item-1.svg",
     weight: 1,
   },

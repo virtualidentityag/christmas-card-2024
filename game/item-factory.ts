@@ -1,15 +1,18 @@
 import type { ItemDefinition } from './available-items.js';
 import type { FallingItem } from './falling-item.js';
+import type { GameInstance } from './game-instance.js';
 
 const { availableItems } = await import('./available-items.js');
 
 export class ItemFactory {
   p5: p5 = null
+  game: GameInstance = null;
   items = [];
   onItemCreated: (item: FallingItem) => void;
 
-  constructor(p5, onItemCreated: (item: FallingItem) => void) {
-    this.p5 = p5;
+  constructor(game, onItemCreated: (item: FallingItem) => void) {
+    this.game = game;
+    this.p5 = game.p5;
     this.onItemCreated = onItemCreated;
   }
 
@@ -19,7 +22,7 @@ export class ItemFactory {
       throw new Error(`Item with type ${type} not found`);
     }
 
-    const newItem = new item.class(this.p5, 0, 0, item.spritePath);
+    const newItem = new item.class(this.game, 0, 0, item.spritePath);
     newItem.onDestroy = () => {
       this.createItem(item.type);
     }
