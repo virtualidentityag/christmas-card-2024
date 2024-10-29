@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { GameInstance, type GameConfig } from './game-instance.js';
-
 	const createGame = (config: GameConfig, element: HTMLCanvasElementå) => (p5Instance: p5) => {
 		const game = new GameInstance(config, p5Instance, element);
 		game.startGame();
@@ -34,4 +33,13 @@
 	});
 </script>
 
+<virtual-joystick data-mode="dynamic" data-lock="y"></virtual-joystick>
 <canvas id="game-container"> </canvas>
+
+<style>
+	virtual-joystick {
+		position: fixed;
+		width: 100vw;
+		height: 100vh;
+	}
+</style>
