@@ -1,7 +1,6 @@
 import type { GameInstance } from './game-instance.js';
-
-const { FallingItem } = await import('./falling-item.js');
-const { PowerUp } = await import('./power-up.js');
+import { FallingItem } from './falling-item.js';
+import { PowerUp } from './power-up.js';
 
 export type ItemDefinition = {
   type: string;

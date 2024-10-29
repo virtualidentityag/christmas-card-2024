@@ -1,6 +1,5 @@
 import type { Image } from 'p5';
-
-const { GameObject } = await import('./game-object.js');
+import { GameObject } from './game-object.js';
 
 export class FallingItem extends GameObject {
   startSplashTime = 0;

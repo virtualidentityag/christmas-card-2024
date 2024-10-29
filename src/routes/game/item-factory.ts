@@ -2,8 +2,7 @@ import type p5 from 'p5';
 import type { ItemDefinition } from './available-items.js';
 import type { FallingItem } from './falling-item.js';
 import type { GameInstance } from './game-instance.js';
-
-const { availableItems } = await import('./available-items.js');
+import { availableItems } from './available-items.js';
 
 export class ItemFactory {
   p5: p5;

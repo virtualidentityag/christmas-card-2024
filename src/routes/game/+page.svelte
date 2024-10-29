@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { GameInstance } from './game-instance.js';
+	import { GameInstance, type GameConfig } from './game-instance.js';
 
-	const createGame = (config, element) => (p5Instance: p5) => {
+	const createGame = (config: GameConfig, element: HTMLCanvasElementå) => (p5Instance: p5) => {
 		const game = new GameInstance(config, p5Instance, element);
 		game.startGame();
 
@@ -25,12 +25,12 @@
 		}
 	};
 
-	const startGame = (config, element) => {
+	const startGame = (config: GameConfig, element: HTMLCanvasElement) => {
 		new window.p5(createGame(config, element));
 	};
 
 	onMount(() => {
-		startGame(gameConfig, document.getElementById('game-container'));
+		startGame(gameConfig, document.getElementById('game-container') as HTMLCanvasElement);
 	});
 </script>
 
