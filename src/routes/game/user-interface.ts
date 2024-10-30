@@ -20,7 +20,7 @@ const header: UIElementDrawer = (game: GameInstance) => {
     .textSize(textSize)
     .text(`SCORE: ${game.sock.storage.getItems().length}`, addPadding(10), addPadding(20))
     .text(`MISSES: ${game.lostItems.items.length} of ${game.config.maxNumberMisses}`, addPadding(120), addPadding(20))
-    .text(`TIME: ${Math.floor(p5.millis() / 1000)}`, addPadding(300), addPadding(20));
+    .text(`TIME: ${game.timeElapsed}`, addPadding(300), addPadding(20));
 }
 
 const debug: UIElementDrawer = (game: GameInstance) => {

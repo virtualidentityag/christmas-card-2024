@@ -5,37 +5,51 @@ import { UserInterface } from './user-interface.js';
 import type p5 from 'p5';
 
 export interface GameConfig {
-  itemCount: number;
-  initialSpeed: number;
   maxNumberMisses: number;
+
+  initialSpeed: number;
   speedIncreaseIntervalInSeconds: number;
   speedIncrease: number;
+  maxSpeed: number;
+
   onGameOver: (game: GameInstance) => void;
   theme: {
     backgroundColor: string;
   };
+  initialItemCount: number;
+  itemCountIncreaseIntervalInSeconds: number;
+  itemCountIncrease: number;
+  maxItemCount: number;
 }
 
 export class GameInstance {
   config: GameConfig;
   running: boolean = false;
+  runningSince: number = 0;
   p5: p5;
   ui;
   sock;
   lostItems;
   itemFactory;
-  _speed: number = 0;
+  #speed: number = 0;
   activeEffects: Array<(game: GameInstance) => void> = [];
 
   get currentSpeed() {
-    return this._speed;
+    return this.#speed;
   }
 
   set currentSpeed(speed: number) {
-    if (this._speed !== speed) {
-      this._speed = speed;
+    if (this.#speed !== speed) {
+      this.#speed = speed;
       this.setSpeedOnItems();
     }
+  }
+
+  get timeElapsed() {
+    if (!this.running) {
+      return 0;
+    }
+    return Math.floor((this.p5.millis() - this.runningSince) / 1000);
   }
 
   constructor(config: GameConfig, p5: p5, element: HTMLCanvasElement) {
@@ -51,7 +65,7 @@ export class GameInstance {
     this.lostItems = new ItemStore();
 
     p5.preload = () => {
-      this.itemFactory.produceRandomItems(config.itemCount);
+      this.itemFactory.concurrentItems = this.config.initialItemCount;
     }
 
     p5.setup = () => {
@@ -68,6 +82,7 @@ export class GameInstance {
   startGame() {
     this.ui.triggerCountdown(3, () => {
       this.running = true;
+      this.runningSince = this.p5.millis();
     });
   }
 
@@ -87,7 +102,11 @@ export class GameInstance {
   }
 
   updateSpeed() {
-    this.currentSpeed = this.config.initialSpeed + Math.floor(this.p5.millis() / 1000 / this.config.speedIncreaseIntervalInSeconds) * this.config.speedIncrease;
+    this.currentSpeed = Math.min(this.config.initialSpeed + Math.floor(this.timeElapsed / this.config.speedIncreaseIntervalInSeconds) * this.config.speedIncrease, this.config.maxSpeed);
+  }
+
+  updateItemCount() {
+    this.itemFactory.concurrentItems = Math.min(this.config.initialItemCount + Math.floor(this.timeElapsed / this.config.itemCountIncreaseIntervalInSeconds) * this.config.itemCountIncrease, this.config.maxItemCount);
   }
 
   gameOver(score: number = this.sock.storage?.getItems().length) {
@@ -111,6 +130,7 @@ export class GameInstance {
     this.sock.checkForItems(this.itemFactory.items);
 
     this.updateSpeed();
+    this.updateItemCount()
     this.activeEffects.forEach(effect => effect(this));
   }
 

@@ -8,7 +8,25 @@ export class ItemFactory {
   p5: p5;
   game: GameInstance;
   items: FallingItem[] = [];
+  #concurrentItems: number = 0;
   onItemCreated: (item: FallingItem) => void;
+
+  get concurrentItems() {
+    return this.#concurrentItems;
+  }
+
+  set concurrentItems(itemCount: number) {
+    this.#concurrentItems = itemCount;
+    this.ensureConcurrentItemCount();
+  }
+
+  ensureConcurrentItemCount() {
+    const missingItems = this.concurrentItems - this.items.length;
+    if (missingItems > 0) {
+      this.produceRandomItems(missingItems);
+    }
+  }
+
 
   constructor(game: GameInstance, onItemCreated: (item: FallingItem) => void) {
     this.game = game;
@@ -24,8 +42,10 @@ export class ItemFactory {
 
     const newItem = new item.class(this.game, 0, 0, item.spritePath);
     newItem.onDestroy = () => {
-      this.createItem(item.type);
+      this.items = this.items.filter(i => i !== newItem);
+      this.ensureConcurrentItemCount();
     }
+    newItem.speed = this.game.currentSpeed;
     this.items.push(newItem);
     this.onItemCreated(newItem);
     return newItem;

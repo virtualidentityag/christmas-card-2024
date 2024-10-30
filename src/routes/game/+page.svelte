@@ -10,18 +10,22 @@
 		};
 	};
 
-	const gameConfig = {
-		itemCount: 10,
-		initialSpeed: 1,
+	const gameConfig: GameConfig = {
 		maxNumberMisses: Infinity,
-		speedIncreaseIntervalInSeconds: 10,
-		speedIncrease: 0,
+		initialSpeed: 5,
+		speedIncreaseIntervalInSeconds: 2,
+		speedIncrease: 1,
+		maxSpeed: 5,
 		onGameOver: () => {
 			console.log('Game Over');
 		},
 		theme: {
 			backgroundColor: '#142547'
-		}
+		},
+		initialItemCount: 10,
+		itemCountIncrease: 2,
+		itemCountIncreaseIntervalInSeconds: 5,
+		maxItemCount: 20
 	};
 
 	const startGame = (config: GameConfig, element: HTMLCanvasElement) => {
