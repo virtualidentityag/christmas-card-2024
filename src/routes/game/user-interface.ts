@@ -2,7 +2,7 @@ import type { GameInstance } from './game-instance';
 
 type UIElementDrawer = (game: GameInstance) => void;
 
-const header = (game: GameInstance) => {
+const header: UIElementDrawer = (game: GameInstance) => {
   const p5 = game.p5;
   const height = 50;
   const padding = 10;
@@ -12,6 +12,7 @@ const header = (game: GameInstance) => {
 
   const addPadding = (index: number) => index + padding;
 
+  p5.textAlign(p5.LEFT, p5.CENTER);
   p5.fill(backgroundColor)
     .rect(0, 0, p5.width, height);
 
@@ -22,7 +23,7 @@ const header = (game: GameInstance) => {
     .text(`TIME: ${Math.floor(p5.millis() / 1000)}`, addPadding(300), addPadding(20));
 }
 
-const debug = (game: GameInstance) => {
+const debug: UIElementDrawer = (game: GameInstance) => {
   const p5 = game.p5;
   const padding = 10;
   const boxPosition = p5.height - 200;
@@ -38,6 +39,26 @@ const debug = (game: GameInstance) => {
     .text(`Speed Increase: ${game.config.speedIncrease}`, ...insideBackground(10, 60))
     .text(`Current Speed: ${game.itemFactory.items[0]?.speed}`, ...insideBackground(10, 80))
     .text(`Current Time: ${Math.floor(p5.millis() / 1000) % game.config.speedIncreaseIntervalInSeconds}`, ...insideBackground(10, 100))
+}
+
+const createCountDown: (steps: number, finished: string, onDone: () => void) => UIElementDrawer = (steps: number, finished: string, onDone: () => void) => {
+  let currentMillis = new Date().getTime();
+  return (game: GameInstance) => {
+    const p5 = game.p5;
+    const secondsSinceStart = Math.floor((new Date().getTime() - currentMillis) / 1000);
+    if (secondsSinceStart > steps) {
+      onDone();
+      return;
+    }
+
+    const currentText = steps - secondsSinceStart ? steps - secondsSinceStart : finished;
+
+    p5.textAlign(p5.CENTER, p5.CENTER);
+    p5.textSize(100);
+
+    p5.fill(255, 255, 255)
+      .text(currentText, 0, 0, p5.width, p5.height);
+  }
 }
 
 export class UserInterface {
@@ -56,5 +77,17 @@ export class UserInterface {
 
   draw() {
     this.uiElements.forEach(uiElement => uiElement(this.game));
+  }
+
+  triggerCountdown(steps: number, onDone: () => void) {
+    const countdown = createCountDown(steps, 'Dash it!', () => {
+      this.uiElements = this.uiElements.filter(uiElement => uiElement !== countdown);
+      onDone();
+    });
+    this.uiElements.push(countdown);
+  }
+
+  addUIElement(uiElement: UIElementDrawer) {
+    this.uiElements.push(uiElement);
   }
 }

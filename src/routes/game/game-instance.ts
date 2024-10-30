@@ -66,7 +66,9 @@ export class GameInstance {
   }
 
   startGame() {
-    this.running = true;
+    this.ui.triggerCountdown(3, () => {
+      this.running = true;
+    });
   }
 
   pauseGame() {
