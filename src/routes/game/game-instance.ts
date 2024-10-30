@@ -65,7 +65,15 @@ export class GameInstance {
     this.lostItems = new ItemStore();
 
     p5.preload = () => {
+      if (this.config.initialItemCount > this.config.maxItemCount) {
+        console.warn('Initial item count is greater than max item count. Setting initial item count to max item count.');
+        this.config.initialItemCount = this.config.maxItemCount;
+      }
       this.itemFactory.concurrentItems = this.config.initialItemCount;
+      if (this.config.initialSpeed > this.config.maxSpeed) {
+        console.warn('Initial speed is greater than max speed. Setting initial speed to max speed.');
+        this.config.initialSpeed = this.config.maxSpeed;
+      }
     }
 
     p5.setup = () => {
