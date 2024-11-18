@@ -2,27 +2,6 @@ import type { GameInstance } from './game-instance';
 
 type UIElementDrawer = (game: GameInstance) => void;
 
-const header: UIElementDrawer = (game: GameInstance) => {
-  const p5 = game.p5;
-  const height = 50;
-  const padding = 10;
-  const backgroundColor = 'white';
-  const textColor = 'black';
-  const textSize = 15;
-
-  const addPadding = (index: number) => index + padding;
-
-  p5.textAlign(p5.LEFT, p5.CENTER);
-  p5.fill(backgroundColor)
-    .rect(0, 0, p5.width, height);
-
-  p5.fill(textColor)
-    .textSize(textSize)
-    .text(`SCORE: ${game.sock.storage.getItems().length}`, addPadding(10), addPadding(20))
-    .text(`MISSES: ${game.lostItems.items.length} of ${game.config.maxNumberMisses}`, addPadding(120), addPadding(20))
-    .text(`TIME: ${game.timeElapsed}`, addPadding(300), addPadding(20));
-}
-
 const debug: UIElementDrawer = (game: GameInstance) => {
   const p5 = game.p5;
   const padding = 10;
@@ -71,7 +50,6 @@ export class UserInterface {
   }
 
   populateUIElements() {
-    this.uiElements.push(header);
     // this.uiElements.push(debug);
   }
 

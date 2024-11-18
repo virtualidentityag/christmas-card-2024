@@ -5,15 +5,11 @@
 		font-family: 'Roboto', sans-serif;
 		margin: 0;
 		padding: 0;
+		overflow: hidden;
+		height: 100vh;
+		width: 100vw;
 		background-color: #142547;
+		background-image: url('/sprites/dd_background.svg');
 		position: relative;
-	}
-
-	#game-container {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 1000px;
-		height: 1000px;
 	}
 </style>

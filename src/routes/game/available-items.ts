@@ -21,9 +21,20 @@ export const availableItems: ItemDefinition[] = [
     weight: 1,
   },
   {
+    type: "flake",
+    class: class S extends PowerUp {
+      effectDuration: number = 0;
+      effect(game: GameInstance): void {
+        game.timeElapsed = game.timeElapsed - 5;
+      }
+    },
+    spritePath: "/sprites/dd_item-5.svg",
+    weight: 10,
+  },
+  {
     type: "canes",
     class: FallingItem,
     spritePath: "/sprites/dd_item-2.svg",
-    weight: 1
+    weight: 1,
   }
 ];

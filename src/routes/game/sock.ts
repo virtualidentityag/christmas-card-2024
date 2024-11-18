@@ -75,9 +75,9 @@ export class Sock extends GameObject {
   checkForItems(fallingItems: FallingItem[]) {
     for (const item of fallingItems) {
       if (this.checkIntersection(item)) {
+        this.storage?.addItem(item);
         item.onCaught();
         item.destroy();
-        this.storage?.addItem(item);
       }
     }
   }

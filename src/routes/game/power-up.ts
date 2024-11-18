@@ -18,6 +18,7 @@ export class PowerUp extends FallingItem {
   };
 
   onCaught(): void {
+    super.onCaught();
     this.powerUp();
   }
 

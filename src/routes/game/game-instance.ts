@@ -12,7 +12,6 @@ export interface GameConfig {
   speedIncrease: number;
   maxSpeed: number;
 
-  onGameOver: (game: GameInstance) => void;
   theme: {
     backgroundColor: string;
   };
@@ -20,6 +19,11 @@ export interface GameConfig {
   itemCountIncreaseIntervalInSeconds: number;
   itemCountIncrease: number;
   maxItemCount: number;
+
+  onGameOver: (game: GameInstance) => void;
+  onScoreChange: (score: number) => void;
+  onMissChange: (misses: number) => void;
+  onTimeChange: (timeElapsed: number) => void;
 }
 
 export class GameInstance {
@@ -52,6 +56,10 @@ export class GameInstance {
     return Math.floor((this.p5.millis() - this.runningSince) / 1000);
   }
 
+  set timeElapsed(time: number) {
+    this.runningSince = this.p5.millis() - time * 1000;
+  }
+
   constructor(config: GameConfig, p5: p5, element: HTMLCanvasElement) {
     this.config = config;
     this.p5 = p5;
@@ -60,11 +68,18 @@ export class GameInstance {
     this.itemFactory = new ItemFactory(this, (item) => {
       item.onOutOfBounds = () => {
         this.lostItems.addItem(item);
+        this.onMissChange();
       }
     });
     this.lostItems = new ItemStore();
 
     p5.preload = () => {
+
+    }
+
+    p5.setup = () => {
+      p5.createCanvas(element?.width || p5.windowWidth, element?.height || p5.windowHeight, element as any);
+      p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
       if (this.config.initialItemCount > this.config.maxItemCount) {
         console.warn('Initial item count is greater than max item count. Setting initial item count to max item count.');
         this.config.initialItemCount = this.config.maxItemCount;
@@ -74,11 +89,6 @@ export class GameInstance {
         console.warn('Initial speed is greater than max speed. Setting initial speed to max speed.');
         this.config.initialSpeed = this.config.maxSpeed;
       }
-    }
-
-    p5.setup = () => {
-      p5.createCanvas(element?.width || p5.windowWidth, element?.height || p5.windowHeight, element as any);
-      p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
     }
 
     p5.draw = () => {
@@ -138,7 +148,7 @@ export class GameInstance {
     this.sock.checkForItems(this.itemFactory.items);
 
     this.updateSpeed();
-    this.updateItemCount()
+    this.updateItemCount();
     this.activeEffects.forEach(effect => effect(this));
   }
 
@@ -153,5 +163,14 @@ export class GameInstance {
   run() {
     this.calculateGameState();
     this.render();
+    this.config.onTimeChange?.(this.timeElapsed);
+  }
+
+  onScoreChange() {
+    this.config.onScoreChange?.(this.sock.storage.getItems().length);
+  }
+
+  onMissChange() {
+    this.config.onMissChange?.(this.lostItems.items.length);
   }
 }

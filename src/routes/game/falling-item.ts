@@ -43,9 +43,13 @@ export class FallingItem extends GameObject {
     this.onDestroy();
   }
 
-  onOutOfBounds() { };
+  onOutOfBounds() {
 
-  onCaught() { };
+  };
+
+  onCaught() {
+    this.game.onScoreChange();
+  };
 
   onDestroy() { };
 }
