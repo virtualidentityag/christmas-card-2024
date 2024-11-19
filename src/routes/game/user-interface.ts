@@ -1,4 +1,5 @@
 import type { GameInstance } from './game-instance';
+import type { Image } from 'p5';
 
 type UIElementDrawer = (game: GameInstance) => void;
 
@@ -20,29 +21,28 @@ const debug: UIElementDrawer = (game: GameInstance) => {
     .text(`Current Time: ${Math.floor(p5.millis() / 1000) % game.config.speedIncreaseIntervalInSeconds}`, ...insideBackground(10, 100))
 }
 
-const createCountDown: (steps: number, finished: string, onDone: () => void) => UIElementDrawer = (steps: number, finished: string, onDone: () => void) => {
+const createCountDown: (frames: Image[], onDone: () => void) => UIElementDrawer = (frames: Image[], onDone: () => void) => {
   let currentMillis = new Date().getTime();
+
   return (game: GameInstance) => {
     const p5 = game.p5;
     const secondsSinceStart = Math.floor((new Date().getTime() - currentMillis) / 1000);
-    if (secondsSinceStart > steps) {
+
+    if (secondsSinceStart >= frames.length) {
       onDone();
       return;
     }
 
-    const currentText = steps - secondsSinceStart ? steps - secondsSinceStart : finished;
+    const currentFrame = frames[secondsSinceStart];
 
-    p5.textAlign(p5.CENTER, p5.CENTER);
-    p5.textSize(100);
-
-    p5.fill(255, 255, 255)
-      .text(currentText, 0, 0, p5.width, p5.height);
+    p5.image(currentFrame, p5.width / 2 - currentFrame.width / 2, p5.height / 2 - currentFrame.height / 2);
   }
 }
 
 export class UserInterface {
   game: GameInstance;
-  uiElements: UIElementDrawer[] = [];
+  foreground: UIElementDrawer[] = [];
+  background: UIElementDrawer[] = [];
 
   constructor(game: GameInstance) {
     this.game = game;
@@ -53,19 +53,53 @@ export class UserInterface {
     // this.uiElements.push(debug);
   }
 
-  draw() {
-    this.uiElements.forEach(uiElement => uiElement(this.game));
+  drawForeground() {
+    this.foreground.forEach(uiElement => uiElement(this.game));
   }
 
-  triggerCountdown(steps: number, onDone: () => void) {
-    const countdown = createCountDown(steps, 'Dash it!', () => {
-      this.uiElements = this.uiElements.filter(uiElement => uiElement !== countdown);
+  drawBackground() {
+    this.background.forEach(uiElement => uiElement(this.game));
+  }
+
+  async triggerStartCountdown(onDone: () => void) {
+    const sprites = await Promise.all([
+      this.game.p5.loadImage('/sprites/countdown/start/3.png'),
+      this.game.p5.loadImage('/sprites/countdown/start/2.png'),
+      this.game.p5.loadImage('/sprites/countdown/start/1.png'),
+      this.game.p5.loadImage('/sprites/countdown/start/go.png'),
+    ]);
+    const countdown = createCountDown(sprites, () => {
+      this.foreground = this.foreground.filter(uiElement => uiElement !== countdown);
       onDone();
     });
-    this.uiElements.push(countdown);
+    this.foreground.push(countdown);
   }
 
-  addUIElement(uiElement: UIElementDrawer) {
-    this.uiElements.push(uiElement);
+  async triggerEndCountdown(onDone: () => void) {
+    const sprites = await Promise.all([
+      this.game.p5.loadImage('/sprites/countdown/end/5.png'),
+      this.game.p5.loadImage('/sprites/countdown/end/4.png'),
+      this.game.p5.loadImage('/sprites/countdown/end/3.png'),
+      this.game.p5.loadImage('/sprites/countdown/end/2.png'),
+      this.game.p5.loadImage('/sprites/countdown/end/1.png'),
+    ]);
+    const countdown = createCountDown(sprites, () => {
+      this.foreground = this.foreground.filter(uiElement => uiElement !== countdown);
+      onDone();
+    });
+    this.background.push(countdown);
+  }
+
+  async showDoneScreen(onDone: () => void) {
+    const sprites = await Promise.all([
+      this.game.p5.loadImage('/sprites/countdown/end/done.png'),
+      this.game.p5.loadImage('/sprites/countdown/end/done.png'),
+      this.game.p5.loadImage('/sprites/countdown/end/done.png'),
+    ]);
+    const countdown = createCountDown(sprites, () => {
+      this.foreground = this.foreground.filter(uiElement => uiElement !== countdown);
+      onDone();
+    });
+    this.foreground.push(countdown);
   }
 }

@@ -20,6 +20,8 @@ export interface GameConfig {
   itemCountIncrease: number;
   maxItemCount: number;
 
+  durationInSeconds: number;
+
   onGameOver: (game: GameInstance) => void;
   onScoreChange: (score: number) => void;
   onMissChange: (misses: number) => void;
@@ -37,6 +39,8 @@ export class GameInstance {
   itemFactory;
   #speed: number = 0;
   activeEffects: Array<(game: GameInstance) => void> = [];
+  durationInSeconds: number = 0;
+  countdownRunning: boolean = false;
 
   get currentSpeed() {
     return this.#speed;
@@ -60,6 +64,10 @@ export class GameInstance {
     this.runningSince = this.p5.millis() - time * 1000;
   }
 
+  get timeRemaining() {
+    return this.durationInSeconds - this.timeElapsed;
+  }
+
   constructor(config: GameConfig, p5: p5, element: HTMLCanvasElement) {
     this.config = config;
     this.p5 = p5;
@@ -72,6 +80,7 @@ export class GameInstance {
       }
     });
     this.lostItems = new ItemStore();
+    this.durationInSeconds = this.config.durationInSeconds;
 
     p5.preload = () => {
 
@@ -98,7 +107,7 @@ export class GameInstance {
   }
 
   startGame() {
-    this.ui.triggerCountdown(3, () => {
+    this.ui.triggerStartCountdown(() => {
       this.running = true;
       this.runningSince = this.p5.millis();
     });
@@ -133,11 +142,16 @@ export class GameInstance {
   }
 
   calculateGameState() {
-    if (!this.running) {
-      return;
+    if (this.timeRemaining === 5 && this.countdownRunning === false) {
+      this.ui.triggerEndCountdown(() => {
+        this.running = false;
+        this.ui.showDoneScreen(() => {
+          this.gameOver();
+        })
+      });
+      this.countdownRunning = true;
     }
-    if (this.lostItems.items.length > this.config.maxNumberMisses) {
-      this.gameOver();
+    if (!this.running) {
       return;
     }
     for (const item of this.itemFactory.items) {
@@ -153,17 +167,18 @@ export class GameInstance {
   }
 
   render() {
+    this.ui.drawBackground();
     for (const item of this.itemFactory.items) {
       item.draw();
     }
     this.sock.draw();
-    this.ui.draw();
+    this.ui.drawForeground();
   }
 
   run() {
     this.calculateGameState();
     this.render();
-    this.config.onTimeChange?.(this.timeElapsed);
+    this.config.onTimeChange?.(this.timeRemaining);
   }
 
   onScoreChange() {

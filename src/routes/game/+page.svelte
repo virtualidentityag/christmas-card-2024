@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { GameInstance, type GameConfig } from './game-instance.js';
+	import { goto } from '$app/navigation';
 	const createGame = (config: GameConfig, element: HTMLCanvasElementå) => (p5Instance: p5) => {
 		const game = new GameInstance(config, p5Instance, element);
 		game.startGame();
@@ -12,16 +13,16 @@
 
 	$: score = 0;
 	$: misses = 0;
-	$: timeElapsed = 0;
+	$: remainingTime = 0;
 
 	const gameConfig: GameConfig = {
 		maxNumberMisses: Infinity,
-		initialSpeed: 5,
-		speedIncreaseIntervalInSeconds: 2,
+		initialSpeed: 1,
+		speedIncreaseIntervalInSeconds: 30,
 		speedIncrease: 1,
-		maxSpeed: 5,
+		maxSpeed: 4,
 		onGameOver: () => {
-			console.log('Game Over');
+			goto('/result');
 		},
 		theme: {
 			backgroundColor: '#142547'
@@ -30,14 +31,15 @@
 		itemCountIncrease: 2,
 		itemCountIncreaseIntervalInSeconds: 5,
 		maxItemCount: 20,
+		durationInSeconds: 10,
 		onScoreChange: (scoreUpdate: number) => {
 			score = scoreUpdate;
 		},
 		onMissChange: (missesUpdate: number) => {
 			misses = missesUpdate;
 		},
-		onTimeChange: (timeUpdate: number) => {
-			timeElapsed = timeUpdate;
+		onTimeChange: (timeRemaining: number) => {
+			remainingTime = timeRemaining;
 		}
 	};
 
@@ -61,7 +63,7 @@
 
 <div class="top-bar">
 	<span>Score: {score}</span>
-	<span>Time: {formatTime(60 - timeElapsed)}</span>
+	<span>Time: {formatTime(remainingTime)}</span>
 </div>
 
 <style>
