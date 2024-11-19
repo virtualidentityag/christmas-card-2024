@@ -34,8 +34,6 @@
 			score = scoreUpdate;
 		},
 		onMissChange: (missesUpdate: number) => {
-			console.log(missesUpdate);
-
 			misses = missesUpdate;
 		},
 		onTimeChange: (timeUpdate: number) => {

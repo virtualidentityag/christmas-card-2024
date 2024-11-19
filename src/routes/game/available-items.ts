@@ -17,7 +17,7 @@ export const availableItems: ItemDefinition[] = [
         game.currentSpeed = game.currentSpeed / 2;
       }
     },
-    spritePath: "/sprites/dd_item-1.svg",
+    spritePath: "/sprites/ornaments/ball.svg",
     weight: 1,
   },
   {
@@ -28,13 +28,13 @@ export const availableItems: ItemDefinition[] = [
         game.timeElapsed = game.timeElapsed - 5;
       }
     },
-    spritePath: "/sprites/dd_item-5.svg",
+    spritePath: "/sprites/ornaments/flake.svg",
     weight: 10,
   },
   {
     type: "canes",
     class: FallingItem,
-    spritePath: "/sprites/dd_item-2.svg",
+    spritePath: "/sprites/ornaments/canes.svg",
     weight: 1,
   }
 ];
