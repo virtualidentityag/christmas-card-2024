@@ -40,7 +40,7 @@ export class ItemFactory {
       throw new Error(`Item with type ${type} not found`);
     }
 
-    const newItem = new item.class(this.game, 0, 0, item.spritePath);
+    const newItem = new item.class(this.game, 0, 0, item.spritePaths);
     newItem.onDestroy = () => {
       this.items = this.items.filter(i => i !== newItem);
       this.ensureConcurrentItemCount();

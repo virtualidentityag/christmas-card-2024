@@ -5,19 +5,19 @@ import { PowerUp } from './power-up.js';
 export type ItemDefinition = {
   type: string;
   class: any;
-  spritePath: string;
+  spritePaths: string[];
   weight: number;
 }
 
 export const availableItems: ItemDefinition[] = [
   {
-    type: "ball",
+    type: "candy",
     class: class S extends PowerUp {
       effect(game: GameInstance): void {
         game.currentSpeed = game.currentSpeed / 2;
       }
     },
-    spritePath: "/sprites/ornaments/ball.svg",
+    spritePaths: ["/sprites/ornaments/candy_0.png", "/sprites/ornaments/candy_1.png", "/sprites/ornaments/candy_2.png", "/sprites/ornaments/candy_3.png"],
     weight: 1,
   },
   {
@@ -28,13 +28,13 @@ export const availableItems: ItemDefinition[] = [
         game.timeElapsed = game.timeElapsed - 5;
       }
     },
-    spritePath: "/sprites/ornaments/flake.svg",
-    weight: 10,
+    spritePaths: ["/sprites/ornaments/flake.svg"],
+    weight: 0,
   },
   {
     type: "canes",
     class: FallingItem,
-    spritePath: "/sprites/ornaments/canes.svg",
-    weight: 1,
+    spritePaths: ["/sprites/ornaments/canes.svg"],
+    weight: 0,
   }
 ];

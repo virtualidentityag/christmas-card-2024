@@ -14,7 +14,7 @@ export class Sock extends GameObject {
   currentTouchDirection: "w" | "e" | null = null;
 
   constructor(game: GameInstance, x: number, y: number, spritePath: string) {
-    super(game, x, y, spritePath);
+    super(game, x, y, [spritePath]);
     this.storage = new ItemStore();
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
     if (isTouch) {

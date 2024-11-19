@@ -9,10 +9,12 @@ export class GameObject {
   y: number = 0;
   width: number = 40;
   height: number = 40;
-  sprite: p5.Image | null = null;
-  spritePath: string = "";
+  sprites: p5.Image[] = [];
+  spritePaths: string[] = [];
   render: boolean = false;
-  constructor(game: GameInstance, x: number, y: number, spritePath: string) {
+  framesPerSecond: number = 2;
+
+  constructor(game: GameInstance, x: number, y: number, spritePaths: string[]) {
     if (new.target === GameObject) {
       throw new TypeError("Cannot construct GameObject instances directly");
     }
@@ -20,12 +22,25 @@ export class GameObject {
     this.p5 = game.p5;
     this.x = x;
     this.y = y;
-    this.spritePath = spritePath;
-    this.p5.loadImage(this.spritePath, this.onImageLoaded.bind(this));
+    this.spritePaths = spritePaths;
+    this.loadSprites();
   }
 
-  onImageLoaded(img: Image) {
-    this.sprite = img;
+  get sprite(): Image {
+    return this.sprites[this.currentFrame];
+  }
+
+  get currentFrame(): number {
+    // example for a FPS of 2
+    // p5.millis() = 0 -> 0
+    // p5.millis() = 500 -> 1
+    // p5.millis() = 1000 -> 2
+    // p5.millis() = 1500 -> 3
+    return Math.floor(this.p5.millis() / (1000 / this.framesPerSecond)) % this.sprites.length;
+  }
+
+  async loadSprites() {
+    this.sprites = await Promise.all(this.spritePaths.map((path) => new Promise(res => this.p5.loadImage(path, res))));
     this.onReady()
     this.render = true;
   }
@@ -42,8 +57,9 @@ export class GameObject {
     if (!this.render) {
       return;
     }
-    this.p5.image(this.sprite as Image, this.x, this.y, this.width, this.height);
+    this.p5.image(this.sprite, this.x, this.y, this.width, this.height);
   }
+
   checkIntersection(gameObject: GameObject) {
     if (
       this.x < gameObject.x + gameObject.width &&
