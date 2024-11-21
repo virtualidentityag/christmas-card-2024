@@ -63,10 +63,10 @@ export class UserInterface {
 
   async triggerStartCountdown(onDone: () => void) {
     const sprites = await Promise.all([
-      this.game.p5.loadImage('/sprites/countdown/start/3.png'),
-      this.game.p5.loadImage('/sprites/countdown/start/2.png'),
-      this.game.p5.loadImage('/sprites/countdown/start/1.png'),
-      this.game.p5.loadImage('/sprites/countdown/start/go.png'),
+      this.game.p5.loadImage('/images/countdown/start/3.png'),
+      this.game.p5.loadImage('/images/countdown/start/2.png'),
+      this.game.p5.loadImage('/images/countdown/start/1.png'),
+      this.game.p5.loadImage('/images/countdown/start/go.png'),
     ]);
     const countdown = createCountDown(sprites, () => {
       this.foreground = this.foreground.filter(uiElement => uiElement !== countdown);
@@ -77,11 +77,11 @@ export class UserInterface {
 
   async triggerEndCountdown(onDone: () => void) {
     const sprites = await Promise.all([
-      this.game.p5.loadImage('/sprites/countdown/end/5.png'),
-      this.game.p5.loadImage('/sprites/countdown/end/4.png'),
-      this.game.p5.loadImage('/sprites/countdown/end/3.png'),
-      this.game.p5.loadImage('/sprites/countdown/end/2.png'),
-      this.game.p5.loadImage('/sprites/countdown/end/1.png'),
+      this.game.p5.loadImage('/images/countdown/end/5.png'),
+      this.game.p5.loadImage('/images/countdown/end/4.png'),
+      this.game.p5.loadImage('/images/countdown/end/3.png'),
+      this.game.p5.loadImage('/images/countdown/end/2.png'),
+      this.game.p5.loadImage('/images/countdown/end/1.png'),
     ]);
     const countdown = createCountDown(sprites, () => {
       this.foreground = this.foreground.filter(uiElement => uiElement !== countdown);
@@ -92,9 +92,9 @@ export class UserInterface {
 
   async showDoneScreen(onDone: () => void) {
     const sprites = await Promise.all([
-      this.game.p5.loadImage('/sprites/countdown/end/done.png'),
-      this.game.p5.loadImage('/sprites/countdown/end/done.png'),
-      this.game.p5.loadImage('/sprites/countdown/end/done.png'),
+      this.game.p5.loadImage('/images/countdown/end/done.png'),
+      this.game.p5.loadImage('/images/countdown/end/done.png'),
+      this.game.p5.loadImage('/images/countdown/end/done.png'),
     ]);
     const countdown = createCountDown(sprites, () => {
       this.foreground = this.foreground.filter(uiElement => uiElement !== countdown);

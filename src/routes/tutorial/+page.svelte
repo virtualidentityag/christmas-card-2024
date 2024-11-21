@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
-	import Keys from '$lib/icons/keys.png';
-	import Star from '$lib/icons/star.svg?component';
-	import Candy from '$lib/icons/candy.svg?component';
-	import Bells from '$lib/icons/bells.svg?component';
+	import Keys from '$assets/images/keys.png';
+	import Star from '$assets/images/star.png';
+	import Candy from '$assets/images/candy.png';
+	import Bells from '$assets/images/bells.png';
 </script>
 
 <div class="content">
@@ -25,15 +25,15 @@
 		</p>
 		<div class="row">
 			<div class="card">
-				<Bells />
+				<img src={Bells} alt="" />
 				<span>Lorem</span>
 			</div>
 			<div class="card">
-				<Candy />
+				<img src={Candy} alt="" />
 				<span>Lorem</span>
 			</div>
 			<div class="card">
-				<Star />
+				<img src={Star} alt="" />
 				<span>Lorem</span>
 			</div>
 		</div>

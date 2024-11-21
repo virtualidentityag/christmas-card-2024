@@ -1,7 +1,8 @@
 <script lang="ts">
-	import Title from '$lib/icons/title.svg?component';
-	import TreeTitle from '$lib/icons/tree_title.png';
-	import SockTitle from '$lib/icons/sock_title.png';
+	import Title from '$assets/images/title.png';
+	import TreeTitle from '$assets/images/tree_title.png';
+	import SockTitle from '$assets/images/sock_title.png';
+
 	import Button from '$lib/components/Button.svelte';
 	import Modal from '$lib/components/Modal.svelte';
 
@@ -14,7 +15,7 @@
 		<span>presents</span>
 	</div>
 	<div class="title">
-		<Title />
+		<img src={Title} alt="" />
 		<img src={TreeTitle} alt="" class="tree" />
 		<img src={SockTitle} alt="" class="sock" />
 	</div>

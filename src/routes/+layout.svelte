@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Header from '$lib/components/Header.svelte';
+	// import Header from '$lib/components/Header.svelte';
 	import 'normalize.css';
 </script>
 
-<Header></Header>
+<!-- <Header></Header> -->
 <main>
 	<slot></slot>
 </main>
@@ -17,7 +17,7 @@
 		height: 100vh;
 		width: 100vw;
 		background-color: #142547;
-		background-image: url('/sprites/dd_background.svg');
+		background-image: url('/images/ui/background.png');
 		position: relative;
 	}
 </style>

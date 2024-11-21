@@ -5,6 +5,8 @@ export class FallingItem extends GameObject {
   startSplashTime = 0;
   splashSprite = null;
   speed = 1;
+  width = 50;
+  height = 50;
 
   onReady(): void {
     this.placeInRandomPosition();
@@ -31,7 +33,7 @@ export class FallingItem extends GameObject {
   }
 
   get isOutOfBounds() {
-    return this.y >= this.p5.height - (this.sprite as Image).height / 2;
+    return this.y >= this.p5.height - this.height / 2;
   }
 
   destroy() {

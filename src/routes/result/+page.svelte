@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
-	import Tree0 from '$lib/icons/tree_0.png';
-	import Tree1 from '$lib/icons/tree_1.png';
-	import Tree2 from '$lib/icons/tree_2.png';
+	import Tree0 from '$assets/images/tree_0.png';
+	import Tree1 from '$assets/images/tree_1.png';
+	import Tree2 from '$assets/images/tree_2.png';
 
 	const score = 0;
 	const collectedItems = 0;

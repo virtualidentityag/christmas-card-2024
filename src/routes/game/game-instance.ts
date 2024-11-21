@@ -22,7 +22,10 @@ export interface GameConfig {
 
   durationInSeconds: number;
 
-  onGameOver: (game: GameInstance) => void;
+  powerUpChance: number;
+
+  onGameStart: (game: GameInstance) => void;
+  onGameEnd: (game: GameInstance) => void;
   onScoreChange: (score: number) => void;
   onMissChange: (misses: number) => void;
   onTimeChange: (timeElapsed: number) => void;
@@ -42,37 +45,11 @@ export class GameInstance {
   durationInSeconds: number = 0;
   countdownRunning: boolean = false;
 
-  get currentSpeed() {
-    return this.#speed;
-  }
-
-  set currentSpeed(speed: number) {
-    if (this.#speed !== speed) {
-      this.#speed = speed;
-      this.setSpeedOnItems();
-    }
-  }
-
-  get timeElapsed() {
-    if (!this.running) {
-      return 0;
-    }
-    return Math.floor((this.p5.millis() - this.runningSince) / 1000);
-  }
-
-  set timeElapsed(time: number) {
-    this.runningSince = this.p5.millis() - time * 1000;
-  }
-
-  get timeRemaining() {
-    return this.durationInSeconds - this.timeElapsed;
-  }
-
   constructor(config: GameConfig, p5: p5, element: HTMLCanvasElement) {
     this.config = config;
     this.p5 = p5;
     this.ui = new UserInterface(this);
-    this.sock = new Sock(this, 0, 0, '/sprites/sock.svg');
+    this.sock = new Sock(this, 0, 0);
     this.itemFactory = new ItemFactory(this, (item) => {
       item.onOutOfBounds = () => {
         this.lostItems.addItem(item);
@@ -106,8 +83,36 @@ export class GameInstance {
     }
   }
 
+  get currentSpeed() {
+    return this.#speed;
+  }
+
+  set currentSpeed(speed: number) {
+    if (this.#speed !== speed) {
+      this.#speed = speed;
+      this.setSpeedOnItems();
+    }
+  }
+
+  get timeElapsed() {
+    if (!this.running) {
+      return 0;
+    }
+    return Math.floor((this.p5.millis() - this.runningSince) / 1000);
+  }
+
+  set timeElapsed(time: number) {
+    this.runningSince = this.p5.millis() - time * 1000;
+  }
+
+  get timeRemaining() {
+    return this.durationInSeconds - this.timeElapsed;
+  }
+
+
   startGame() {
     this.ui.triggerStartCountdown(() => {
+      this.config.onGameStart?.(this);
       this.running = true;
       this.runningSince = this.p5.millis();
     });
@@ -138,7 +143,7 @@ export class GameInstance {
 
   gameOver(score: number = this.sock.storage?.getItems().length) {
     this.p5.remove();
-    this.config.onGameOver?.(this);
+    this.config.onGameEnd?.(this);
   }
 
   calculateGameState() {

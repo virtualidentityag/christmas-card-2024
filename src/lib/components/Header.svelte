@@ -1,21 +1,21 @@
 <script lang="ts">
-	import SoundIcon from '$lib/icons/sound.svg?component';
-	import InfoIcon from '$lib/icons/info.svg?component';
-	import Logo from '$lib/icons/logo.svg?component';
+	import SoundIcon from '$assets/images/sound.png';
+	import InfoIcon from '$assets/images/info.png';
+	import Logo from '$assets/images/vi_white.png';
 
 	let { showHome = false } = $props();
 </script>
 
 <header>
 	<a href="https://www.virtual-identity.com/" target="_blank" class="logo">
-		<Logo style={{ color: 'white' }} />
+		<img src={Logo} alt="" />
 	</a>
 	<nav class="header__nav">
 		<button>
-			<SoundIcon />
+			<img src={SoundIcon} alt="" />
 		</button>
 		<button>
-			<InfoIcon />
+			<img src={InfoIcon} alt="" />
 		</button>
 		{#if showHome}
 			<a href="/">H</a>

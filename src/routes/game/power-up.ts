@@ -3,6 +3,8 @@ import { FallingItem } from './falling-item.js';
 
 export class PowerUp extends FallingItem {
   effectDuration = 5;
+  width = 100;
+  height = 100;
 
   onCaught(): void {
     super.onCaught();

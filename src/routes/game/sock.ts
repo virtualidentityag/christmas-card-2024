@@ -13,8 +13,8 @@ export class Sock extends GameObject {
   height: number = 150;
   currentTouchDirection: "w" | "e" | null = null;
 
-  constructor(game: GameInstance, x: number, y: number, spritePath: string) {
-    super(game, x, y, [spritePath]);
+  constructor(game: GameInstance, x: number, y: number) {
+    super(game, x, y, ['/images/sock.png']);
     this.storage = new ItemStore();
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
     if (isTouch) {
