@@ -31,7 +31,7 @@
 		itemCountIncrease: 1,
 		itemCountIncreaseIntervalInSeconds: 10,
 		maxItemCount: 20,
-		durationInSeconds: 60,
+		durationInSeconds: 999,
 		powerUpChance: 0.2,
 		onScoreChange: (scoreUpdate: number) => {
 			score = scoreUpdate;
@@ -66,55 +66,27 @@
 	};
 </script>
 
-<virtual-joystick data-mode="dynamic" data-lock="y"></virtual-joystick>
-<canvas id="game-container"> </canvas>
+<virtual-joystick data-mode="dynamic" data-lock="y" class="fixed w-screen h-screen"></virtual-joystick>
+<canvas id="game-container" class="absolute inset-0"> </canvas>
 
 <div class={running ? 'playing' : ''}>
-	<div class="top-bar">
-		<span>Score: {score}</span>
-		<span>Time: {formatTime(remainingTime)}</span>
-		<div class="snow"></div>
+	<div class="fixed top-0 left-0 w-full h-10 bg-white bg-[auto_100%] text-black">
+		<div class="flex items-center gap-10 h-full px-24">
+			<p>Score: {score}</p>
+			<p>Time: {formatTime(remainingTime)}</p>	
+		</div>
+		<div class="snow absolute left-0 top-full h-[63px] w-full bg-[url('/images/ui/snow.png')]"></div>
 	</div>
-	<div class="bottom-bar"></div>
+	<div class="fixed -z-10 bottom-0 left-0 w-full h-[118px] bg-[url('/images/ui/bottom.png')]"></div>
 </div>
 
 <style>
-	virtual-joystick {
-		position: fixed;
-		width: 100vw;
-		height: 100vh;
-	}
-
-	#game-container {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 1000px;
-		height: 1000px;
-	}
-	.top-bar {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 40px;
-		background-color: white;
-		background-size: auto 100%;
-	}
-
-	.top-bar .snow {
-		position: absolute;
-		bottom: -63px;
-		left: 0;
-		width: 100%;
-		height: 63px;
-		background-image: url('/images/ui/snow.png');
-		background-size: auto 100%;
+	.snow {
 		animation: snow 2s infinite steps(2);
 		animation-play-state: paused;
 	}
 
-	.playing .top-bar .snow {
+	.playing .snow {
 		animation-play-state: running;
 	}
 
@@ -125,13 +97,5 @@
 		to {
 			background-position: 90px 0;
 		}
-	}
-
-	.bottom-bar {
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		background-image: url('/images/ui/bottom.png');
 	}
 </style>

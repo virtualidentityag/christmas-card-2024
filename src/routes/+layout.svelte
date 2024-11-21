@@ -1,23 +1,20 @@
 <script lang="ts">
 	// import Header from '$lib/components/Header.svelte';
-	import 'normalize.css';
+	import "../app.css";
 </script>
 
 <!-- <Header></Header> -->
-<main>
+<main class="h-screen text-white">
+	<div class="fixed -z-10 w-screen h-screen bg-[#142547]">
+		<img src="/images/ui/background.png" alt="" class="w-full h-full object-cover"/>
+		<div class="absolute inset-0 bg-gradient-to-b from-[rgba(0,17,43,0.8)] via-[rgba(0,17,43,0.25)] to-[rgba(0,17,43,0.8)]"></div>
+	</div>
 	<slot></slot>
 </main>
 
-<style>
+<!-- <style>
+	TODO: Replace by Outfit font
 	:global(body) {
 		font-family: 'Roboto', sans-serif;
-		margin: 0;
-		padding: 0;
-		overflow: hidden;
-		height: 100vh;
-		width: 100vw;
-		background-color: #142547;
-		background-image: url('/images/ui/background.png');
-		position: relative;
 	}
-</style>
+</style> -->

@@ -13,19 +13,6 @@
 {/if}
 
 <style>
-	button {
-		background-color: #f0f0f0;
-		border: none;
-		border-radius: 8px;
-		padding: 8px 16px;
-		cursor: pointer;
-	}
-
-	a {
-		text-decoration: none;
-		color: inherit;
-	}
-
 	a,
 	button {
 		display: inline-block;
@@ -37,16 +24,30 @@
 		text-transform: uppercase;
 		font-weight: 700;
 		text-align: center;
+		border: 2px solid transparent;
 	}
 
 	.primary {
 		background-color: #f82b53;
+		border-color: #f82b53;
 		color: #000;
+	}
+
+	.primary:hover,
+	.primary:focus {
+		background-color: #FB4F6A;
+		border-color: #FB4F6A;
 	}
 
 	.secondary {
 		background-color: transparent;
+		border-color: #2697e2;
 		color: #2697e2;
-		border: #2697e2 2px solid;
+	}
+
+	.secondary:hover,
+	.secondary:focus {
+		border-color: #4DABDF;
+		color: #4DABDF;
 	}
 </style>
