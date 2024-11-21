@@ -74,8 +74,9 @@ export const availablePowerUps: ItemDefinition[] = [
   {
     type: "bells",
     class: class S extends PowerUp {
+      effectDuration = 0;
       effect(game: GameInstance): void {
-        game.currentSpeed = game.currentSpeed / 2;
+        game.durationInSeconds += 5;
       }
     },
     spritePaths: ["/images/powerups/bells_0.png", "/images/powerups/bells_1.png", "/images/powerups/bells_2.png", "/images/powerups/bells_3.png"],
