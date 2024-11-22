@@ -65,7 +65,6 @@ export class ItemFactory {
     const weightedPowerUps = this.getWeightedItems(availablePowerUps);
     const randomIndex = Math.floor(Math.random() * weightedPowerUps.length);
     const randomPowerUp = weightedPowerUps[randomIndex];
-    console.log('randomPowerUp', randomPowerUp.type);
     return this.createItem(randomPowerUp);
   }
 

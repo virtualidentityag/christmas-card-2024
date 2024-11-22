@@ -25,7 +25,7 @@
 		initialSpeed: 1,
 		speedIncreaseIntervalInSeconds: 30,
 		speedIncrease: 1,
-		maxSpeed: 4,
+		maxSpeed: 6,
 		theme: {
 			backgroundColor: '#142547'
 		},
@@ -34,7 +34,7 @@
 		itemCountIncreaseIntervalInSeconds: 10,
 		maxItemCount: 20,
 		durationInSeconds: 60,
-		powerUpChance: 1,
+		powerUpChance: 0.5,
 		onScoreChange: (scoreUpdate: number) => {
 			score = scoreUpdate;
 		},
@@ -52,7 +52,14 @@
 		},
 		onGameEnd: () => {
 			running = false;
-			goto('/result');
+			fetch('/api/leaderboard', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ username: 'Unknown User', score })
+			});
+			goto(`/result?score=${score}`);
 		}
 	};
 
@@ -71,7 +78,8 @@
 	};
 </script>
 
-<virtual-joystick data-mode="dynamic" data-lock="y" class="fixed w-screen h-screen"></virtual-joystick>
+<virtual-joystick data-mode="dynamic" data-lock="y" class="fixed w-screen h-screen"
+></virtual-joystick>
 <canvas id="game-container" class="absolute inset-0"> </canvas>
 
 <div class={running ? 'playing' : ''}>
@@ -82,11 +90,13 @@
 			<div class="flex gap-2 items-center">
 				<p>Active power up:</p>
 				{#each activePowerUps as powerUp}
-					<img src={powerUp.spritePaths[0]} alt="" class="w-10 h-10"/>
+					<img src={powerUp.spritePaths[0]} alt="" class="w-10 h-10" />
 				{/each}
 			</div>
 		</div>
-		<div class="snow absolute left-0 top-full h-[63px] w-full bg-[url('/images/ui/snow.png')]"></div>
+		<div
+			class="snow absolute left-0 top-full h-[63px] w-full bg-[url('/images/ui/snow.png')]"
+		></div>
 	</div>
 	<div class="fixed -z-10 bottom-0 left-0 w-full h-[118px] bg-[url('/images/ui/bottom.png')]"></div>
 </div>

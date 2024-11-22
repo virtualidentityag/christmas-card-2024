@@ -89,7 +89,7 @@ export const availablePowerUps: ItemDefinition[] = [
       }
     },
     spritePaths: ["/images/powerups/bells_0.png", "/images/powerups/bells_1.png", "/images/powerups/bells_2.png", "/images/powerups/bells_3.png"],
-    weight: 0,
+    weight: 1,
   },
   {
     type: "star",
@@ -100,6 +100,6 @@ export const availablePowerUps: ItemDefinition[] = [
       }
     },
     spritePaths: ["/images/powerups/star_0.png", "/images/powerups/star_1.png", "/images/powerups/star_2.png", "/images/powerups/star_3.png"],
-    weight: 0,
+    weight: 1,
   },
 ];

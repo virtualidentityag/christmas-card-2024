@@ -41,6 +41,7 @@
 		"@libsql/client": "^0.9.0",
 		"@types/p5": "^1.7.6",
 		"drizzle-orm": "^0.33.0",
+		"lowdb": "^7.0.1",
 		"normalize.css": "^8.0.1"
 	}
 }
