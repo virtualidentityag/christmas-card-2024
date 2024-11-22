@@ -3,6 +3,7 @@
 	import { GameInstance, type GameConfig } from './game-instance.js';
 	import { goto } from '$app/navigation';
 	import { run } from 'svelte/legacy';
+	import type { PowerUp } from './power-up.js';
 	const createGame = (config: GameConfig, element: HTMLCanvasElementå) => (p5Instance: p5) => {
 		const game = new GameInstance(config, p5Instance, element);
 		game.startGame();
@@ -15,6 +16,7 @@
 	$: score = 0;
 	$: misses = 0;
 	$: remainingTime = 0;
+	$: activePowerUps = [];
 
 	$: running = false;
 
@@ -32,7 +34,7 @@
 		itemCountIncreaseIntervalInSeconds: 10,
 		maxItemCount: 20,
 		durationInSeconds: 60,
-		powerUpChance: 0.2,
+		powerUpChance: 1,
 		onScoreChange: (scoreUpdate: number) => {
 			score = scoreUpdate;
 		},
@@ -41,6 +43,9 @@
 		},
 		onTimeChange: (timeRemaining: number) => {
 			remainingTime = timeRemaining;
+		},
+		onPowerUpChange: (powerUps: PowerUp[]) => {
+			activePowerUps = powerUps;
 		},
 		onGameStart: () => {
 			running = true;
@@ -73,6 +78,12 @@
 	<div class="top-bar">
 		<span>Score: {score}</span>
 		<span>Time: {formatTime(remainingTime)}</span>
+		<span class="power-ups"
+			>Active power up:
+			{#each activePowerUps as powerUp}
+				<img src={powerUp.spritePaths[0]} alt="" />
+			{/each}
+		</span>
 		<div class="snow"></div>
 	</div>
 	<div class="bottom-bar"></div>
@@ -100,6 +111,11 @@
 		height: 40px;
 		background-color: white;
 		background-size: auto 100%;
+	}
+
+	.top-bar .power-ups img {
+		width: 40px;
+		height: 40px;
 	}
 
 	.top-bar .snow {

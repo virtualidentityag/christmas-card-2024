@@ -12,15 +12,24 @@ export class PowerUp extends FallingItem {
   }
 
   powerUp(): void {
-    this.createTemporaryEffect(this.effect, this.effectDuration);
+    this.createTemporaryEffect(this.run, this.effectDuration);
   }
 
   createTemporaryEffect(effect: (game: GameInstance) => void, durationInSeconds: number): void {
-    this.game.activeEffects.push(effect);
+    this.game.pushPowerUp(this);
     setTimeout(() => {
-      this.game.activeEffects = this.game.activeEffects.filter((e) => e !== effect);
+      this.game.removePowerUp(this);
     }, durationInSeconds * 1000);
   }
 
-  effect(game: GameInstance) { }
+
+  modifyCaughtItem(item: FallingItem): FallingItem[] {
+    return []
+  }
+
+  onActivate(game: GameInstance) { }
+
+  run(game: GameInstance) { }
+
+  onEnd(game: GameInstance) { }
 }

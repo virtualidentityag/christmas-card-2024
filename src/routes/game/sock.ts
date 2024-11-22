@@ -75,7 +75,12 @@ export class Sock extends GameObject {
   checkForItems(fallingItems: FallingItem[]) {
     for (const item of fallingItems) {
       if (this.checkIntersection(item)) {
-        this.storage?.addItem(item);
+        const itemsModifiedByPowerup = this.game.activePowerUps.map((powerUp) => powerUp.modifyCaughtItem(item)).flat();
+        if (itemsModifiedByPowerup.length) {
+          this.storage?.addItems([...itemsModifiedByPowerup]);
+        } else {
+          this.storage?.addItem(item);
+        }
         item.onCaught();
         item.destroy();
       }
