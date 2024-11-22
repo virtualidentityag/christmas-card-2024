@@ -64,8 +64,17 @@ export const availablePowerUps: ItemDefinition[] = [
   {
     type: "candy",
     class: class S extends PowerUp {
-      effect(game: GameInstance): void {
-        game.currentSpeed = game.currentSpeed / 2;
+      onActivate(game: GameInstance): void {
+        game.sock.width = game.sock.width / 2;
+        game.sock.height = game.sock.height / 2;
+        game.sock.x = game.sock.x + game.sock.width / 2;
+        game.sock.y = game.sock.y + game.sock.height / 2;
+      }
+      onEnd(game: GameInstance): void {
+        game.sock.x = game.sock.x - game.sock.width / 2;
+        game.sock.y = game.sock.y - game.sock.height / 2;
+        game.sock.width = game.sock.width * 2;
+        game.sock.height = game.sock.height * 2;
       }
     },
     spritePaths: ["/images/powerups/candy_0.png", "/images/powerups/candy_1.png", "/images/powerups/candy_2.png", "/images/powerups/candy_3.png"],
@@ -75,21 +84,22 @@ export const availablePowerUps: ItemDefinition[] = [
     type: "bells",
     class: class S extends PowerUp {
       effectDuration = 0;
-      effect(game: GameInstance): void {
+      run(game: GameInstance): void {
         game.durationInSeconds += 5;
       }
     },
     spritePaths: ["/images/powerups/bells_0.png", "/images/powerups/bells_1.png", "/images/powerups/bells_2.png", "/images/powerups/bells_3.png"],
-    weight: 1,
+    weight: 0,
   },
   {
-    type: "candy",
+    type: "star",
     class: class S extends PowerUp {
-      effect(game: GameInstance): void {
-        game.currentSpeed = game.currentSpeed / 2;
+      effectDuration = 10;
+      modifyCaughtItem(item: FallingItem): FallingItem[] {
+        return [item, item];
       }
     },
     spritePaths: ["/images/powerups/star_0.png", "/images/powerups/star_1.png", "/images/powerups/star_2.png", "/images/powerups/star_3.png"],
-    weight: 1,
+    weight: 0,
   },
 ];

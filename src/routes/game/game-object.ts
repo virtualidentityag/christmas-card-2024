@@ -31,16 +31,11 @@ export class GameObject {
   }
 
   get currentFrame(): number {
-    // example for a FPS of 2
-    // p5.millis() = 0 -> 0
-    // p5.millis() = 500 -> 1
-    // p5.millis() = 1000 -> 2
-    // p5.millis() = 1500 -> 3
     return Math.floor(this.p5.millis() / (1000 / this.framesPerSecond)) % this.sprites.length;
   }
 
   async loadSprites() {
-    this.sprites = await Promise.all(this.spritePaths.map((path) => new Promise(res => this.p5.loadImage(path, res))));
+    this.sprites = await Promise.all(this.spritePaths.map((path) => new Promise(res => this.p5.loadImage(path, res)))) as Image[];
     this.onReady()
     this.render = true;
   }

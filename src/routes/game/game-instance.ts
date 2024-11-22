@@ -3,6 +3,7 @@ import { ItemStore } from './item-store.js';
 import { ItemFactory } from './item-factory.js';
 import { UserInterface } from './user-interface.js';
 import type p5 from 'p5';
+import type { PowerUp } from './power-up.js';
 
 export interface GameConfig {
   maxNumberMisses: number;
@@ -29,6 +30,7 @@ export interface GameConfig {
   onScoreChange: (score: number) => void;
   onMissChange: (misses: number) => void;
   onTimeChange: (timeElapsed: number) => void;
+  onPowerUpChange: (powerUps: PowerUp[]) => void;
 }
 
 export class GameInstance {
@@ -41,7 +43,7 @@ export class GameInstance {
   lostItems;
   itemFactory;
   #speed: number = 0;
-  activeEffects: Array<(game: GameInstance) => void> = [];
+  activePowerUps: Array<PowerUp> = [];
   durationInSeconds: number = 0;
   countdownRunning: boolean = false;
 
@@ -109,6 +111,18 @@ export class GameInstance {
     return this.durationInSeconds - this.timeElapsed;
   }
 
+  pushPowerUp(powerUp: PowerUp) {
+    this.activePowerUps.push(powerUp);
+    powerUp.onActivate(this);
+    this.config.onPowerUpChange?.(this.activePowerUps);
+  }
+
+  removePowerUp(powerUp: PowerUp) {
+    this.activePowerUps = this.activePowerUps.filter(p => p !== powerUp);
+    powerUp.onEnd(this);
+    this.config.onPowerUpChange?.(this.activePowerUps);
+  }
+
 
   startGame() {
     this.ui.triggerStartCountdown(() => {
@@ -168,7 +182,7 @@ export class GameInstance {
 
     this.updateSpeed();
     this.updateItemCount();
-    this.activeEffects.forEach(effect => effect(this));
+    this.activePowerUps.forEach(powerup => powerup.run(this));
   }
 
   render() {

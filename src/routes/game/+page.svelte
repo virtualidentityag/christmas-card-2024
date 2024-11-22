@@ -3,7 +3,8 @@
 	import { GameInstance, type GameConfig } from './game-instance.js';
 	import { goto } from '$app/navigation';
 	import { run } from 'svelte/legacy';
-	const createGame = (config: GameConfig, element: HTMLCanvasElementå) => (p5Instance: p5) => {
+	import type { PowerUp } from './power-up.js';
+	const createGame = (config: GameConfig, element: HTMLCanvasElement) => (p5Instance: p5) => {
 		const game = new GameInstance(config, p5Instance, element);
 		game.startGame();
 
@@ -15,6 +16,7 @@
 	$: score = 0;
 	$: misses = 0;
 	$: remainingTime = 0;
+	$: activePowerUps = [];
 
 	$: running = false;
 
@@ -31,8 +33,8 @@
 		itemCountIncrease: 1,
 		itemCountIncreaseIntervalInSeconds: 10,
 		maxItemCount: 20,
-		durationInSeconds: 999,
-		powerUpChance: 0.2,
+		durationInSeconds: 60,
+		powerUpChance: 1,
 		onScoreChange: (scoreUpdate: number) => {
 			score = scoreUpdate;
 		},
@@ -41,6 +43,9 @@
 		},
 		onTimeChange: (timeRemaining: number) => {
 			remainingTime = timeRemaining;
+		},
+		onPowerUpChange: (powerUps: PowerUp[]) => {
+			activePowerUps = powerUps;
 		},
 		onGameStart: () => {
 			running = true;
@@ -73,7 +78,13 @@
 	<div class="fixed top-0 left-0 w-full h-10 bg-white bg-[auto_100%] text-black">
 		<div class="flex items-center gap-10 h-full px-24">
 			<p>Score: {score}</p>
-			<p>Time: {formatTime(remainingTime)}</p>	
+			<p>Time: {formatTime(remainingTime)}</p>
+			<div class="flex gap-2 items-center">
+				<p>Active power up:</p>
+				{#each activePowerUps as powerUp}
+					<img src={powerUp.spritePaths[0]} alt="" class="w-10 h-10"/>
+				{/each}
+			</div>
 		</div>
 		<div class="snow absolute left-0 top-full h-[63px] w-full bg-[url('/images/ui/snow.png')]"></div>
 	</div>
