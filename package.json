@@ -41,5 +41,8 @@
 		"@types/p5": "^1.7.6",
 		"lowdb": "^7.0.1",
 		"normalize.css": "^8.0.1"
+	},
+	"optionalDependencies": {
+		"@rollup/rollup-linux-x64-gnu": "^4.27.3"
 	}
 }
