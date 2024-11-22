@@ -1,7 +1,5 @@
 <script lang="ts">
-	import Title from '$assets/images/title.png';
-	import TreeTitle from '$assets/images/tree_title.png';
-	import SockTitle from '$assets/images/sock_title.png';
+	import Logo from '$assets/images/logo.png';
 
 	import Button from '$lib/components/Button.svelte';
 	import Modal from '$lib/components/Modal.svelte';
@@ -9,25 +7,27 @@
 	let showModal = $state(false);
 </script>
 
-<div class="content">
-	<div>
-		<span>Virtual Identity</span>
-		<span>presents</span>
-	</div>
-	<div class="title">
-		<img src={Title} alt="" />
-		<img src={TreeTitle} alt="" class="tree" />
-		<img src={SockTitle} alt="" class="sock" />
-	</div>
-	<p>
-		Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat odio et velit neque ad.
-		Voluptatibus, quaerat. Corporis esse reprehenderit, voluptatum corrupti cupiditate eveniet
-		maiores, quos pariatur, laudantium molestiae nulla eligendi?
+<div class="h-screen max-h-screen flex flex-col justify-center items-center text-center">
+	<p class="text-center tracking-wider max-w-screen-sm">
+		<span class="text-3xl">Virtual Identity</span> <br> <span class="text-xs">presents</span>
 	</p>
-	<p>
-		<b> Sit back </b>
+
+	<div class="relative -mt-10 -mb-6 w-screen max-w-screen-lg">
+		<img src={Logo} alt="" class="w-full" />
+	</div>
+
+	<p class="max-w-screen-sm text-center text-sm leading-6 font-light mb-4">
+		Collect as many decorative items for your Christmas tree as possible.
+		VI is donating 10,000 euros to a good cause this year and by diligently collecting
+		decorative items we will donate up to an additional 1,000 euros on top.
+		Every sock filled with morethan 200 decorative items will contribute one euro to the donation box.
 	</p>
-	<div class="actions">
+
+	<p class="max-w-screen-sm text-center text-sm leading-6 font-bold mb-12">
+		Sit back, get ready and let the Deco Dash begin.
+	</p>
+
+	<div class="flex items-center justify-center gap-4">
 		<Button href="/tutorial">Start the game</Button>
 		<Button click={() => (showModal = true)} variant="secondary">Highscore Board</Button>
 	</div>
@@ -52,31 +52,3 @@
 		<li>of or relating to a statistical mode</li>
 	</ol>
 </Modal>
-
-<style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		height: 100vh;
-		color: white;
-	}
-	.title {
-		position: relative;
-	}
-
-	.tree,
-	.sock {
-		position: absolute;
-	}
-	.sock {
-		top: 60px;
-		left: -65px;
-	}
-
-	.tree {
-		bottom: -30px;
-		right: -160px;
-	}
-</style>

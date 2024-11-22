@@ -4,7 +4,7 @@
 	import { goto } from '$app/navigation';
 	import { run } from 'svelte/legacy';
 	import type { PowerUp } from './power-up.js';
-	const createGame = (config: GameConfig, element: HTMLCanvasElementå) => (p5Instance: p5) => {
+	const createGame = (config: GameConfig, element: HTMLCanvasElement) => (p5Instance: p5) => {
 		const game = new GameInstance(config, p5Instance, element);
 		game.startGame();
 
@@ -71,66 +71,33 @@
 	};
 </script>
 
-<virtual-joystick data-mode="dynamic" data-lock="y"></virtual-joystick>
-<canvas id="game-container"> </canvas>
+<virtual-joystick data-mode="dynamic" data-lock="y" class="fixed w-screen h-screen"></virtual-joystick>
+<canvas id="game-container" class="absolute inset-0"> </canvas>
 
 <div class={running ? 'playing' : ''}>
-	<div class="top-bar">
-		<span>Score: {score}</span>
-		<span>Time: {formatTime(remainingTime)}</span>
-		<span class="power-ups"
-			>Active power up:
-			{#each activePowerUps as powerUp}
-				<img src={powerUp.spritePaths[0]} alt="" />
-			{/each}
-		</span>
-		<div class="snow"></div>
+	<div class="fixed top-0 left-0 w-full h-10 bg-white bg-[auto_100%] text-black">
+		<div class="flex items-center gap-10 h-full px-24">
+			<p>Score: {score}</p>
+			<p>Time: {formatTime(remainingTime)}</p>
+			<div class="flex gap-2 items-center">
+				<p>Active power up:</p>
+				{#each activePowerUps as powerUp}
+					<img src={powerUp.spritePaths[0]} alt="" class="w-10 h-10"/>
+				{/each}
+			</div>
+		</div>
+		<div class="snow absolute left-0 top-full h-[63px] w-full bg-[url('/images/ui/snow.png')]"></div>
 	</div>
-	<div class="bottom-bar"></div>
+	<div class="fixed -z-10 bottom-0 left-0 w-full h-[118px] bg-[url('/images/ui/bottom.png')]"></div>
 </div>
 
 <style>
-	virtual-joystick {
-		position: fixed;
-		width: 100vw;
-		height: 100vh;
-	}
-
-	#game-container {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 1000px;
-		height: 1000px;
-	}
-	.top-bar {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 40px;
-		background-color: white;
-		background-size: auto 100%;
-	}
-
-	.top-bar .power-ups img {
-		width: 40px;
-		height: 40px;
-	}
-
-	.top-bar .snow {
-		position: absolute;
-		bottom: -63px;
-		left: 0;
-		width: 100%;
-		height: 63px;
-		background-image: url('/images/ui/snow.png');
-		background-size: auto 100%;
+	.snow {
 		animation: snow 2s infinite steps(2);
 		animation-play-state: paused;
 	}
 
-	.playing .top-bar .snow {
+	.playing .snow {
 		animation-play-state: running;
 	}
 
@@ -141,13 +108,5 @@
 		to {
 			background-position: 90px 0;
 		}
-	}
-
-	.bottom-bar {
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		background-image: url('/images/ui/bottom.png');
 	}
 </style>
