@@ -173,6 +173,7 @@ export class GameInstance {
       });
       this.countdownRunning = true;
     }
+    this.sock.moveSock();
     if (!this.running) {
       return;
     }
@@ -180,7 +181,6 @@ export class GameInstance {
       item.updatePosition();
     }
 
-    this.sock.moveSock();
     this.sock.checkForItems(this.itemFactory.items);
 
     this.updateSpeed();
