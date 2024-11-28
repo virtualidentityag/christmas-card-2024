@@ -4,6 +4,7 @@ import { ItemFactory } from './item-factory.js';
 import { UserInterface } from './user-interface.js';
 import type p5 from 'p5';
 import type { PowerUp } from './power-up.js';
+import { soundLibrary } from './sound-library.js';
 
 export interface GameConfig {
   maxNumberMisses: number;
@@ -46,6 +47,7 @@ export class GameInstance {
   activePowerUps: Array<PowerUp> = [];
   durationInSeconds: number = 0;
   countdownRunning: boolean = false;
+  sounds: any = {};
 
   constructor(config: GameConfig, p5: p5, element: HTMLCanvasElement) {
     this.config = config;
@@ -60,9 +62,10 @@ export class GameInstance {
     });
     this.lostItems = new ItemStore();
     this.durationInSeconds = this.config.durationInSeconds;
+    this.sounds = soundLibrary;
 
     p5.preload = () => {
-
+      this.sounds.preload(p5);
     }
 
     p5.setup = () => {

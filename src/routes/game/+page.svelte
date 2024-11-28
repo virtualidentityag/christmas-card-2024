@@ -1,10 +1,14 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { GameInstance, type GameConfig } from './game-instance.js';
-	import { goto } from '$app/navigation';
-	import { run } from 'svelte/legacy';
-	import type { PowerUp } from './power-up.js';
+	import { GameInstance, type GameConfig } from '$lib/game/game-instance.js';
+	import { goto, onNavigate } from '$app/navigation';
+	import type { PowerUp } from '$lib/game/power-up.js';
+	import JingleBells from '$assets/sounds/jinglebells.mp3';
+
 	const createGame = (config: GameConfig, element: HTMLCanvasElement) => (p5Instance: p5) => {
+		destroyGame = () => {
+			p5Instance.remove();
+		};
 		const game = new GameInstance(config, p5Instance, element);
 		game.startGame();
 
@@ -20,6 +24,8 @@
 
 	$: running = false;
 
+	let destroyGame = () => {};
+
 	const gameConfig: GameConfig = {
 		maxNumberMisses: Infinity,
 		initialSpeed: 1,
@@ -33,7 +39,7 @@
 		itemCountIncrease: 1,
 		itemCountIncreaseIntervalInSeconds: 10,
 		maxItemCount: 20,
-		durationInSeconds: 5,
+		durationInSeconds: 60,
 		powerUpChance: 0.5,
 		onScoreChange: (scoreUpdate: number) => {
 			score = scoreUpdate;
@@ -71,6 +77,12 @@
 		startGame(gameConfig, document.getElementById('game-container') as HTMLCanvasElement);
 	});
 
+	onNavigate((to) => {
+		console.log(destroyGame);
+
+		destroyGame();
+	});
+
 	const formatTime = (time: number) => {
 		const minutes = Math.floor(time / 60);
 		const seconds = time % 60;
@@ -81,6 +93,7 @@
 <virtual-joystick data-mode="dynamic" data-lock="y" class="fixed w-screen h-screen"
 ></virtual-joystick>
 <canvas id="game-container" class="absolute inset-0"> </canvas>
+<audio src={JingleBells} autoplay loop volume></audio>
 
 <div class={running ? 'playing' : ''}>
 	<div class="fixed top-0 left-0 w-full h-10 bg-white bg-[auto_100%] text-black">

@@ -8,6 +8,7 @@ export class PowerUp extends FallingItem {
 
   onCaught(): void {
     super.onCaught();
+    this.game.sounds.play('powerup');
     this.powerUp();
   }
 

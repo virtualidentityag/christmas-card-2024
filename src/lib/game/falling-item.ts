@@ -50,6 +50,7 @@ export class FallingItem extends GameObject {
   };
 
   onCaught() {
+    this.game.sounds.play('catch');
     this.game.onScoreChange();
   };
 

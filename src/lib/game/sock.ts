@@ -42,6 +42,7 @@ export class Sock extends GameObject {
           this.speed -= this.inertia;
         }
         this.x += this.speed;
+        this.game.sounds.play('move', true);
       }
 
       if (this.currentTouchDirection === "e" || !this.p5.keyIsDown(this.p5.LEFT_ARROW) && this.p5.keyIsDown(this.p5.RIGHT_ARROW)) {
@@ -49,6 +50,7 @@ export class Sock extends GameObject {
           this.speed += this.inertia;
         }
         this.x += this.speed;
+        this.game.sounds.play('move', true);
       }
 
       if (!this.currentTouchDirection || (!this.p5.keyIsDown(this.p5.RIGHT_ARROW) && !this.p5.keyIsDown(this.p5.LEFT_ARROW)) || (this.p5.keyIsDown(this.p5.RIGHT_ARROW) && this.p5.keyIsDown(this.p5.LEFT_ARROW))) {

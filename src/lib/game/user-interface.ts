@@ -23,19 +23,24 @@ const debug: UIElementDrawer = (game: GameInstance) => {
 
 const createCountDown: (frames: Image[], onDone: () => void) => UIElementDrawer = (frames: Image[], onDone: () => void) => {
   let currentMillis = new Date().getTime();
+  let lastSecond = -1;
 
   return (game: GameInstance) => {
     const p5 = game.p5;
     const secondsSinceStart = Math.floor((new Date().getTime() - currentMillis) / 1000);
-
     if (secondsSinceStart >= frames.length) {
       onDone();
       return;
     }
 
     const currentFrame = frames[secondsSinceStart];
-
     p5.image(currentFrame, p5.width / 2 - currentFrame.width / 2, p5.height / 2 - currentFrame.height / 2);
+    if (secondsSinceStart == lastSecond) {
+      return;
+    }
+    lastSecond = secondsSinceStart;
+    game.sounds.play('countdown');
+
   }
 }
 
