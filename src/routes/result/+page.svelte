@@ -5,6 +5,7 @@
 	import Tree2 from '$assets/images/tree_2.png';
 	import type { PageData } from './$types';
 	import Modal from '$lib/components/Modal.svelte';
+	import Leaderboard from '$lib/components/Leaderboard.svelte';
 
 	const getTree = (score: number) => {
 		if (score > 200) {
@@ -73,20 +74,7 @@
 		</div>
 	</div>
 </div>
-<Modal bind:showModal>
-	{#snippet header()}
-		<h2>Leaderboard</h2>
-	{/snippet}
-
-	<ol class="leaderboard">
-		{#each data.leads as { username, score }, i}
-			<li>
-				<span>{username}</span>
-				<span>{score}</span>
-			</li>
-		{/each}
-	</ol>
-</Modal>
+<Leaderboard leads={data.leads} bind:show={showModal} />
 
 <style>
 	.content {

@@ -2,7 +2,7 @@
 	import Logo from '$assets/images/logo.png';
 
 	import Button from '$lib/components/Button.svelte';
-	import Modal from '$lib/components/Modal.svelte';
+	import Leaderboard from '$lib/components/Leaderboard.svelte';
 	import type { PageData } from './$types';
 
 	let showModal = $state(false);
@@ -34,17 +34,4 @@
 		<Button click={() => (showModal = true)} variant="secondary">Highscore Board</Button>
 	</div>
 </div>
-<Modal bind:showModal>
-	{#snippet header()}
-		<h2>Leaderboard</h2>
-	{/snippet}
-
-	<ol class="leaderboard">
-		{#each data.leads as { username, score }, i}
-			<li>
-				<span>{username}</span>
-				<span>{score}</span>
-			</li>
-		{/each}
-	</ol>
-</Modal>
+<Leaderboard leads={data.leads} bind:show={showModal} />

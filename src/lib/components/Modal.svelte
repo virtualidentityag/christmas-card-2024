@@ -1,43 +1,45 @@
 <script>
-	let { showModal = $bindable(), header, children } = $props();
+	import CloseIcon from '$assets/images/icons/close.png';
+	let { show = $bindable(), header, children } = $props();
 
 	let dialog = $state(); // HTMLDialogElement
 
 	$effect(() => {
-		if (showModal) dialog.showModal();
+		if (show) dialog.showModal();
 	});
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_element_interactions -->
 <dialog
 	bind:this={dialog}
-	onclose={() => (showModal = false)}
+	onclose={() => (show = false)}
 	onclick={(e) => {
 		if (e.target === dialog) dialog.close();
 	}}
 >
 	<div>
 		{@render header?.()}
-		<hr />
 		{@render children?.()}
-		<hr />
 		<!-- svelte-ignore a11y_autofocus -->
-		<button autofocus onclick={() => dialog.close()}>x</button>
+		<button autofocus onclick={() => dialog.close()}>
+			<img src={CloseIcon} alt="Close" />
+		</button>
 	</div>
 </dialog>
 
 <style>
 	dialog {
-		max-width: 32em;
-		border-radius: 0.2em;
-		border: none;
-		padding: 0;
+		max-width: 80vw;
+		min-width: 50vw;
+		border-radius: 12px;
+		border: 1px solid #2697e2;
+		padding: 56px 32px 32px 32px;
 		position: relative;
 		background-color: #00112b;
 		color: white;
 	}
 	dialog::backdrop {
-		background: rgba(0, 0, 0, 0.3);
+		background: #00112ba6;
 	}
 	dialog > div {
 		padding: 1em;
@@ -66,11 +68,12 @@
 	}
 	button {
 		position: absolute;
-		top: 0.5em;
-		right: 0.5em;
+		top: 24px;
+		right: 32px;
 		background: none;
 		border: none;
 		font-size: 1.5em;
 		cursor: pointer;
+		fill: white;
 	}
 </style>

@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Outfit';
+  src: url('Outfit.ttf') format('ttf-variations');
+  src: url('Outfit.ttf') format('ttf') tech('variations');
+  font-weight: 100 1000;
+  font-stretch: 25% 151%;
+}
+
 @layer base {
   body {
     font-size: 14px;

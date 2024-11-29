@@ -1,6 +1,6 @@
 <script lang="ts">
-	import SoundIcon from '$assets/images/sound.png';
-	import InfoIcon from '$assets/images/info.png';
+	import SoundIcon from '$assets/images/icon/sound.png';
+	import InfoIcon from '$assets/images/icon/info.png';
 	import Logo from '$assets/images/vi_white.png';
 
 	let { showHome = false } = $props();

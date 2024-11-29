@@ -14,9 +14,8 @@
 	<slot></slot>
 </main>
 
-<!-- <style>
-	TODO: Replace by Outfit font
+<style>
 	:global(body) {
-		font-family: 'Roboto', sans-serif;
+		font-family: 'Outfit', sans-serif;
 	}
-</style> -->
+</style>
