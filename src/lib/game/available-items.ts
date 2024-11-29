@@ -13,49 +13,49 @@ export const availableItems: ItemDefinition[] = [
   {
     type: "ball",
     class: FallingItem,
-    spritePaths: ["/images/ornaments/ball.png"],
+    spritePaths: ["ball"],
     weight: 1,
   },
   {
     type: "canes",
     class: FallingItem,
-    spritePaths: ["/images/ornaments/canes.png"],
+    spritePaths: ["canes"],
     weight: 1,
   },
   {
     type: "flake",
     class: FallingItem,
-    spritePaths: ["/images/ornaments/flake.png"],
+    spritePaths: ["flake"],
     weight: 1,
   },
   {
     type: "gingerbread",
     class: FallingItem,
-    spritePaths: ["/images/ornaments/gingerbread.png"],
+    spritePaths: ["gingerbread"],
     weight: 1,
   },
   {
     type: "ice",
     class: FallingItem,
-    spritePaths: ["/images/ornaments/ice.png"],
+    spritePaths: ["ice"],
     weight: 1,
   },
   {
     type: "ring",
     class: FallingItem,
-    spritePaths: ["/images/ornaments/ring.png"],
+    spritePaths: ["ring"],
     weight: 1,
   },
   {
     type: "sack",
     class: FallingItem,
-    spritePaths: ["/images/ornaments/sack.png"],
+    spritePaths: ["sack"],
     weight: 1,
   },
   {
     type: "stag",
     class: FallingItem,
-    spritePaths: ["/images/ornaments/stag.png"],
+    spritePaths: ["stag"],
     weight: 1,
   },
 ];
@@ -77,7 +77,7 @@ export const availablePowerUps: ItemDefinition[] = [
         game.sock.height = game.sock.height * 2;
       }
     },
-    spritePaths: ["/images/powerups/candy_0.png", "/images/powerups/candy_1.png", "/images/powerups/candy_2.png", "/images/powerups/candy_3.png"],
+    spritePaths: ["candy_0", "candy_1", "candy_2", "candy_3"],
     weight: 1,
   },
   {
@@ -88,7 +88,7 @@ export const availablePowerUps: ItemDefinition[] = [
         game.durationInSeconds += 5;
       }
     },
-    spritePaths: ["/images/powerups/bells_0.png", "/images/powerups/bells_1.png", "/images/powerups/bells_2.png", "/images/powerups/bells_3.png"],
+    spritePaths: ["bells_0", "bells_1", "bells_2", "bells_3"],
     weight: 1,
   },
   {
@@ -99,7 +99,7 @@ export const availablePowerUps: ItemDefinition[] = [
         return [item, item];
       }
     },
-    spritePaths: ["/images/powerups/star_0.png", "/images/powerups/star_1.png", "/images/powerups/star_2.png", "/images/powerups/star_3.png"],
+    spritePaths: ["star_0", "star_1", "star_2", "star_3"],
     weight: 1,
   },
 ];

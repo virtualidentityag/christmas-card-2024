@@ -21,6 +21,10 @@ const debug: UIElementDrawer = (game: GameInstance) => {
     .text(`Current Time: ${Math.floor(p5.millis() / 1000) % game.config.speedIncreaseIntervalInSeconds}`, ...insideBackground(10, 100))
 }
 
+const renderToCenter = (p5: p5, image: Image) => {
+  p5.image(image, p5.width / 2 - image.width / 2, p5.height / 2 - image.height / 2);
+}
+
 const createCountDown: (frames: Image[], onDone: () => void) => UIElementDrawer = (frames: Image[], onDone: () => void) => {
   let currentMillis = new Date().getTime();
   let lastSecond = -1;
@@ -34,7 +38,7 @@ const createCountDown: (frames: Image[], onDone: () => void) => UIElementDrawer 
     }
 
     const currentFrame = frames[secondsSinceStart];
-    p5.image(currentFrame, p5.width / 2 - currentFrame.width / 2, p5.height / 2 - currentFrame.height / 2);
+    renderToCenter(p5, currentFrame);
     if (secondsSinceStart == lastSecond) {
       return;
     }
@@ -68,10 +72,10 @@ export class UserInterface {
 
   async triggerStartCountdown(onDone: () => void) {
     const sprites = await Promise.all([
-      this.game.p5.loadImage('/images/countdown/start/3.png'),
-      this.game.p5.loadImage('/images/countdown/start/2.png'),
-      this.game.p5.loadImage('/images/countdown/start/1.png'),
-      this.game.p5.loadImage('/images/countdown/start/go.png'),
+      this.game.images.get('countdown_start_0'),
+      this.game.images.get('countdown_start_1'),
+      this.game.images.get('countdown_start_2'),
+      this.game.images.get('countdown_start_3'),
     ]);
     const countdown = createCountDown(sprites, () => {
       this.foreground = this.foreground.filter(uiElement => uiElement !== countdown);
@@ -82,29 +86,27 @@ export class UserInterface {
 
   async triggerEndCountdown(onDone: () => void) {
     const sprites = await Promise.all([
-      this.game.p5.loadImage('/images/countdown/end/5.png'),
-      this.game.p5.loadImage('/images/countdown/end/4.png'),
-      this.game.p5.loadImage('/images/countdown/end/3.png'),
-      this.game.p5.loadImage('/images/countdown/end/2.png'),
-      this.game.p5.loadImage('/images/countdown/end/1.png'),
+      this.game.images.get('countdown_end_0'),
+      this.game.images.get('countdown_end_1'),
+      this.game.images.get('countdown_end_2'),
+      this.game.images.get('countdown_end_3'),
+      this.game.images.get('countdown_end_4'),
     ]);
     const countdown = createCountDown(sprites, () => {
-      this.foreground = this.foreground.filter(uiElement => uiElement !== countdown);
+      this.background = this.background.filter(uiElement => uiElement !== countdown);
       onDone();
     });
     this.background.push(countdown);
   }
 
   async showDoneScreen(onDone: () => void) {
-    const sprites = await Promise.all([
-      this.game.p5.loadImage('/images/countdown/end/done.png'),
-      this.game.p5.loadImage('/images/countdown/end/done.png'),
-      this.game.p5.loadImage('/images/countdown/end/done.png'),
-    ]);
-    const countdown = createCountDown(sprites, () => {
-      this.foreground = this.foreground.filter(uiElement => uiElement !== countdown);
+    const doneScreen = (game: GameInstance) => {
+      renderToCenter(game.p5, game.images.get('countdown_end_5'));
+    }
+    this.foreground.push(doneScreen)
+    setTimeout(() => {
+      this.foreground = this.foreground.filter(uiElement => uiElement !== doneScreen);
       onDone();
-    });
-    this.foreground.push(countdown);
+    }, 3000);
   }
 }

@@ -5,6 +5,7 @@ import { UserInterface } from './user-interface.js';
 import type p5 from 'p5';
 import type { PowerUp } from './power-up.js';
 import { soundLibrary } from './sound-library.js';
+import { ImageLibrary } from './image-library.js';
 
 export interface GameConfig {
   maxNumberMisses: number;
@@ -48,10 +49,45 @@ export class GameInstance {
   durationInSeconds: number = 0;
   countdownRunning: boolean = false;
   sounds: any = {};
+  images: ImageLibrary;
 
   constructor(config: GameConfig, p5: p5, element: HTMLCanvasElement) {
     this.config = config;
     this.p5 = p5;
+    this.sounds = soundLibrary;
+    this.images = new ImageLibrary(this, {
+      sock: 'sock.png',
+      ball: 'ornaments/ball.png',
+      canes: 'ornaments/canes.png',
+      flake: 'ornaments/flake.png',
+      gingerbread: 'ornaments/gingerbread.png',
+      ice: 'ornaments/ice.png',
+      ring: 'ornaments/ring.png',
+      sack: 'ornaments/sack.png',
+      stag: 'ornaments/stag.png',
+      candy_0: 'powerups/candy_0.png',
+      candy_1: 'powerups/candy_1.png',
+      candy_2: 'powerups/candy_2.png',
+      candy_3: 'powerups/candy_3.png',
+      bells_0: 'powerups/bells_0.png',
+      bells_1: 'powerups/bells_1.png',
+      bells_2: 'powerups/bells_2.png',
+      bells_3: 'powerups/bells_3.png',
+      star_0: 'powerups/star_0.png',
+      star_1: 'powerups/star_1.png',
+      star_2: 'powerups/star_2.png',
+      star_3: 'powerups/star_3.png',
+      countdown_start_0: 'countdown/start/3.png',
+      countdown_start_1: 'countdown/start/2.png',
+      countdown_start_2: 'countdown/start/1.png',
+      countdown_start_3: 'countdown/start/go.png',
+      countdown_end_0: 'countdown/end/5.png',
+      countdown_end_1: 'countdown/end/4.png',
+      countdown_end_2: 'countdown/end/3.png',
+      countdown_end_3: 'countdown/end/2.png',
+      countdown_end_4: 'countdown/end/1.png',
+      countdown_end_5: 'countdown/end/done.png',
+    });
     this.ui = new UserInterface(this);
     this.sock = new Sock(this, 0, 0);
     this.itemFactory = new ItemFactory(this, (item) => {
@@ -62,10 +98,10 @@ export class GameInstance {
     });
     this.lostItems = new ItemStore();
     this.durationInSeconds = this.config.durationInSeconds;
-    this.sounds = soundLibrary;
 
     p5.preload = () => {
       this.sounds.preload(p5);
+      this.images.preload(p5);
     }
 
     p5.setup = () => {

@@ -74,12 +74,11 @@
 	};
 
 	onMount(() => {
+		destroyGame();
 		startGame(gameConfig, document.getElementById('game-container') as HTMLCanvasElement);
 	});
 
 	onNavigate((to) => {
-		console.log(destroyGame);
-
 		destroyGame();
 	});
 

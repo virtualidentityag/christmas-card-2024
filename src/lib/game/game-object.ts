@@ -10,11 +10,12 @@ export class GameObject {
   width: number = 40;
   height: number = 40;
   sprites: p5.Image[] = [];
+  spriteNames: string[] = [];
   spritePaths: string[] = [];
   render: boolean = false;
   framesPerSecond: number = 2;
 
-  constructor(game: GameInstance, x: number, y: number, spritePaths: string[]) {
+  constructor(game: GameInstance, x: number, y: number, spriteNames: string[] | string) {
     if (new.target === GameObject) {
       throw new TypeError("Cannot construct GameObject instances directly");
     }
@@ -22,7 +23,7 @@ export class GameObject {
     this.p5 = game.p5;
     this.x = x;
     this.y = y;
-    this.spritePaths = spritePaths;
+    this.spriteNames = Array.isArray(spriteNames) ? spriteNames : [spriteNames];
     this.loadSprites();
   }
 
@@ -35,7 +36,9 @@ export class GameObject {
   }
 
   async loadSprites() {
-    this.sprites = await Promise.all(this.spritePaths.map((path) => new Promise(res => this.p5.loadImage(path, res)))) as Image[];
+    this.spritePaths = this.spriteNames.map(name => this.game.images.getPath(name));
+    this.sprites = await Promise.all(this.spriteNames.map(name => this.game.images.get(name))) as Image[];
+
     this.onReady()
     this.render = true;
   }
