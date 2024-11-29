@@ -5,6 +5,7 @@
 	import Tree2 from '$assets/images/tree_2.png';
 	import type { PageData } from './$types';
 	import Leaderboard from '$lib/components/Leaderboard.svelte';
+	import { getEuroForScore } from '$lib/util/getEuroForScore';
 
 	const getTree = (score: number) => {
 		if (score > 200) {
@@ -26,16 +27,6 @@
 		return "Aw, so close! You didn't grab enough deco items this time, but no worries—your effort still brought some festive cheer. Give it another go, and let's see if we can add some extra sparkle to the donations.";
 	};
 
-	const calculateDonation = (score: number) => {
-		if (score > 200) {
-			return 2;
-		}
-		if (score > 100) {
-			return 1;
-		}
-		return 0;
-	};
-
 	let showModal = $state(false);
 	let { data }: { data: PageData } = $props();
 </script>
@@ -52,7 +43,7 @@
 				</p>
 				<p class="text-lg ps-14 leading-none">
 					<span class="font-bold text-9xl text-[#2697E2]"
-						>{calculateDonation(data.score)}
+						>{getEuroForScore(data.score)}
 						<span class="text-8xl">€</span>
 					</span><br />
 					extra donation <br /> earned

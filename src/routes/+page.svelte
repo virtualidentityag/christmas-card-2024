@@ -2,7 +2,9 @@
 	import Logo from '$assets/images/logo.png';
 
 	import Button from '$lib/components/Button.svelte';
+	import DonationCounter from '$lib/components/DonationCounter.svelte';
 	import Leaderboard from '$lib/components/Leaderboard.svelte';
+	import { getEuroForScore } from '$lib/util/getEuroForScore';
 	import type { PageData } from './$types';
 
 	let showModal = $state(false);
@@ -29,9 +31,15 @@
 		Sit back, get ready and let the Deco Dash begin.
 	</p>
 
-	<div class="flex items-center justify-center gap-4">
+	<div class="flex items-center justify-center gap-4 mb-12">
 		<Button href="/tutorial">Start the game</Button>
 		<Button click={() => (showModal = true)} variant="secondary">Highscore Board</Button>
+	</div>
+	<div>
+		<DonationCounter
+			total={1000}
+			count={data.leads.reduce((acc, lead) => acc + getEuroForScore(lead.score), 0)}
+		/>
 	</div>
 </div>
 <Leaderboard leads={data.leads} bind:show={showModal} />
