@@ -4,7 +4,6 @@
 	import Tree1 from '$assets/images/tree_1.png';
 	import Tree2 from '$assets/images/tree_2.png';
 	import type { PageData } from './$types';
-	import Modal from '$lib/components/Modal.svelte';
 	import Leaderboard from '$lib/components/Leaderboard.svelte';
 
 	const getTree = (score: number) => {
@@ -75,23 +74,3 @@
 	</div>
 </div>
 <Leaderboard leads={data.leads} bind:show={showModal} />
-
-<style>
-	.content {
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
-		padding: 1rem;
-	}
-
-	.score {
-		display: flex;
-		justify-content: flex-start;
-		align-items: center;
-	}
-
-	.actions {
-		display: inline-flex;
-		flex-direction: column;
-	}
-</style>
