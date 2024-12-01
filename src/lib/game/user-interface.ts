@@ -97,6 +97,9 @@ export class UserInterface {
       onDone();
     });
     this.background.push(countdown);
+    return () => {
+      this.background = this.background.filter(uiElement => uiElement !== countdown);
+    }
   }
 
   async showDoneScreen(onDone: () => void) {

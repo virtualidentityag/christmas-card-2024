@@ -49,7 +49,7 @@ export class GameInstance {
   #speed: number = 0;
   activePowerUps: Array<PowerUp> = [];
   durationInSeconds: number = 0;
-  countdownRunning: boolean = false;
+  cancelCountdown: (() => void) | null = null;
   sounds: any = {};
   images: ImageLibrary;
 
@@ -211,16 +211,23 @@ export class GameInstance {
     this.config.onGameEnd?.(this);
   }
 
-  calculateGameState() {
-    if (this.timeRemaining === 5 && this.countdownRunning === false) {
-      this.ui.triggerEndCountdown(() => {
+  async checkForEndCountdown() {
+    if (this.timeRemaining > 5 && this.cancelCountdown !== null) {
+      this.cancelCountdown();
+      this.cancelCountdown = null;
+    }
+    if (this.timeRemaining === 5 && this.cancelCountdown === null) {
+      this.cancelCountdown = await this.ui.triggerEndCountdown(() => {
         this.running = false;
         this.ui.showDoneScreen(() => {
           this.gameOver();
         })
       });
-      this.countdownRunning = true;
     }
+  }
+
+  calculateGameState() {
+    this.checkForEndCountdown();
     this.sock.moveSock();
     if (!this.running) {
       return;
