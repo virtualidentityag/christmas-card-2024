@@ -1,9 +1,9 @@
 <script lang="ts">
-	import SoundIcon from '$assets/images/icon/sound.png';
-	import InfoIcon from '$assets/images/icon/info.png';
+	import SoundIcon from '$assets/images/icons/sound.png';
+	import InfoIcon from '$assets/images/icons/info.png';
 	import Logo from '$assets/images/vi_white.png';
 
-	let { showHome = false } = $props();
+	let { showHome = false, onInfoClick = () => {}, onSoundClick = () => {} } = $props();
 </script>
 
 <header>
@@ -11,10 +11,10 @@
 		<img src={Logo} alt="" />
 	</a>
 	<nav class="header__nav">
-		<button>
+		<button onclick={onSoundClick}>
 			<img src={SoundIcon} alt="" />
 		</button>
-		<button>
+		<button onclick={onInfoClick}>
 			<img src={InfoIcon} alt="" />
 		</button>
 		{#if showHome}
@@ -30,6 +30,8 @@
 		justify-content: space-between;
 		width: 100%;
 		box-sizing: border-box;
+		position: fixed;
+		z-index: 1;
 	}
 
 	button {

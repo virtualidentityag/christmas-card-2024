@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { getContext, onMount } from 'svelte';
 	import { GameInstance, type GameConfig } from '$lib/game/game-instance.js';
 	import { goto, onNavigate } from '$app/navigation';
 	import type { PowerUp } from '$lib/game/power-up.js';
 	import JingleBells from '$assets/sounds/jinglebells.mp3';
+	import { appState } from '$lib/state/appState.svelte';
 
 	const createGame = (config: GameConfig, element: HTMLCanvasElement) => (p5Instance: p5) => {
 		destroyGame = () => {
@@ -16,13 +17,12 @@
 			p5Instance.resizeCanvas(p5Instance.windowWidth, p5Instance.windowHeight);
 		};
 	};
+	let score = $state(0);
+	let misses = $state(0);
+	let remainingTime = $state(0);
+	let activePowerUps = $state([]);
 
-	$: score = 0;
-	$: misses = 0;
-	$: remainingTime = 0;
-	$: activePowerUps = [];
-
-	$: running = false;
+	let running = $state(false);
 
 	let destroyGame = () => {};
 
@@ -66,6 +66,11 @@
 				body: JSON.stringify({ username: 'Unknown User', score })
 			});
 			goto(`/result?score=${score}`);
+		},
+		addSoundListener: (listener) => {
+			$effect(() => {
+				listener(appState.soundEnabled);
+			});
 		}
 	};
 
@@ -92,7 +97,7 @@
 <virtual-joystick data-mode="dynamic" data-lock="y" class="fixed w-screen h-screen"
 ></virtual-joystick>
 <canvas id="game-container" class="absolute inset-0"> </canvas>
-<audio src={JingleBells} autoplay loop volume></audio>
+<audio src={JingleBells} autoplay loop volume={appState.soundEnabled ? 1 : 0}></audio>
 
 <div class={running ? 'playing' : ''}>
 	<div class="fixed top-0 left-0 w-full h-10 bg-white bg-[auto_100%] text-black">

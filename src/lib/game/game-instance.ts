@@ -33,6 +33,8 @@ export interface GameConfig {
   onMissChange: (misses: number) => void;
   onTimeChange: (timeElapsed: number) => void;
   onPowerUpChange: (powerUps: PowerUp[]) => void;
+
+  addSoundListener: (listener: (soundEnabled: boolean) => void) => void;
 }
 
 export class GameInstance {
@@ -122,6 +124,14 @@ export class GameInstance {
       p5.clear();
       this.run();
     }
+
+    config.addSoundListener((soundEnabled) => {
+      if (soundEnabled) {
+        p5.outputVolume(1);
+      } else {
+        p5.outputVolume(0);
+      }
+    });
   }
 
   get currentSpeed() {

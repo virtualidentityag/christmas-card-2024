@@ -5,9 +5,7 @@
 </script>
 
 <Modal bind:show>
-	{#snippet header()}
-		<h2>Leaderboard</h2>
-	{/snippet}
+	<h2>Leaderboard</h2>
 
 	<ol>
 		{#each leads as { username, score }, i}

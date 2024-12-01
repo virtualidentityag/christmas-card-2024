@@ -1,11 +1,13 @@
 <script>
 	import CloseIcon from '$assets/images/icons/close.png';
-	let { show = $bindable(), header, children } = $props();
+	let { show = $bindable(), children } = $props();
 
 	let dialog = $state(); // HTMLDialogElement
 
 	$effect(() => {
-		if (show) dialog.showModal();
+		if (show) {
+			dialog.showModal();
+		}
 	});
 </script>
 
@@ -18,7 +20,6 @@
 	}}
 >
 	<div>
-		{@render header?.()}
 		{@render children?.()}
 		<!-- svelte-ignore a11y_autofocus -->
 		<button autofocus onclick={() => dialog.close()}>
