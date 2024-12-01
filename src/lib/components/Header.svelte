@@ -6,7 +6,7 @@
 	let { showHome = false, onInfoClick = () => {}, onSoundClick = () => {} } = $props();
 </script>
 
-<header>
+<header class="max-w-screen-lg">
 	<a href="https://www.virtual-identity.com/" target="_blank" class="logo">
 		<img src={Logo} alt="" />
 	</a>
@@ -31,6 +31,7 @@
 		width: 100%;
 		box-sizing: border-box;
 		position: fixed;
+		top: 0;
 		z-index: 1;
 	}
 
@@ -51,6 +52,19 @@
 		background-color: white;
 		border-bottom-left-radius: 8px;
 		border-bottom-right-radius: 8px;
-		padding: 8px 20px;
+		padding: 14px 20px 8px 20px;
+	}
+
+	button {
+		width: 18px;
+		height: 18px;
+	}
+
+	button:not(:last-child) {
+		margin-right: 14px;
+	}
+
+	img {
+		width: 100%;
 	}
 </style>
