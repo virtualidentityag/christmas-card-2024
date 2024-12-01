@@ -3,6 +3,7 @@
 	import Button from './Button.svelte';
 	import Input from './Input.svelte';
 	import Modal from './Modal.svelte';
+	import { Profanity } from '@2toad/profanity';
 
 	let { show = $bindable(), onSubmit = () => {} } = $props();
 	let username = $state('');
@@ -28,13 +29,25 @@
 			console.error('Error:', error);
 		}
 	};
+
+	const checkUsername = () => {
+		const profanity = new Profanity({
+			languages: ['en', 'de']
+		});
+
+		if (profanity.exists(username)) {
+			error = 'Your username does not meet our guidelines.';
+			return;
+		}
+		submit();
+	};
 </script>
 
 <Modal bind:show>
 	<h2>Join the DecoDash Leaderboard</h2>
 	<p>Please enter your nickname with which you should appear on the leaderboard.</p>
 	<Input id="username" name="username" placeholder="Username" bind:value={username} /><Button
-		click={submit}>Submit</Button
+		click={checkUsername}>Submit</Button
 	>
 	{#if error}
 		<p>{error}</p>
