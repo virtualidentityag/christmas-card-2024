@@ -88,9 +88,9 @@
 	};
 </script>
 
+<canvas id="game-container" class="absolute inset-0"> </canvas>
 <virtual-joystick data-mode="dynamic" data-lock="y" class="fixed w-screen h-screen"
 ></virtual-joystick>
-<canvas id="game-container" class="absolute inset-0"> </canvas>
 <audio src={JingleBells} autoplay loop volume={appState.soundEnabled ? 1 : 0}></audio>
 
 <div class={running ? 'playing' : ''}>

@@ -6,9 +6,6 @@ import { defineVirtualJoystick } from './virtual-joystick.js';
 
 export class Sock extends GameObject {
   storage: ItemStore;
-  speed = 0;
-  topSpeed = 700;
-  inertia = 5;
   width: number = 150;
   height: number = 150;
   currentTouchDirection: "w" | "e" | null = null;
@@ -25,6 +22,11 @@ export class Sock extends GameObject {
     }
   }
 
+  get speed() {
+    // return top speed based on screen width
+    return this.p5.windowWidth / 200;
+  }
+
   onReady() {
     this.x = this.p5.windowWidth / 2;
     this.y = this.p5.windowHeight - this.height - 10;
@@ -39,30 +41,15 @@ export class Sock extends GameObject {
   moveSock() {
     if (this.render) {
       if (this.currentTouchDirection === "w" || !this.p5.keyIsDown(this.p5.RIGHT_ARROW) && this.p5.keyIsDown(this.p5.LEFT_ARROW)) {
-        if (this.speed > -this.topSpeed) {
-          this.speed -= this.inertia;
-        }
-        this.x += this.speed;
+        // left
+        this.x -= this.speed;
         this.game.sounds.play('move', true);
       }
 
       if (this.currentTouchDirection === "e" || !this.p5.keyIsDown(this.p5.LEFT_ARROW) && this.p5.keyIsDown(this.p5.RIGHT_ARROW)) {
-        if (this.speed < this.topSpeed) {
-          this.speed += this.inertia;
-        }
+        // right
         this.x += this.speed;
         this.game.sounds.play('move', true);
-      }
-
-      if (!this.currentTouchDirection || (!this.p5.keyIsDown(this.p5.RIGHT_ARROW) && !this.p5.keyIsDown(this.p5.LEFT_ARROW)) || (this.p5.keyIsDown(this.p5.RIGHT_ARROW) && this.p5.keyIsDown(this.p5.LEFT_ARROW))) {
-        if (this.speed > 0) {
-          this.speed -= this.inertia;
-        }
-
-        if (this.speed < 0) {
-          this.speed += this.inertia;
-        }
-        this.x += this.speed;
       }
 
       if (this.x < 5) {
