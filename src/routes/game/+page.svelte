@@ -28,7 +28,7 @@
 
 	const gameConfig: GameConfig = {
 		maxNumberMisses: Infinity,
-		initialSpeed: 1,
+		initialSpeed: 2,
 		speedIncreaseIntervalInSeconds: 30,
 		speedIncrease: 1,
 		maxSpeed: 6,

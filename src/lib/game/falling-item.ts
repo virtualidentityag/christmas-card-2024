@@ -4,8 +4,14 @@ export class FallingItem extends GameObject {
   startSplashTime = 0;
   splashSprite = null;
   speed = 1;
+  speedVariation = 0;
   width = 50;
   height = 50;
+
+  constructor(game, x, y, sprite) {
+    super(game, x, y, sprite);
+    this.speedVariation = this.getRandom(-2, 2);
+  }
 
   onReady(): void {
     this.placeInRandomPosition();
@@ -20,7 +26,7 @@ export class FallingItem extends GameObject {
     if (!this.render) {
       return;
     }
-    this.y += this.speed;
+    this.y += Math.max(this.speed + this.speedVariation, 1);
     if (this.isOutOfBounds) {
       this.onOutOfBounds();
       this.destroy();
