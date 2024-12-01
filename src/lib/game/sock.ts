@@ -1,3 +1,4 @@
+import { Counter } from './counter.js';
 import type { FallingItem } from './falling-item.js';
 import type { GameInstance } from './game-instance.js';
 import { GameObject } from './game-object.js';
@@ -9,6 +10,7 @@ export class Sock extends GameObject {
   width: number = 150;
   height: number = 150;
   currentTouchDirection: "w" | "e" | null = null;
+  counters: Counter[] = [];
 
   constructor(game: GameInstance, x: number, y: number) {
     super(game, x, y, 'sock');
@@ -30,6 +32,13 @@ export class Sock extends GameObject {
   onReady() {
     this.x = this.p5.windowWidth / 2;
     this.y = this.p5.windowHeight - this.height - 10;
+  }
+
+  spawnCounter(count: 1 | 2 = 1) {
+    const counter = new Counter(this.game, this.x + this.width / 2, this.y, count, () => {
+      this.counters = this.counters.filter((c) => c !== counter);
+    });
+    this.counters.push(counter);
   }
 
   onJoystickMove(e: CustomEvent) {
@@ -68,12 +77,22 @@ export class Sock extends GameObject {
         const itemsModifiedByPowerup = this.game.activePowerUps.map((powerUp) => powerUp.modifyCaughtItem(item)).flat();
         if (itemsModifiedByPowerup.length) {
           this.storage?.addItems([...itemsModifiedByPowerup]);
+          this.spawnCounter(2)
         } else {
           this.storage?.addItem(item);
+          this.spawnCounter();
         }
         item.onCaught();
         item.destroy();
       }
     }
+  }
+
+  draw(): void {
+    super.draw();
+    this.counters.forEach((counter) => {
+      counter.moveUp();
+      counter.draw();
+    });
   }
 }

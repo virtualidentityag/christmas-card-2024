@@ -1,4 +1,3 @@
-import type { Image } from 'p5';
 import { GameObject } from './game-object.js';
 
 export class FallingItem extends GameObject {

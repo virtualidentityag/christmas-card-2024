@@ -89,6 +89,8 @@ export class GameInstance {
       countdown_end_3: 'countdown/end/2.png',
       countdown_end_4: 'countdown/end/1.png',
       countdown_end_5: 'countdown/end/done.png',
+      counter_1: 'ui/coin_1.png',
+      counter_2: 'ui/coin_2.png',
     });
     this.ui = new UserInterface(this);
     this.sock = new Sock(this, 0, 0);
