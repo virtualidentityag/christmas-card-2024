@@ -6,6 +6,8 @@
 	import type { PageData } from './$types';
 	import Leaderboard from '$lib/components/Leaderboard.svelte';
 	import { getEuroForScore } from '$lib/util/getEuroForScore';
+	import UsernameOverlay from '$lib/components/UsernameOverlay.svelte';
+	import { appState } from '$lib/state/appState.svelte';
 
 	const getTree = (score: number) => {
 		if (score > 200) {
@@ -28,28 +30,35 @@
 	};
 
 	let showModal = $state(false);
+	let showUsernameOverlay = $state(true);
 	let { data }: { data: PageData } = $props();
+	let leaderboard = $state(data.leads);
+	const score = appState.score;
+	const onUsernameSubmit = (leaderboardUpdate) => {
+		showUsernameOverlay = false;
+		leaderboard = leaderboardUpdate;
+	};
 </script>
 
 <div class="h-screen max-h-screen py-16 px-24">
 	<div class="grid grid-cols-2 items-center justify-center">
-		<img src={getTree(data.score)} alt="" />
+		<img src={getTree(score)} alt="" />
 
 		<div class="max-w-lg">
 			<div class="flex divide-x-[3px] divide-[#1C2E4F] mb-16">
 				<p class="text-lg leading-none pe-14">
-					<span class="font-bold text-9xl text-[#E5433E]">{data.score}</span><br />
+					<span class="font-bold text-9xl text-[#E5433E]">{score}</span><br />
 					collected <br /> ornaments.
 				</p>
 				<p class="text-lg ps-14 leading-none">
 					<span class="font-bold text-9xl text-[#2697E2]"
-						>{getEuroForScore(data.score)}
+						>{getEuroForScore(score)}
 						<span class="text-8xl">€</span>
 					</span><br />
 					extra donation <br /> earned
 				</p>
 			</div>
-			<p class="text-lg leading-relaxed mb-4">{getResultText(data.score)}</p>
+			<p class="text-lg leading-relaxed mb-4">{getResultText(score)}</p>
 			<p class="text-lg leading-relaxed font-bold">
 				We wish you and your loved ones a wonderful Christmas and a Happy New Year!
 			</p>
@@ -64,4 +73,5 @@
 		</div>
 	</div>
 </div>
-<Leaderboard leads={data.leads} bind:show={showModal} />
+<Leaderboard leads={leaderboard} bind:show={showModal} />
+<UsernameOverlay bind:show={showUsernameOverlay} onSubmit={onUsernameSubmit} />

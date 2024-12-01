@@ -11,6 +11,5 @@ export const load: PageLoad = async ({ url, fetch }) => {
 
   return {
     leads,
-    score: url.searchParams.get('score')
   }
 };

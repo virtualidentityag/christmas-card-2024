@@ -25,32 +25,4 @@
 </Modal>
 
 <style>
-	h2 {
-		font-size: 40px;
-		margin-bottom: 40px;
-	}
-	ol {
-		min-width: 612px;
-	}
-	ol li {
-		display: flex;
-		line-height: 44px;
-		font-size: 16px;
-	}
-	.place {
-		width: 40px;
-	}
-	.score {
-		flex-grow: 1;
-		text-align: right;
-	}
-	ol li:first-child {
-		color: #fcb65b;
-	}
-	ol li:nth-child(2) {
-		color: #e5433e;
-	}
-	ol li:nth-child(3) {
-		color: #2697e2;
-	}
 </style>

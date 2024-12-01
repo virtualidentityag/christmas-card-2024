@@ -1,4 +1,4 @@
-import type { RequestHandler } from '@sveltejs/kit';
+import { error, type RequestHandler } from '@sveltejs/kit';
 import StoryblokClient from "storyblok-js-client";
 
 const getDB = async () => {
@@ -55,10 +55,15 @@ export const GET: RequestHandler = async ({ url }) => {
 export const POST: RequestHandler = async ({ request }) => {
   const db = await getDB();
   const data = await request.json();
-  console.log(data);
+  try {
+    await db.store(data);
+    const leaderboard = await db.getAll();
+    return new Response(JSON.stringify(leaderboard));
+  } catch (e) {
+    if (e.status === 422) {
+      return error(409, 'Username already exists');
+    }
+    console.error(e);
+  }
 
-
-  const response = await db.store(data);
-
-  return new Response(JSON.stringify(response.story));
 };

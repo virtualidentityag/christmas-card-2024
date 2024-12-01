@@ -7,6 +7,8 @@
 	$effect(() => {
 		if (show) {
 			dialog.showModal();
+		} else {
+			dialog.close();
 		}
 	});
 </script>

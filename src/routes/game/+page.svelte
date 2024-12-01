@@ -58,14 +58,8 @@
 		},
 		onGameEnd: () => {
 			running = false;
-			fetch('/api/leaderboard', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ username: 'Unknown User', score })
-			});
-			goto(`/result?score=${score}`);
+			appState.score = score;
+			goto('/result');
 		},
 		addSoundListener: (listener) => {
 			$effect(() => {
