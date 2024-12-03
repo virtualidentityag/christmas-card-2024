@@ -2,13 +2,19 @@
 	import SoundIcon from '$assets/images/icons/sound.png';
 	import InfoIcon from '$assets/images/icons/info.png';
 	import Logo from '$assets/images/vi_white.png';
+	import LogoBlack from '$assets/images/vi_black.png';
 
-	let { showHome = false, onInfoClick = () => {}, onSoundClick = () => {} } = $props();
+	let {
+		showHome = false,
+		onInfoClick = () => {},
+		onSoundClick = () => {},
+		logoBlack = false
+	} = $props();
 </script>
 
 <header class="max-w-screen-lg">
 	<a href="https://www.virtual-identity.com/" target="_blank" class="logo">
-		<img src={Logo} alt="" />
+		<img src={logoBlack ? LogoBlack : Logo} alt="" />
 	</a>
 	<nav class="header__nav">
 		<button onclick={onSoundClick}>

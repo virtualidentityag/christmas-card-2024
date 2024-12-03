@@ -1,7 +1,6 @@
 export const soundLibrary = {
   root: '/sounds',
   library: {
-    jinglebells: 'jinglebells.mp3',
     catch: 'catch.mp3',
     powerup: 'powerup.mp3',
     countdown: 'countdown.mp3',
