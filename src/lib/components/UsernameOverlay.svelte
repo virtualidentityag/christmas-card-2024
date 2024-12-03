@@ -36,7 +36,7 @@
 		});
 
 		if (profanity.exists(username)) {
-			error = 'Your username does not meet our guidelines.';
+			error = 'Your nickname does not meet our guidelines.';
 			return;
 		}
 		submit();
@@ -46,9 +46,12 @@
 <Modal bind:show>
 	<h2>Join the DecoDash Leaderboard</h2>
 	<p>Please enter your nickname with which you should appear on the leaderboard.</p>
-	<Input id="username" name="username" placeholder="Username" bind:value={username} /><Button
-		click={checkUsername}>Submit</Button
-	>
+	<Input id="username" name="username" placeholder="Nickname" bind:value={username} />
+	<p>
+		I agree that my nickname and score are published on the leaderboard according to our
+		privacy-policy.
+	</p>
+	<Button click={checkUsername}>I agree and Submit</Button>
 	{#if error}
 		<p>{error}</p>
 	{/if}
