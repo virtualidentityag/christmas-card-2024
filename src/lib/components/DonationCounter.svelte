@@ -16,7 +16,7 @@
 </script>
 
 <div class="container">
-	<span class="label">Additional donations collected:</span>
+	<span class="label">Extra donations raised:</span>
 	<div class="bar">
 		<div class="indicator" style={`width: ${Math.min((currentCount / total) * 100, 100)}%`}>
 			<div class="marker">
