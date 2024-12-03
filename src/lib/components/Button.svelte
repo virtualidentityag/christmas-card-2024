@@ -15,7 +15,7 @@
 <style>
 	a,
 	button {
-		display: inline-block;
+		display: inline-flex;
 		padding: 0px 20px;
 		line-height: 40px;
 		font-size: 12px;
@@ -25,6 +25,8 @@
 		font-weight: 700;
 		text-align: center;
 		border: 2px solid transparent;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.primary {
@@ -35,8 +37,8 @@
 
 	.primary:hover,
 	.primary:focus {
-		background-color: #FB4F6A;
-		border-color: #FB4F6A;
+		background-color: #fb4f6a;
+		border-color: #fb4f6a;
 	}
 
 	.secondary {
@@ -47,7 +49,7 @@
 
 	.secondary:hover,
 	.secondary:focus {
-		border-color: #4DABDF;
-		color: #4DABDF;
+		border-color: #4dabdf;
+		color: #4dabdf;
 	}
 </style>

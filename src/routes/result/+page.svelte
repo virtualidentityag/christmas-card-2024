@@ -2,8 +2,11 @@
 	import Button from '$lib/components/Button.svelte';
 	import Tree0 from '$assets/images/tree_0.png';
 	import Tree1 from '$assets/images/tree_1.png';
-	import Tree2 from '$assets/images/tree_2.png';
+	import LeaderboardIcon from '$assets/images/icons/leaderboard.png';
+	import ReloadIcon from '$assets/images/icons/reload.png';
+	import ShareIcon from '$assets/images/icons/share.png';
 	import type { PageData } from './$types';
+	import Tree2 from '$assets/images/tree_2.png';
 	import Leaderboard from '$lib/components/Leaderboard.svelte';
 	import { getEuroForScore } from '$lib/util/getEuroForScore';
 	import UsernameOverlay from '$lib/components/UsernameOverlay.svelte';
@@ -65,9 +68,18 @@
 
 			<div class="flex mt-12">
 				<div class="flex flex-col gap-4">
-					<Button href="/">Play again</Button>
-					<Button variant="secondary">Challenge a friend</Button>
-					<Button click={() => (showModal = true)} variant="secondary">View leaderboard</Button>
+					<Button href="/">
+						<img src={ReloadIcon} alt="" class="inline-block w-6 h-6 mr-2" />
+						Play again
+					</Button>
+					<Button variant="secondary">
+						<img src={ShareIcon} alt="" class="inline-block w-6 h-6 mr-2" />
+						Challenge a friend
+					</Button>
+					<Button click={() => (showModal = true)} variant="secondary">
+						<img src={LeaderboardIcon} alt="" class="inline-block w-6 h-6 mr-2" />
+						View leaderboard
+					</Button>
 				</div>
 			</div>
 		</div>
