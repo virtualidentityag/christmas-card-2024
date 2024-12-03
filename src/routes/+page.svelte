@@ -16,7 +16,7 @@
 		<span class="text-3xl">Virtual Identity</span> <br /> <span class="text-xs">presents</span>
 	</p>
 
-	<div class="relative -mt-10 -mb-6 w-screen max-w-screen-lg">
+	<div class="relative -mt-10 -mb-6 max-w-screen-lg">
 		<img src={Logo} alt="" class="w-full" />
 	</div>
 

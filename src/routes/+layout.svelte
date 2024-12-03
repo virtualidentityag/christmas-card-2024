@@ -30,7 +30,7 @@
 		class="absolute inset-0 bg-gradient-to-b from-[rgba(0,17,43,0.8)] via-[rgba(0,17,43,0.25)] to-[rgba(0,17,43,0.8)]"
 	></div>
 </div>
-<main class="h-screen text-white">
+<main class="h-screen text-white pl-10 pr-10">
 	{@render children()}
 </main>
 <InfoOverlay bind:show={showInfoOverlay}></InfoOverlay>
@@ -38,5 +38,9 @@
 <style>
 	:global(body) {
 		font-family: 'Outfit', sans-serif;
+	}
+
+	main {
+		max-width: 100vw;
 	}
 </style>
