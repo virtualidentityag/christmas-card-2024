@@ -4,6 +4,7 @@
 	import { setContext } from 'svelte';
 	import '../app.css';
 	import { appState } from '$lib/state/appState.svelte';
+	import { page } from '$app/stores';
 
 	let showInfoOverlay = $state(false);
 
@@ -18,7 +19,11 @@
 	const { children } = $props();
 </script>
 
-<Header onInfoClick={openInfoOverlay} onSoundClick={toggleSound}></Header>
+<Header
+	onInfoClick={openInfoOverlay}
+	onSoundClick={toggleSound}
+	showHome={$page.url.pathname !== '/'}
+></Header>
 <div class="fixed -z-10 w-screen h-screen bg-[#142547]">
 	<img src="/images/ui/background.png" alt="" class="w-full h-full object-cover" />
 	<div

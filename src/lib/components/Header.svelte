@@ -1,6 +1,7 @@
 <script lang="ts">
 	import SoundIcon from '$assets/images/icons/sound.png';
 	import InfoIcon from '$assets/images/icons/info.png';
+	import Home from '$assets/images/icons/home.png';
 	import Logo from '$assets/images/vi_white.png';
 	import LogoBlack from '$assets/images/vi_black.png';
 
@@ -24,7 +25,9 @@
 			<img src={InfoIcon} alt="" />
 		</button>
 		{#if showHome}
-			<a href="/">H</a>
+			<a href="/">
+				<img src={Home} alt="" />
+			</a>
 		{/if}
 	</nav>
 </header>
@@ -47,9 +50,9 @@
 		cursor: pointer;
 	}
 
-	.logo {
-		fill: white;
+	.logo img {
 		margin-top: 12px;
+		max-width: unset;
 	}
 
 	nav {
@@ -61,7 +64,8 @@
 		padding: 14px 20px 8px 20px;
 	}
 
-	button {
+	button,
+	a {
 		width: 18px;
 		height: 18px;
 	}
@@ -70,7 +74,7 @@
 		margin-right: 14px;
 	}
 
-	img {
+	img:not(.logo) {
 		width: 100%;
 	}
 </style>

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { getContext, onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { GameInstance, type GameConfig } from '$lib/game/game-instance.js';
-	import { goto, onNavigate } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import type { PowerUp } from '$lib/game/power-up.js';
 	import JingleBells from '$assets/sounds/jinglebells.mp3';
 	import { appState } from '$lib/state/appState.svelte';
@@ -77,7 +77,7 @@
 		startGame(gameConfig, document.getElementById('game-container') as HTMLCanvasElement);
 	});
 
-	onNavigate((to) => {
+	onDestroy(() => {
 		destroyGame();
 	});
 
