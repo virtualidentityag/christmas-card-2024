@@ -1,5 +1,6 @@
 <script lang="ts">
 	import SoundIcon from '$assets/images/icons/sound.png';
+	import SoundOffIcon from '$assets/images/icons/sound-off.png';
 	import InfoIcon from '$assets/images/icons/info.png';
 	import Home from '$assets/images/icons/home.png';
 	import Logo from '$assets/images/vi_white.png';
@@ -9,7 +10,8 @@
 		showHome = false,
 		onInfoClick = () => {},
 		onSoundClick = () => {},
-		logoBlack = false
+		logoBlack = false,
+		soundOn = true
 	} = $props();
 </script>
 
@@ -19,7 +21,7 @@
 	</a>
 	<nav class="header__nav">
 		<button onclick={onSoundClick}>
-			<img src={SoundIcon} alt="" />
+			<img src={soundOn ? SoundIcon : SoundOffIcon} alt="" />
 		</button>
 		<button onclick={onInfoClick}>
 			<img src={InfoIcon} alt="" />

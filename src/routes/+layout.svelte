@@ -23,6 +23,7 @@
 	onInfoClick={openInfoOverlay}
 	onSoundClick={toggleSound}
 	showHome={$page.url.pathname !== '/'}
+	soundOn={appState.soundEnabled}
 ></Header>
 <div class="fixed -z-10 w-screen h-screen bg-[#142547]">
 	<img src="/images/ui/background.png" alt="" class="w-full h-full object-cover" />
