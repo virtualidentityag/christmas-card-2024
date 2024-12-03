@@ -12,29 +12,31 @@
 
 		<div class="py-14 border-b border-b-[#1C2E4F] grid grid-cols-2 items-center">
 			<p class="text-lg leading-relaxed">
-				Collect items by pressing the arrows on your <br />
-				keyboard. You only have to move left or right.
+				Catch decorations by moving your sock left or right using the arrow buttons on your
+				keyboard.
 			</p>
 			<img src={Keys} alt="" class="ms-12" />
 		</div>
 
 		<div class="py-14 border-b border-b-[#1C2E4F] grid grid-cols-2 items-center">
-			<p class="text-lg leading-relaxed">Collect special items to unlock special features.</p>
+			<p class="text-lg leading-relaxed">
+				Collect or avoid special decorations to change the game.
+			</p>
 
 			<div class="grid grid-cols-3">
 				<figure class="flex flex-col items-center text-center">
 					<img src={Bells} alt="" class="w-20 h-20 mb-5" />
-					<figcaption>Earn 5 seconds <br /> additional time</figcaption>
+					<figcaption>+5 seconds</figcaption>
 				</figure>
 
 				<figure class="flex flex-col items-center text-center">
 					<img src={Candy} alt="" class="w-20 h-20 mb-5" />
-					<figcaption>Reduce size of sock <br /> for 10 seconds</figcaption>
+					<figcaption>Caution: Smaller sock for 10 seconds</figcaption>
 				</figure>
 
 				<figure class="flex flex-col items-center text-center">
 					<img src={Star} alt="" class="w-20 h-20 mb-5" />
-					<figcaption>Double your grab count<br />for 10 seconds</figcaption>
+					<figcaption>Double points for 10 seconds</figcaption>
 				</figure>
 			</div>
 		</div>

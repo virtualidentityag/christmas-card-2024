@@ -21,19 +21,18 @@
 	</div>
 
 	<p class="max-w-screen-sm text-center text-sm leading-6 font-light mb-4">
-		Collect as many decorative items for your Christmas tree as possible. VI is donating 10,000
-		euros to a good cause this year and by diligently collecting decorative items we will donate up
-		to an additional 1,000 euros on top. Every sock filled with morethan 200 decorative items will
-		contribute one euro to the donation box.
+		The countdown is on! Catch as many decorations as you can to deck out your Christmas tree before
+		time runs out. Collect over XX ornaments, and VI will add an extra €1 to our annual charity
+		donation.
 	</p>
 
 	<p class="max-w-screen-sm text-center text-sm leading-6 font-bold mb-12">
-		Sit back, get ready and let the Deco Dash begin.
+		Ready, set... let the Deco Dash begin!
 	</p>
 
 	<div class="flex items-center justify-center gap-4 mb-12">
-		<Button href="/tutorial">Start the game</Button>
-		<Button click={() => (showModal = true)} variant="secondary">Highscore Board</Button>
+		<Button href="/tutorial">Play now</Button>
+		<Button click={() => (showModal = true)} variant="secondary">Leaderboard</Button>
 	</div>
 	<div>
 		<DonationCounter

@@ -21,12 +21,12 @@
 
 	const getResultText = (score: number) => {
 		if (score > 200) {
-			return 'Whoa, look at you go! Your awesome skills earned you a spot on the leaderboard, and thanks to you, we’re adding more to this years charity . Way to spread the holiday cheer!';
+			return `Wow, look at you go! Your skills have earned you a spot on the leaderboard, and thanks to you, this year's charity is getting an extra boost. Way to spread the holiday cheer!`;
 		}
 		if (score > 100) {
-			return "Nice job! You grabbed enough deco items to add a little extra to this years' charity — your holiday spirit is making a difference! Keep it up, and maybe next time, the leaderboard will be calling your name!";
+			return `Great job! You caught enough decorations to give this year's charity a little boost - your holiday spirit is making a real difference! Keep it up and maybe next time you'll land a spot on the leaderboard.`;
 		}
-		return "Aw, so close! You didn't grab enough deco items this time, but no worries—your effort still brought some festive cheer. Give it another go, and let's see if we can add some extra sparkle to the donations.";
+		return `So close! You didn't grab enough decorations this time, but your effort still spread some festive cheer! Give it another go and let's add some extra sparkle to the donations.`;
 	};
 
 	let showModal = $state(false);
@@ -60,13 +60,13 @@
 			</div>
 			<p class="text-lg leading-relaxed mb-4">{getResultText(score)}</p>
 			<p class="text-lg leading-relaxed font-bold">
-				We wish you and your loved ones a wonderful Christmas and a Happy New Year!
+				Virtual Identity wishes you and your loved ones a Merry Christmas and a Happy New Year!
 			</p>
 
 			<div class="flex mt-12">
 				<div class="flex flex-col gap-4">
 					<Button href="/">Play again</Button>
-					<Button variant="secondary">Beat my highscore</Button>
+					<Button variant="secondary">Challenge a friend</Button>
 					<Button click={() => (showModal = true)} variant="secondary">View leaderboard</Button>
 				</div>
 			</div>
