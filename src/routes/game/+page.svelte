@@ -50,7 +50,7 @@
 		itemCountIncrease: 1,
 		itemCountIncreaseIntervalInSeconds: 10,
 		maxItemCount: 20,
-		durationInSeconds: 60,
+		durationInSeconds: 7,
 		powerUpChance: 0.5,
 		onScoreChange: (scoreUpdate: number) => {
 			score = scoreUpdate;
@@ -89,7 +89,7 @@
 	});
 
 	onDestroy(() => {
-		destroyGame();
+		// destroyGame();
 	});
 
 	const formatTime = (time: number) => {
@@ -99,27 +99,31 @@
 	};
 </script>
 
-<canvas id="game-container" class="absolute inset-0"> </canvas>
-<virtual-joystick data-mode="dynamic" data-lock="y" class="fixed w-screen h-screen"
-></virtual-joystick>
+<div>
+	<canvas id="game-container" class="absolute inset-0"> </canvas>
+	<virtual-joystick data-mode="dynamic" data-lock="y" class="fixed w-screen h-screen"
+	></virtual-joystick>
 
-<div class={running ? 'playing' : ''}>
-	<div class="fixed top-0 left-0 w-full h-10 bg-white bg-[auto_100%] text-black">
-		<div class="flex items-center gap-10 h-full px-24">
-			<p>Score: {score}</p>
-			<p>Time: {formatTime(remainingTime)}</p>
-			<div class="flex gap-2 items-center">
-				<p>Active power up:</p>
-				{#each activePowerUps as powerUp}
-					<img src={powerUp.spritePaths[0]} alt="" class="w-10 h-10" />
-				{/each}
+	<div class={running ? 'playing' : ''}>
+		<div class="fixed top-0 left-0 w-full h-10 bg-white bg-[auto_100%] text-black">
+			<div class="flex items-center gap-10 h-full px-24">
+				<p>Score: {score}</p>
+				<p>Time: {formatTime(remainingTime)}</p>
+				<div class="flex gap-2 items-center">
+					<p>Active power up:</p>
+					{#each activePowerUps as powerUp}
+						<img src={powerUp.spritePaths[0]} alt="" class="w-10 h-10" />
+					{/each}
+				</div>
 			</div>
+			<div
+				class="snow absolute left-0 top-full h-[63px] w-full bg-[url('/images/ui/snow.png')]"
+			></div>
 		</div>
 		<div
-			class="snow absolute left-0 top-full h-[63px] w-full bg-[url('/images/ui/snow.png')]"
+			class="fixed -z-10 bottom-0 left-0 w-full h-[118px] bg-[url('/images/ui/bottom.png')]"
 		></div>
 	</div>
-	<div class="fixed -z-10 bottom-0 left-0 w-full h-[118px] bg-[url('/images/ui/bottom.png')]"></div>
 </div>
 
 <style>
