@@ -52,6 +52,7 @@
 			id="username"
 			name="username"
 			placeholder="Nickname"
+			autofocus={true}
 			bind:value={username}
 		/>
 		{#if error}

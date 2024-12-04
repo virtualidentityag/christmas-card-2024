@@ -1,8 +1,16 @@
 <script lang="ts">
-	let { id, name, type = 'text', value = $bindable(''), placeholder, ...rest } = $props();
+	let {
+		id,
+		name,
+		type = 'text',
+		value = $bindable(''),
+		placeholder,
+		autofocus,
+		...rest
+	} = $props();
 </script>
 
-<input class={rest.class || ''} {type} {id} {name} {placeholder} bind:value />
+<input class={rest.class || ''} {type} {id} {name} {placeholder} {autofocus} bind:value />
 
 <style>
 	input {
