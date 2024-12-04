@@ -9,8 +9,8 @@ export class Counter extends GameObject {
   spawnTime: number = 0;
   destroy: () => void;
 
-  constructor(game: GameInstance, x: number, y: number, count: 1 | 2 = 1, onDie: () => void) {
-    super(game, x, y, `counter_${count}`);
+  constructor(game: GameInstance, x: number, y: number, sprite: string, onDie: () => void) {
+    super(game, x, y, sprite);
     this.spawnTime = this.p5.millis();
     this.destroy = onDie;
   }

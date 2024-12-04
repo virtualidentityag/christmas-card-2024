@@ -3,6 +3,7 @@ import type { FallingItem } from './falling-item.js';
 import type { GameInstance } from './game-instance.js';
 import { GameObject } from './game-object.js';
 import { ItemStore } from './item-store.js';
+import { PowerUp } from './power-up.js';
 import { defineVirtualJoystick } from './virtual-joystick.js';
 
 export class Sock extends GameObject {
@@ -34,8 +35,12 @@ export class Sock extends GameObject {
     this.y = this.p5.windowHeight - this.height - 10;
   }
 
-  spawnCounter(count: 1 | 2 = 1) {
-    const counter = new Counter(this.game, this.x + this.width / 2, this.y, count, () => {
+  spawnCoin(count: 1 | 2 = 1) {
+    this.spawnCounter(`counter_${count}`);
+  }
+
+  spawnCounter(sprite: string) {
+    const counter = new Counter(this.game, this.x + this.width / 2, this.y, sprite, () => {
       this.counters = this.counters.filter((c) => c !== counter);
     });
     this.counters.push(counter);
@@ -75,12 +80,14 @@ export class Sock extends GameObject {
     for (const item of fallingItems) {
       if (this.checkIntersection(item)) {
         const itemsModifiedByPowerup = this.game.activePowerUps.map((powerUp) => powerUp.modifyCaughtItem(item)).flat();
-        if (itemsModifiedByPowerup.length) {
-          this.storage?.addItems([...itemsModifiedByPowerup]);
-          this.spawnCounter(2)
-        } else {
-          this.storage?.addItem(item);
-          this.spawnCounter();
+        if (!(item instanceof PowerUp)) {
+          if (itemsModifiedByPowerup.length) {
+            this.storage?.addItems([...itemsModifiedByPowerup]);
+            this.spawnCoin(2)
+          } else {
+            this.storage?.addItem(item);
+            this.spawnCoin();
+          }
         }
         item.onCaught();
         item.destroy();

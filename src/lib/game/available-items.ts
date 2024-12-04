@@ -85,6 +85,7 @@ export const availablePowerUps: ItemDefinition[] = [
     class: class S extends PowerUp {
       effectDuration = 0;
       run(game: GameInstance): void {
+        game.sock.spawnCounter('time');
         game.durationInSeconds += 5;
       }
     },
