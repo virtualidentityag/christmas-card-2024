@@ -28,7 +28,7 @@ const getDB = async () => {
     getAll: async () => {
       const params = new URLSearchParams();
       params.append('contain_component', 'score');
-      params.append('sort_by', 'content.score:desc');
+      params.append('sort_by', 'content.score:desc:int');
       params.append('with_summary', '1');
       const { data } = await Storyblok.get(`spaces/${spaceId}/stories?${params.toString()}`);
 
