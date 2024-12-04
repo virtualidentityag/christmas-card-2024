@@ -19,11 +19,13 @@
 		window.addEventListener('blur', () => {
 			game.pauseGame();
 			running = false;
+			p5Instance.noLoop();
 		});
 
 		window.addEventListener('focus', () => {
 			game.resumeGame();
 			running = true;
+			p5Instance.loop();
 		});
 	};
 	let score = $state(0);
@@ -48,7 +50,7 @@
 		itemCountIncrease: 1,
 		itemCountIncreaseIntervalInSeconds: 10,
 		maxItemCount: 20,
-		durationInSeconds: 1,
+		durationInSeconds: 60,
 		powerUpChance: 0.5,
 		onScoreChange: (scoreUpdate: number) => {
 			score = scoreUpdate;
