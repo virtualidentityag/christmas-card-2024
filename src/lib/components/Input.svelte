@@ -1,11 +1,12 @@
 <script lang="ts">
-	let { id, name, type = 'text', value = $bindable(''), placeholder } = $props();
+	let { id, name, type = 'text', value = $bindable(''), placeholder, ...rest } = $props();
 </script>
 
-<input {type} {id} {name} {placeholder} bind:value />
+<input class={rest.class || ''} {type} {id} {name} {placeholder} bind:value />
 
 <style>
 	input {
+		width: 100%;
 		padding: 0 20px;
 		border-radius: 20px;
 		height: 40px;

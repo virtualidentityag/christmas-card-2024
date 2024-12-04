@@ -16,15 +16,15 @@
 			p5Instance.resizeCanvas(p5Instance.windowWidth, p5Instance.windowHeight);
 		};
 
-		window.onblur = () => {
+		window.addEventListener('blur', () => {
 			game.pauseGame();
 			running = false;
-		};
+		});
 
-		window.onfocus = () => {
+		window.addEventListener('focus', () => {
 			game.resumeGame();
 			running = true;
-		};
+		});
 	};
 	let score = $state(0);
 	let misses = $state(0);

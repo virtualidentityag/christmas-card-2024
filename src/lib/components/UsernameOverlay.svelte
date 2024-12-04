@@ -44,17 +44,25 @@
 </script>
 
 <Modal bind:show>
-	<h2>Join the DecoDash Leaderboard</h2>
-	<p>Please enter your nickname with which you should appear on the leaderboard.</p>
-	<Input id="username" name="username" placeholder="Nickname" bind:value={username} />
-	<p>
-		I agree that my nickname and score are published on the leaderboard according to our
-		privacy-policy.
-	</p>
-	<Button click={checkUsername}>I agree and Submit</Button>
-	{#if error}
-		<p>{error}</p>
-	{/if}
+	<h2 class="mb-6">Join the DecoDash Leaderboard</h2>
+	<p class="mb-12">Please enter your nickname with which you should appear on the leaderboard.</p>
+	<form class="flex flex-col">
+		<Input
+			class="mb-3"
+			id="username"
+			name="username"
+			placeholder="Nickname"
+			bind:value={username}
+		/>
+		{#if error}
+			<p class="text-red-600">{error}</p>
+		{/if}
+		<p class="mt-3 mb-12">
+			I agree that my nickname and score are published on the leaderboard according to our
+			privacy-policy.
+		</p>
+		<Button class="self-end" click={checkUsername}>I agree and Submit</Button>
+	</form>
 </Modal>
 
 <style>

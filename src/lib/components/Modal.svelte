@@ -21,7 +21,7 @@
 		if (e.target === dialog) dialog.close();
 	}}
 >
-	<div>
+	<div class="flex flex-col">
 		{@render children?.()}
 		<!-- svelte-ignore a11y_autofocus -->
 		<button autofocus onclick={() => dialog.close()}>
@@ -33,7 +33,6 @@
 <style>
 	dialog {
 		max-width: 80vw;
-		min-width: 50vw;
 		border-radius: 12px;
 		border: 1px solid #2697e2;
 		padding: 56px 32px 32px 32px;

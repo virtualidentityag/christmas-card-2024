@@ -1,13 +1,13 @@
 <script lang="ts">
-	let { href = '', children, click = () => {}, variant = 'primary' } = $props();
+	let { href = '', children, click = () => {}, variant = 'primary', ...rest } = $props();
 </script>
 
 {#if href}
-	<a {href} class={variant}>
+	<a {href} class={[variant, rest.class || ''].join(' ')}>
 		{@render children?.()}
 	</a>
 {:else}
-	<button onclick={click} class={variant}>
+	<button onclick={click} class={[variant, rest.class || ''].join(' ')}>
 		{@render children?.()}
 	</button>
 {/if}
