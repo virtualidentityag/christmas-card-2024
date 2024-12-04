@@ -72,10 +72,10 @@
 						<img src={ReloadIcon} alt="" class="inline-block w-6 h-6 mr-2" />
 						Play again
 					</Button>
-					<Button variant="secondary">
+					<!-- <Button variant="secondary">
 						<img src={ShareIcon} alt="" class="inline-block w-6 h-6 mr-2" />
 						Challenge a friend
-					</Button>
+					</Button> -->
 					<Button click={() => (showModal = true)} variant="secondary">
 						<img src={LeaderboardIcon} alt="" class="inline-block w-6 h-6 mr-2" />
 						View leaderboard
