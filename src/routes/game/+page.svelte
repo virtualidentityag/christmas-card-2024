@@ -50,7 +50,7 @@
 		itemCountIncrease: 1,
 		itemCountIncreaseIntervalInSeconds: 10,
 		maxItemCount: 20,
-		durationInSeconds: 7,
+		durationInSeconds: 60,
 		powerUpChance: 0.5,
 		onScoreChange: (scoreUpdate: number) => {
 			score = scoreUpdate;
