@@ -3,7 +3,6 @@
 	import { GameInstance, type GameConfig } from '$lib/game/game-instance.js';
 	import { goto } from '$app/navigation';
 	import type { PowerUp } from '$lib/game/power-up.js';
-	import JingleBells from '$assets/sounds/jinglebells.mp3';
 	import { appState } from '$lib/state/appState.svelte';
 
 	const createGame = (config: GameConfig, element: HTMLCanvasElement) => (p5Instance: p5) => {
@@ -16,6 +15,16 @@
 		p5Instance.windowResized = () => {
 			p5Instance.resizeCanvas(p5Instance.windowWidth, p5Instance.windowHeight);
 		};
+
+		window.onblur = () => {
+			game.pauseGame();
+			running = false;
+		};
+
+		window.onfocus = () => {
+			game.resumeGame();
+			running = true;
+		};
 	};
 	let score = $state(0);
 	let misses = $state(0);
@@ -24,7 +33,7 @@
 
 	let running = $state(false);
 
-	let destroyGame = () => {};
+	let destroyGame = $state(() => {});
 
 	const gameConfig: GameConfig = {
 		maxNumberMisses: Infinity,
@@ -39,7 +48,7 @@
 		itemCountIncrease: 1,
 		itemCountIncreaseIntervalInSeconds: 10,
 		maxItemCount: 20,
-		durationInSeconds: 60,
+		durationInSeconds: 1,
 		powerUpChance: 0.5,
 		onScoreChange: (scoreUpdate: number) => {
 			score = scoreUpdate;
@@ -91,7 +100,6 @@
 <canvas id="game-container" class="absolute inset-0"> </canvas>
 <virtual-joystick data-mode="dynamic" data-lock="y" class="fixed w-screen h-screen"
 ></virtual-joystick>
-<audio src={JingleBells} autoplay loop volume={appState.soundEnabled ? 1 : 0}></audio>
 
 <div class={running ? 'playing' : ''}>
 	<div class="fixed top-0 left-0 w-full h-10 bg-white bg-[auto_100%] text-black">
