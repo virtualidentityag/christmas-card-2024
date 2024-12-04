@@ -68,7 +68,7 @@
 
 			<div class="flex mt-12">
 				<div class="flex flex-col gap-4">
-					<Button href="/">
+					<Button href="/" autofocus>
 						<img src={ReloadIcon} alt="" class="inline-block w-6 h-6 mr-2" />
 						Play again
 					</Button>

@@ -32,7 +32,7 @@
 	</p>
 
 	<div class="flex items-center justify-center gap-4 mb-12">
-		<Button href="/tutorial">Play now</Button>
+		<Button href="/tutorial" autofocus>Play now</Button>
 		<Button click={() => (showModal = true)} variant="secondary">Leaderboard</Button>
 	</div>
 	<div>

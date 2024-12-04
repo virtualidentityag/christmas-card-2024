@@ -42,7 +42,7 @@
 		</div>
 
 		<div class="flex-1 flex justify-end items-end">
-			<Button href="/game">Got it. Let's go!</Button>
+			<Button href="/game" autofocus>Got it. Let's go!</Button>
 		</div>
 	</div>
 </div>
