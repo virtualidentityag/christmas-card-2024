@@ -21,9 +21,10 @@
 	</div>
 
 	<p class="max-w-screen-sm text-center text-sm leading-6 font-light mb-4">
-		The countdown is on! Catch as many decorations as you can to deck out your Christmas tree before
-		time runs out. Collect over XX ornaments, and VI will add an extra €1 to our annual charity
-		donation.
+		The countdown is on! Virtual Identity is donating 9,000 € to charity this Christmas. You can
+		help to unlock up to 1,000 € on top. Catch as many decorations as you can to deck out your
+		Christmas tree before time runs out. Collect over 100 ornaments, and VI will add an extra €1 to
+		our charity donation.
 	</p>
 
 	<p class="max-w-screen-sm text-center text-sm leading-6 font-bold mb-12">

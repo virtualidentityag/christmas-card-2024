@@ -16,10 +16,10 @@
 		</p>
 	</div>
 	<div class="donation">
-		<h2>We are donating</h2>
+		<h2>Our donation</h2>
 		<p>
-			Virtual Identity is donating to an ⁠allgemeingültige Organistaion with the DZI Siegel, that
-			the VI employees will decide for and we announce on date XX
+			Virtual Identity will donate to a cause chosen by our employees, ensuring it aligns with our
+			values and has the DZI Seal for trusted organisations.
 		</p>
 	</div>
 </Modal>
