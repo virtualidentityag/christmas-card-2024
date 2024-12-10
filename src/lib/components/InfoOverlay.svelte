@@ -5,8 +5,8 @@
 </script>
 
 <Modal bind:show>
-	<div class="about-us">
-		<h2>About Virtual Identity</h2>
+	<div class="mb-4 overflow-scroll">
+		<h2 class="text-2xl mb-2">About Virtual Identity</h2>
 		<p>
 			Every company will become digital. And digital success is rooted in two core skills.
 			Extracting data insights to optimise business practices. Proving empathy to create what’s
@@ -15,14 +15,11 @@
 			attitude we embrace in every challenge.
 		</p>
 	</div>
-	<div class="donation">
-		<h2>Our donation</h2>
+	<div>
+		<h2 class="text-2xl">Our donation</h2>
 		<p>
 			Virtual Identity will donate to a cause chosen by our employees, ensuring it aligns with our
 			values and has the DZI Seal for trusted organisations.
 		</p>
 	</div>
 </Modal>
-
-<style>
-</style>

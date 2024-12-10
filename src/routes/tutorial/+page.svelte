@@ -6,12 +6,12 @@
 	import Bells from '$assets/images/bells.png';
 </script>
 
-<div class="h-screen max-h-screen max-w-screen-lg py-16">
-	<div class="h-full flex flex-col pt-6 md:pt-16">
+<div class="max-h-screen max-w-screen-lg py-12">
+	<div class="h-full flex flex-col md:pt-16">
 		<h1 class="text-2xl md:text-5xl">How to play</h1>
 
 		<div
-			class="py-6 md:py-14 border-b border-b-[#1C2E4F] grid grid-cols-1 md:grid-cols-2 place-items-center"
+			class="py-6 md:py-12 border-b border-b-[#1C2E4F] grid grid-cols-1 md:grid-cols-2 place-items-center"
 		>
 			<p class="md:text-lg leading-relaxed">
 				Catch decorations by moving your sock left or right using the arrow buttons on your
@@ -21,7 +21,7 @@
 		</div>
 
 		<div
-			class="pb-6 md:py-14 border-b border-b-[#1C2E4F] grid grid-cols-1 md:grid-cols-2 items-center"
+			class="pb-6 md:py-12 border-b border-b-[#1C2E4F] grid grid-cols-1 md:grid-cols-2 items-center"
 		>
 			<p class="md:text-lg leading-relaxed pt-6">
 				Collect or avoid special decorations to change the game.

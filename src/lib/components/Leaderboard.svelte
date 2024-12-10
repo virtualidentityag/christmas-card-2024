@@ -5,11 +5,11 @@
 </script>
 
 <Modal bind:show>
-	<h2>Leaderboard</h2>
+	<h2 class="text-3xl mb-6 md:text-6xl md:mb-12">Leaderboard</h2>
 
-	<ol>
+	<ol class="max-h-[50vh] overflow-scroll">
 		{#each leads as { username, score }, i}
-			<li>
+			<li class="flex text-base leading-10">
 				<span class="place">{i + 1}.</span>
 				<span class="name">{username}</span>
 				<span class="score">{score}</span>
@@ -19,18 +19,6 @@
 </Modal>
 
 <style>
-	h2 {
-		font-size: 40px;
-		margin-bottom: 40px;
-	}
-	ol {
-		min-width: 612px;
-	}
-	ol li {
-		display: flex;
-		line-height: 44px;
-		font-size: 16px;
-	}
 	.place {
 		width: 40px;
 	}

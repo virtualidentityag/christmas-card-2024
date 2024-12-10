@@ -11,7 +11,7 @@
 	let { data }: { data: PageData } = $props();
 </script>
 
-<div class="h-screen max-h-screen flex flex-col justify-center items-center text-center">
+<div class="max-h-screen flex flex-col justify-center items-center text-center">
 	<p class="text-center tracking-wider max-w-screen-sm mb-12 md:mb-0">
 		<span class="text-3xl">Virtual Identity</span> <br /> <span class="text-xs">presents</span>
 	</p>
@@ -31,7 +31,7 @@
 		Ready, set... let the Deco Dash begin!
 	</p>
 
-	<div class="flex items-center justify-center gap-4 mb-6 md:mb-12 flex-col md:flex-row">
+	<div class="flex items-center justify-center gap-4 mb-6 md:mb-12 flex-row">
 		<Button href="/tutorial">Play now</Button>
 		<Button click={() => (showModal = true)} variant="secondary">Leaderboard</Button>
 	</div>

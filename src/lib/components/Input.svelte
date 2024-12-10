@@ -6,11 +6,21 @@
 		value = $bindable(''),
 		placeholder,
 		autofocus,
+		maxLength,
 		...rest
 	} = $props();
 </script>
 
-<input class={rest.class || ''} {type} {id} {name} {placeholder} {autofocus} bind:value />
+<input
+	class={rest.class || ''}
+	{type}
+	{id}
+	{name}
+	{placeholder}
+	{autofocus}
+	maxlength={maxLength}
+	bind:value
+/>
 
 <style>
 	input {
