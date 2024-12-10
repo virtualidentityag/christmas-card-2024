@@ -60,8 +60,10 @@
 			<p class="text-red-600">{error}</p>
 		{/if}
 		<p class="mt-3 mb-12">
-			I agree that my nickname and score are published on the leaderboard according to our
-			privacy-policy.
+			I agree that my nickname and score are published on the leaderboard according to our <a
+				href="https://www.virtual-identity.com/privacy-policy/"
+				target="_blank">privacy-policy</a
+			>.
 		</p>
 		<Button class="self-end" click={checkUsername}>I agree and Submit</Button>
 	</form>
