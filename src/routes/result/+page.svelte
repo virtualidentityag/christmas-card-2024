@@ -11,6 +11,7 @@
 	import { getEuroForScore } from '$lib/util/getEuroForScore';
 	import UsernameOverlay from '$lib/components/UsernameOverlay.svelte';
 	import { appState } from '$lib/state/appState.svelte';
+	import ShareOverlay from '$lib/components/ShareOverlay.svelte';
 
 	const getTree = (score: number) => {
 		if (score > 200) {
@@ -34,12 +35,25 @@
 
 	let showModal = $state(false);
 	let showUsernameOverlay = $state(true);
+	let showShare = $state(false);
 	let { data }: { data: PageData } = $props();
 	let leaderboard = $state(data.leads);
 	const score = appState.score;
 	const onUsernameSubmit = (leaderboardUpdate) => {
 		showUsernameOverlay = false;
 		leaderboard = leaderboardUpdate;
+	};
+
+	const share = async () => {
+		if (navigator.share) {
+			await navigator.share({
+				title: 'Virtual Identity - Deco Dash',
+				text: `I just collected ${score} ornaments and earned ${getEuroForScore(score)}€ for charity! Try to beat my score!`,
+				url: 'https://christmas.virtual-identity.com'
+			});
+		} else {
+			showShare = true;
+		}
 	};
 </script>
 
@@ -49,7 +63,6 @@
 	>
 		<img src={getTree(score)} alt="" class="h-5/6 [grid-area:tree]" />
 
-		<!-- <div class="max-w-lg pt-6 md:pt-0"> -->
 		<div
 			class="flex flex-col md:flex-row md:divide-x-[3px] divide-[#1C2E4F] mb-6 md:mb-16 [grid-area:result]"
 		>
@@ -78,7 +91,7 @@
 					<img src={ReloadIcon} alt="" class="inline-block w-6 h-6 mr-2" />
 					Play again
 				</Button>
-				<Button variant="secondary">
+				<Button variant="secondary" click={share}>
 					<img src={ShareIcon} alt="" class="inline-block w-6 h-6 mr-2" />
 					Challenge a friend
 				</Button>
@@ -88,8 +101,8 @@
 				</Button>
 			</div>
 		</div>
-		<!-- </div> -->
 	</div>
 </div>
 <Leaderboard leads={leaderboard} bind:show={showModal} />
 <UsernameOverlay bind:show={showUsernameOverlay} onSubmit={onUsernameSubmit} />
+<ShareOverlay bind:show={showShare} />

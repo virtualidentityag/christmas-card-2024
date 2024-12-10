@@ -1,17 +1,19 @@
 <script lang="ts">
 	let {
-		id,
-		name,
+		id = '',
+		name = '',
 		type = 'text',
 		value = $bindable(''),
-		placeholder,
-		autofocus,
-		maxLength,
+		placeholder = '',
+		autofocus = false,
+		maxLength = 100,
+		element = $bindable(),
 		...rest
 	} = $props();
 </script>
 
 <input
+	bind:this={element}
 	class={rest.class || ''}
 	{type}
 	{id}
