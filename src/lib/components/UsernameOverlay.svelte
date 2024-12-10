@@ -61,6 +61,7 @@
 		{/if}
 		<p class="mt-3 mb-12">
 			I agree that my nickname and score are published on the leaderboard according to our <a
+				class="underline"
 				href="https://www.virtual-identity.com/privacy-policy/"
 				target="_blank">privacy-policy</a
 			>.

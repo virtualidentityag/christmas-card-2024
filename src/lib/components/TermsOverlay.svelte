@@ -62,7 +62,9 @@
 		<ul class="list-disc list-inside">
 			<li>
 				<b>Privacy Policy:</b> For more information, please refer to our Privacy Policy
-				<a href="https://www.virtual-identity.com/privacy-policy/" target="_blank">here</a>.
+				<a class="underline" href="https://www.virtual-identity.com/privacy-policy/" target="_blank"
+					>here</a
+				>.
 			</li>
 		</ul>
 
@@ -115,11 +117,25 @@
 			</li>
 		</ul>
 
-		<h3 class="text-lg pt-6">9. Contact</h3>
+		<h3 class="text-lg pt-6">9. Licensed Content</h3>
+		<ul>
+			<li>
+				<b>Music:</b> The music used in the game is "Jingle Bells 8Bit" licensed under CC from
+				<a
+					class="underline"
+					href="https://timbeek.com/royalty-free-music/jingle-bells-8bit/"
+					target="_blank">Tim Beek</a
+				>.
+			</li>
+		</ul>
+
+		<h3 class="text-lg pt-6">10. Contact</h3>
 		<ul>
 			<li>
 				For questions or concerns, please contact us at
-				<a href="mailto: info@virtual-identity.com"> info@virtual-identity.com </a>
+				<a class="underline" href="mailto: info@virtual-identity.com">
+					info@virtual-identity.com
+				</a>
 				or Freiburg, Grünwälderstraße 10-14, 79098 Freiburg.
 			</li>
 		</ul>
