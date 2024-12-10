@@ -7,11 +7,17 @@
 	import { page } from '$app/stores';
 
 	import JingleBells from '$assets/sounds/jinglebells.mp3';
+	import TermsOverlay from '$lib/components/TermsOverlay.svelte';
 
 	let showInfoOverlay = $state(false);
+	let showTermsOverlay = $state(false);
 
 	const openInfoOverlay = () => {
 		showInfoOverlay = true;
+	};
+
+	const openTermsOverlay = () => {
+		showTermsOverlay = true;
 	};
 
 	const toggleSound = () => {
@@ -53,7 +59,17 @@
 <main class="h-screen text-white pl-10 pr-10 flex items-center justify-center">
 	{@render children()}
 </main>
+<footer
+	class="mx-auto flex justify-center md:justify-end max-w-screen-lg w-full fixed bottom-0 px-6"
+>
+	<nav class="inline-block text-white bg-[#1C2B40CC] rounded-t-[8px] px-4 pt-2 pb-3">
+		<a href="https://www.virtual-identity.com/imprint/" target="_blank" class="pr-6">Imprint</a>
+		<a href="#" onclick={openTermsOverlay} class="pr-6">Terms of Use</a>
+		<a href="https://www.virtual-identity.com/privacy-policy/" target="_blank">Privacy</a>
+	</nav>
+</footer>
 <InfoOverlay bind:show={showInfoOverlay}></InfoOverlay>
+<TermsOverlay bind:show={showTermsOverlay}></TermsOverlay>
 
 <style>
 	:global(body) {
