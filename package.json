@@ -38,6 +38,7 @@
 	"dependencies": {
 		"@2toad/profanity": "^3.0.1",
 		"@types/p5": "^1.7.6",
+		"classnames": "^2.5.1",
 		"lowdb": "^7.0.1",
 		"normalize.css": "^8.0.1",
 		"storyblok-js-client": "^6.10.3"

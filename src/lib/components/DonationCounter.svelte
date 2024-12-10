@@ -1,13 +1,18 @@
 <script lang="ts">
 	import Star from '$assets/images/star.png';
+	import classnames from 'classnames';
 
 	let { total = 1000, count = 0 } = $props();
 	let currentCount = $state(0);
 
+	let goalReached = $state(count >= total);
+
 	$effect(() => {
 		const interval = setInterval(() => {
 			if (currentCount < count) {
-				currentCount += 1;
+				currentCount = Math.round(
+					Math.min(total, currentCount + Math.max(0.5, currentCount / 100))
+				);
 			} else {
 				clearInterval(interval);
 			}
@@ -15,17 +20,36 @@
 	});
 </script>
 
-<div class="container">
-	<span class="label">Extra donations raised:</span>
-	<div class="bar">
-		<div class="indicator" style={`width: ${Math.min((currentCount / total) * 100, 100)}%`}>
-			<div class="marker">
-				<img src={Star} alt="" />
-				<div class="bubble">
-					<span class="flag-up"></span>
-					<span class="count">{currentCount}</span>
-					<span>EUR</span>
-				</div>
+<div class="grid [grid-template-areas:'label_label''bar_total'] gap-4 items-center w-full">
+	{#if goalReached}
+		<span class="label text-[#FCB65B]">Fantastic! Goal Reached.</span>
+	{:else}
+		<span class="label">Extra donations raised:</span>
+	{/if}
+	<div class="[grid-area:bar] relative h-3 bg-[#1c2b40] rounded-[20px] w-[50vw] min-w-[200px]">
+		<div
+			class={classnames(
+				'absolute top-[0] left-[0] h-full rounded-[20px] flex justify-end items-center',
+				{
+					'bg-[#fb4f6a]': !goalReached,
+					'bg-[#FCB65B]': goalReached
+				}
+			)}
+			style={`width: ${Math.min((currentCount / total) * 100, 100)}%`}
+		>
+			<div class="absolute w-[30px] aspect-square">
+				<img
+					src={Star}
+					alt=""
+					class="absolute aspect-square w-[30px] right-[-15px] max-w-[unset] top-0"
+				/>
+				{#if !goalReached}
+					<div class="bubble">
+						<span class="flag-up"></span>
+						<span class="count">{currentCount}</span>
+						<span>EUR</span>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</div>
@@ -33,56 +57,10 @@
 </div>
 
 <style>
-	.container {
-		display: grid;
-		grid-template-rows: auto auto;
-		grid-template-columns: 1fr auto;
-		grid-template-areas: 'label label' 'bar total';
-		gap: 12px;
-		align-items: center;
-		width: 100%;
-	}
-
 	.label {
 		grid-area: label;
 		font-size: 14px;
 		font-weight: bold;
-	}
-
-	.bar {
-		grid-area: bar;
-		position: relative;
-		height: 12px;
-		background-color: #1c2b40;
-		border-radius: 20px;
-		width: 50vw;
-		min-width: 200px;
-	}
-
-	.indicator {
-		position: absolute;
-		top: 0;
-		left: 0;
-		height: 100%;
-		background-color: #fb4f6a;
-		border-radius: 20px;
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-	}
-
-	.marker {
-		position: relative;
-		width: 30px;
-		height: 30px;
-	}
-
-	img {
-		width: 30px;
-		height: 30px;
-		position: absolute;
-		right: -15px;
-		max-width: unset;
 	}
 
 	.bubble {

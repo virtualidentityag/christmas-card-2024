@@ -37,8 +37,8 @@
 	</div>
 	<div>
 		<DonationCounter
-			total={1000}
 			count={data.leads.reduce((acc, lead) => acc + getEuroForScore(lead.score), 0)}
+			total={1000}
 		/>
 	</div>
 </div>
