@@ -43,7 +43,7 @@
 	};
 </script>
 
-<div class="max-h-screen py-12">
+<div class="max-h-screen max-w-screen-lg py-12">
 	<div
 		class="grid grid-cols-2 grid-rows-3 auto-rows-auto md:grid-rows-1 items-center justify-center [grid-template-areas:'tree_result''text_text''actions_actions'] md:[grid-template-areas:'tree_result''tree_text''tree_actions']"
 	>
@@ -72,7 +72,7 @@
 			</p>
 		</div>
 
-		<div class="flex justify-center mt-6 md:mt-12 [grid-area:actions]">
+		<div class="flex justify-center md:justify-start mt-6 md:mt-12 [grid-area:actions]">
 			<div class="flex flex-col gap-4">
 				<Button href="/" autofocus>
 					<img src={ReloadIcon} alt="" class="inline-block w-6 h-6 mr-2" />

@@ -15,7 +15,7 @@
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_element_interactions -->
 <dialog
-	class="max-h-[80vh] min-w-[80vw] max-w-[90vw] h-auto rounded-[12px] border-[1px] border-[solid] border-[#2697e2] px-[32px] py-[56px] relative bg-[#00112b] text-[white]"
+	class="max-h-[80vh] min-w-[80vw] max-w-[90vw] h-auto md:h-fit rounded-[12px] border-[1px] border-[solid] border-[#2697e2] px-[32px] py-[56px] relative bg-[#00112b] text-[white]"
 	bind:this={dialog}
 	onclose={() => (show = false)}
 	onclick={(e) => {
