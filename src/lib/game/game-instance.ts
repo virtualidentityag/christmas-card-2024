@@ -41,6 +41,8 @@ export class GameInstance {
   config: GameConfig;
   running: boolean = false;
   runningSince: number = 0;
+  lastPausedAt: number = 0;
+  timeSpendPaused: number = 0;
   p5: p5;
   ui;
   sock;
@@ -152,11 +154,7 @@ export class GameInstance {
     if (!this.running) {
       return 0;
     }
-    return Math.floor((this.p5.millis() - this.runningSince) / 1000);
-  }
-
-  set timeElapsed(time: number) {
-    this.runningSince = this.p5.millis() - time * 1000;
+    return Math.floor((this.p5.millis() - this.runningSince - this.timeSpendPaused) / 1000);
   }
 
   get timeRemaining() {
@@ -186,10 +184,12 @@ export class GameInstance {
 
   pauseGame() {
     this.running = false;
+    this.lastPausedAt = this.p5.millis();
   }
 
   resumeGame() {
     this.running = true;
+    this.timeSpendPaused += this.p5.millis() - this.lastPausedAt;
   }
 
 
