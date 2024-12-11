@@ -17,7 +17,7 @@
 	</p>
 
 	<div class="relative -mt-10 -mb-6 max-w-screen-lg">
-		<img src={Logo} alt="" class="w-full" />
+		<img src={Logo} alt="" class="w-full max-h-[30vh]" />
 	</div>
 
 	<p class="max-w-screen-sm text-center text-sm leading-6 font-light mb-4 mt-12">

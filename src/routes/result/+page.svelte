@@ -57,14 +57,14 @@
 	};
 </script>
 
-<div class="max-h-screen max-w-screen-lg py-12">
+<div class="max-h-screen max-w-screen-lg py-16">
 	<div
-		class="grid grid-cols-2 grid-rows-3 auto-rows-auto md:grid-rows-1 items-center justify-center [grid-template-areas:'tree_result''text_text''actions_actions'] md:[grid-template-areas:'tree_result''tree_text''tree_actions']"
+		class="h-full grid grid-cols-2 grid-rows-3 auto-rows-auto md:grid-rows-1 items-center justify-center [grid-template-areas:'tree_result''text_text''actions_actions'] md:[grid-template-areas:'tree_result''tree_text''tree_actions']"
 	>
-		<img src={getTree(score)} alt="" class="h-5/6 [grid-area:tree]" />
+		<img src={getTree(score)} alt="" class="h-[80vh] [grid-area:tree]" />
 
 		<div
-			class="flex flex-col md:flex-row md:divide-x-[3px] divide-[#1C2E4F] mb-6 md:mb-16 [grid-area:result]"
+			class="flex flex-col md:flex-row md:divide-x-[3px] divide-[#1C2E4F] mb-6 md:mb-[2vh] [grid-area:result]"
 		>
 			<p class="text-lg leading-none pe-6 md:pe-14">
 				<span class="font-bold text-3xl md:text-9xl text-[#E5433E]">{score}</span><br />
@@ -85,7 +85,7 @@
 			</p>
 		</div>
 
-		<div class="flex justify-center md:justify-start mt-6 md:mt-12 [grid-area:actions]">
+		<div class="flex justify-center md:justify-start mt-6 md:mt-[2vh] [grid-area:actions]">
 			<div class="flex flex-col gap-4">
 				<Button href="/" autofocus>
 					<img src={ReloadIcon} alt="" class="inline-block w-6 h-6 mr-2" />

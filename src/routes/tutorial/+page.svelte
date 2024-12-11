@@ -11,35 +11,35 @@
 		<h1 class="text-2xl md:text-5xl">How to play</h1>
 
 		<div
-			class="py-6 md:py-12 border-b border-b-[#1C2E4F] grid grid-cols-1 md:grid-cols-2 place-items-center"
+			class="py-6 md:py-[4vh] border-b border-b-[#1C2E4F] grid grid-cols-1 md:grid-cols-2 place-items-center"
 		>
 			<p class="md:text-lg leading-relaxed">
 				Catch decorations by moving your sock left or right using the arrow buttons on your
 				keyboard.
 			</p>
-			<img src={Keys} alt="" class="mt-6 w-1/2" />
+			<img src={Keys} alt="" class="mt-6 max-w-1/2 max-h-[20vh]" />
 		</div>
 
 		<div
-			class="pb-6 md:py-12 border-b border-b-[#1C2E4F] grid grid-cols-1 md:grid-cols-2 items-center"
+			class="pb-6 md:py-[4vh] border-b border-b-[#1C2E4F] grid grid-cols-1 md:grid-cols-2 items-center"
 		>
-			<p class="md:text-lg leading-relaxed pt-6">
+			<p class="md:text-lg leading-relaxed pt-[1vh]">
 				Collect or avoid special decorations to change the game.
 			</p>
 
-			<div class="grid grid-cols-3 pt-6">
+			<div class="grid grid-cols-3 pt-[1vh]">
 				<figure class="flex flex-col items-center text-center">
-					<img src={Bells} alt="" class="w-12 md:w-20 aspect-square mb-5" />
+					<img src={Bells} alt="" class="w-12 max-w-[8vh] md:w-20 aspect-square mb-5" />
 					<figcaption>+5 seconds</figcaption>
 				</figure>
 
 				<figure class="flex flex-col items-center text-center">
-					<img src={Candy} alt="" class="w-12 md:w-20 aspect-square mb-5" />
+					<img src={Candy} alt="" class="w-12 max-w-[8vh] md:w-20 aspect-square mb-5" />
 					<figcaption>Caution: Smaller sock for 10 seconds</figcaption>
 				</figure>
 
 				<figure class="flex flex-col items-center text-center">
-					<img src={Star} alt="" class="w-12 md:w-20 aspect-square mb-5" />
+					<img src={Star} alt="" class="w-12 max-w-[8vh] md:w-20 aspect-square mb-5" />
 					<figcaption>Double points for 10 seconds</figcaption>
 				</figure>
 			</div>
