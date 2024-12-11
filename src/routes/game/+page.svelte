@@ -37,55 +37,56 @@
 
 	let destroyGame = $state(() => {});
 
-	const gameConfig: GameConfig = {
-		maxNumberMisses: Infinity,
-		initialSpeed: 2,
-		speedIncreaseIntervalInSeconds: 30,
-		speedIncrease: 1,
-		maxSpeed: 6,
-		theme: {
-			backgroundColor: '#142547'
-		},
-		initialItemCount: 10,
-		itemCountIncrease: 1,
-		itemCountIncreaseIntervalInSeconds: 10,
-		maxItemCount: 20,
-		durationInSeconds: 60,
-		powerUpChance: 0.5,
-		onScoreChange: (scoreUpdate: number) => {
-			score = scoreUpdate;
-		},
-		onMissChange: (missesUpdate: number) => {
-			misses = missesUpdate;
-		},
-		onTimeChange: (timeRemaining: number) => {
-			remainingTime = timeRemaining;
-		},
-		onPowerUpChange: (powerUps: PowerUp[]) => {
-			activePowerUps = powerUps;
-		},
-		onGameStart: () => {
-			running = true;
-		},
-		onGameEnd: () => {
-			running = false;
-			appState.score = score;
-			goto('/result');
-		},
-		addSoundListener: (listener) => {
-			$effect(() => {
-				listener(appState.soundEnabled);
-			});
-		}
-	};
-
 	const startGame = (config: GameConfig, element: HTMLCanvasElement) => {
 		new window.p5(createGame(config, element));
 	};
 
 	onMount(() => {
 		destroyGame();
-		startGame(gameConfig, document.getElementById('game-container') as HTMLCanvasElement);
+		startGame(
+			{
+				maxNumberMisses: Infinity,
+				initialSpeed: 2,
+				speedIncreaseIntervalInSeconds: 30,
+				speedIncrease: 1,
+				maxSpeed: 6,
+				theme: {
+					backgroundColor: '#142547'
+				},
+				initialItemCount: Math.max(5, Math.round(window.innerWidth / 100)),
+				itemCountIncrease: 1,
+				itemCountIncreaseIntervalInSeconds: 10,
+				maxItemCount: 20,
+				durationInSeconds: 60,
+				powerUpChance: 0.5,
+				onScoreChange: (scoreUpdate: number) => {
+					score = scoreUpdate;
+				},
+				onMissChange: (missesUpdate: number) => {
+					misses = missesUpdate;
+				},
+				onTimeChange: (timeRemaining: number) => {
+					remainingTime = timeRemaining;
+				},
+				onPowerUpChange: (powerUps: PowerUp[]) => {
+					activePowerUps = powerUps;
+				},
+				onGameStart: () => {
+					running = true;
+				},
+				onGameEnd: () => {
+					running = false;
+					appState.score = score;
+					goto('/result');
+				},
+				addSoundListener: (listener) => {
+					$effect(() => {
+						listener(appState.soundEnabled);
+					});
+				}
+			},
+			document.getElementById('game-container') as HTMLCanvasElement
+		);
 	});
 
 	onDestroy(() => {
@@ -101,7 +102,7 @@
 
 <div>
 	<canvas id="game-container" class="absolute inset-0"> </canvas>
-	<virtual-joystick data-mode="dynamic" data-lock="y" class="fixed w-screen h-screen"
+	<virtual-joystick data-mode="dynamic" data-lock="y" class="top-0 left-0 fixed w-screen h-screen"
 	></virtual-joystick>
 
 	<div class={running ? 'playing' : ''}>

@@ -15,6 +15,8 @@ export class Sock extends GameObject {
 
   constructor(game: GameInstance, x: number, y: number) {
     super(game, x, y, 'sock');
+    this.width = Math.min(150, Math.max(70, this.p5.windowWidth / 10));
+    this.height = this.width;
 
     this.storage = new ItemStore();
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
@@ -27,12 +29,12 @@ export class Sock extends GameObject {
 
   get speed() {
     // return top speed based on screen width
-    return this.p5.windowWidth / 200;
+    return Math.max(5, Math.min(15, this.p5.windowWidth / 200));
   }
 
   onReady() {
     this.x = this.p5.windowWidth / 2;
-    this.y = this.p5.windowHeight - this.height - 10;
+    this.y = this.p5.windowHeight - this.height - 118;
   }
 
   spawnCoin(count: 1 | 2 = 1) {
