@@ -1,3 +1,4 @@
+import { env } from '$env/dynamic/private';
 import { error, type RequestHandler } from '@sveltejs/kit';
 import StoryblokClient from "storyblok-js-client";
 
@@ -5,7 +6,7 @@ const getDB = async () => {
   const spaceId = '314588';
   const Storyblok = new StoryblokClient({
     accessToken: 'pQ5I379xF9PDfxF8SvJmOAtt',
-    oauthToken: 'Qm1gsIKIN65VpQczsBXADQtt-76480-GRsqzEnVvEPJrShv64yR',
+    oauthToken: env.STORYBLOK_PAT,
   });
 
   return {
