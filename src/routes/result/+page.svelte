@@ -37,7 +37,8 @@
 	let { data }: { data: PageData } = $props();
 	let leaderboard = $state(data.leads);
 	const score = appState.score;
-	const isInTop25 = leaderboard.length < 25 || leaderboard.some((lead) => lead.score < score);
+	const isInTop25 =
+		leaderboard.length < 25 || leaderboard.slice(0, 25).some((lead) => lead.score < score);
 	let showUsernameOverlay = $state(isInTop25);
 	let showModal = $state(false);
 	let showShare = $state(false);

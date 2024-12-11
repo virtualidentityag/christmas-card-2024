@@ -8,7 +8,7 @@
 	<h2 class="text-3xl mb-6 md:text-6xl md:mb-12">Leaderboard</h2>
 
 	<ol class="max-h-[50vh] overflow-scroll">
-		{#each leads as { username, score }, i}
+		{#each leads.slice(0, 25) as { username, score }, i}
 			<li class="flex text-base leading-10">
 				<span class="place">{i + 1}.</span>
 				<span class="name">{username}</span>

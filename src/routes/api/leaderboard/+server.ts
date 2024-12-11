@@ -56,13 +56,31 @@ const getDB = async () => {
       return sanitize(response.data.story);
     },
     getAll: async () => {
-      const params = new URLSearchParams();
-      params.append('contain_component', 'score');
-      params.append('sort_by', 'content.score:desc:int');
-      params.append('with_summary', '1');
-      const { data } = await Storyblok.get(`spaces/${spaceId}/stories?${params.toString()}`);
+      const scores = [];
+      const { data, total } = await Storyblok.get(`spaces/${spaceId}/stories?with_summary=1`, {
+        contain_component: 'score',
+        sort_by: 'content.score:desc:int',
+        per_page: 100,
+      });
 
-      return data.stories.map(sanitize);
+      if (total === 0) {
+        return [];
+      }
+      scores.push(...data.stories.map(sanitize));
+      if (total > 100) {
+        const pages = Math.ceil(total / 100);
+        for (let i = 2; i <= pages; i++) {
+          const { data } = await Storyblok.get(`spaces/${spaceId}/stories?with_summary=1`, {
+            contain_component: 'score',
+            sort_by: 'content.score:desc:int',
+            per_page: 100,
+            page: i,
+          });
+          scores.push(...data.stories.map(sanitize));
+        }
+      }
+
+      return scores;
     },
   }
 };
