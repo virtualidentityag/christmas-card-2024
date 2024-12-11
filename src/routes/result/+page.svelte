@@ -91,7 +91,7 @@
 	<div
 		class="h-full grid grid-cols-2 grid-rows-3 auto-rows-auto md:grid-rows-1 items-center justify-center [grid-template-areas:'tree_result''text_text''actions_actions'] md:[grid-template-areas:'tree_result''tree_text''tree_actions']"
 	>
-		<img src={getTree(score)} alt="" class="h-[80vh] [grid-area:tree]" />
+		<img src={getTree(score)} alt="" class="max-h-[80vh] h-5/6 [grid-area:tree]" />
 
 		<div
 			class="flex flex-col md:flex-row md:divide-x-[3px] divide-[#1C2E4F] mb-6 md:mb-[2vh] [grid-area:result]"
