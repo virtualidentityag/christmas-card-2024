@@ -12,6 +12,7 @@
 	import UsernameOverlay from '$lib/components/UsernameOverlay.svelte';
 	import { appState } from '$lib/state/appState.svelte';
 	import ShareOverlay from '$lib/components/ShareOverlay.svelte';
+	import { onMount } from 'svelte';
 
 	const getTree = (score: number) => {
 		if (score > 200) {
@@ -33,16 +34,19 @@
 		return `So close! You didn't grab enough decorations this time, but your effort still spread some festive cheer! Give it another go and let's add some extra sparkle to the donations.`;
 	};
 
-	let showModal = $state(false);
-	let showUsernameOverlay = $state(true);
-	let showShare = $state(false);
 	let { data }: { data: PageData } = $props();
 	let leaderboard = $state(data.leads);
 	const score = appState.score;
+	const isInTop25 = leaderboard.length < 25 || leaderboard.some((lead) => lead.score < score);
+	let showUsernameOverlay = $state(isInTop25);
+	let showModal = $state(false);
+	let showShare = $state(false);
 	const onUsernameSubmit = (leaderboardUpdate) => {
 		showUsernameOverlay = false;
 		leaderboard = leaderboardUpdate;
 	};
+
+	let scoreId = $state('');
 
 	const share = async () => {
 		if (navigator.share) {
@@ -55,6 +59,31 @@
 			showShare = true;
 		}
 	};
+
+	const submit = async () => {
+		try {
+			const response = await fetch('/api/leaderboard', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ score })
+			});
+			if (response.status !== 200) {
+				return;
+			}
+		} catch (error) {
+			console.error('Error:', error);
+		}
+	};
+
+	onMount(() => {
+		if (isInTop25) {
+			showUsernameOverlay = true;
+		} else {
+			submit();
+		}
+	});
 </script>
 
 <div class="max-h-screen max-w-screen-lg py-16">

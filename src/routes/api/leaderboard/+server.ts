@@ -11,10 +11,39 @@ const getDB = async () => {
 
   return {
     store: async ({ username, score }) => {
+      if (score < 100) {
+        return;
+      }
+      if (!username) {
+        username = 'Anonymous';
+      }
+      const slug = username.toLowerCase().replace(/\s/g, '-').trim();
+      const res = await Storyblok.get(`spaces/${spaceId}/stories`, {
+        filter_query: {
+          username: {
+            in: username,
+          },
+        },
+      });
+      console.log(res);
+
+      const total = res.data.stories.length;
+
+
+      console.log({
+        name: total > 0 ? `${username} ${total}` : username,
+        slug: total > 0 ? `${slug}-${total}` : slug,
+        content: {
+          component: 'score',
+          score: String(score),
+          username: String(username),
+        }
+      });
+
       const response = await Storyblok.post(`spaces/${spaceId}/stories`, {
         story: {
-          name: username,
-          slug: username.toLowerCase().replace(/\s/g, '-'),
+          name: total > 0 ? `${username} ${total}` : username,
+          slug: total > 0 ? `${slug}-${total}` : slug,
           content: {
             component: 'score',
             score: String(score),
@@ -34,8 +63,7 @@ const getDB = async () => {
       const { data } = await Storyblok.get(`spaces/${spaceId}/stories?${params.toString()}`);
 
       return data.stories.map(sanitize);
-    }
-
+    },
   }
 };
 
