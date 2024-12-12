@@ -25,21 +25,8 @@ const getDB = async () => {
           },
         },
       });
-      console.log(res);
 
       const total = res.data.stories.length;
-
-
-      console.log({
-        name: total > 0 ? `${username} ${total}` : username,
-        slug: total > 0 ? `${slug}-${total}` : slug,
-        content: {
-          component: 'score',
-          score: String(score),
-          username: String(username),
-        }
-      });
-
       const response = await Storyblok.post(`spaces/${spaceId}/stories`, {
         story: {
           name: total > 0 ? `${username} ${total}` : username,

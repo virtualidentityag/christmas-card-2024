@@ -185,11 +185,13 @@ export class GameInstance {
   pauseGame() {
     this.running = false;
     this.lastPausedAt = this.p5.millis();
+    this.p5.noLoop();
   }
 
   resumeGame() {
     this.running = true;
     this.timeSpendPaused += this.p5.millis() - this.lastPausedAt;
+    this.p5.loop();
   }
 
 
