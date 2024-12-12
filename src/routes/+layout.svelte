@@ -21,7 +21,13 @@
 	};
 
 	const toggleSound = () => {
+		console.log('toggleSound');
+
 		appState.soundEnabled = !appState.soundEnabled;
+		const audio = document.querySelector('audio');
+		if (audio) {
+			audio.muted = !appState.soundEnabled;
+		}
 	};
 
 	const { children } = $props();
@@ -43,7 +49,7 @@
 	});
 </script>
 
-<audio src={JingleBells} loop volume={appState.soundEnabled ? 1 : 0}></audio>
+<audio src={JingleBells} loop></audio>
 <Header
 	onInfoClick={openInfoOverlay}
 	onSoundClick={toggleSound}
