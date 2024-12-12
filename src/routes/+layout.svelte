@@ -33,6 +33,7 @@
 	const { children } = $props();
 
 	onMount(() => {
+		window.scrollTo(1, 0);
 		document.onclick = () => {
 			const audio = document.querySelector('audio');
 			if (audio && audio.paused) {
