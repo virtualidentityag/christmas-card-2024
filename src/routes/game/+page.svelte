@@ -5,6 +5,8 @@
 	import type { PowerUp } from '$lib/game/power-up.js';
 	import { appState } from '$lib/state/appState.svelte';
 
+	let blurHandler;
+	let focusHandler;
 	const createGame = (config: GameConfig, element: HTMLCanvasElement) => (p5Instance: p5) => {
 		destroyGame = () => {
 			p5Instance.remove();
@@ -15,18 +17,20 @@
 		p5Instance.windowResized = () => {
 			p5Instance.resizeCanvas(p5Instance.windowWidth, p5Instance.windowHeight);
 		};
-
-		window.addEventListener('blur', () => {
+		blurHandler = () => {
 			game.pauseGame();
 			running = false;
 			p5Instance.noLoop();
-		});
+		};
 
-		window.addEventListener('focus', () => {
+		focusHandler = () => {
 			game.resumeGame();
 			running = true;
 			p5Instance.loop();
-		});
+		};
+
+		window.addEventListener('blur', blurHandler);
+		window.addEventListener('focus', focusHandler);
 	};
 	let score = $state(0);
 	let misses = $state(0);
@@ -77,6 +81,8 @@
 				onGameEnd: () => {
 					running = false;
 					appState.score = score;
+					window.removeEventListener('blur', blurHandler);
+					window.removeEventListener('focus', focusHandler);
 					goto('/result');
 				},
 				addSoundListener: (listener) => {

@@ -21,10 +21,20 @@ export class Sock extends GameObject {
     this.storage = new ItemStore();
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
     if (isTouch) {
-      window.customElements.define('virtual-joystick', defineVirtualJoystick());
+      this.defineJoystick();
       document.querySelector('virtual-joystick')?.addEventListener('joystickmove', this.onJoystickMove.bind(this));
       document.querySelector('virtual-joystick')?.addEventListener('joystickup', () => { this.currentTouchDirection = null; });
     }
+  }
+
+  async defineJoystick() {
+    if (window.customElements.get('virtual-joystick')) {
+      console.log('DEFINED');
+
+      return;
+    }
+    console.log('DEFINING');
+    window.customElements.define('virtual-joystick', defineVirtualJoystick());
   }
 
   get speed() {
