@@ -1,9 +1,17 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
 	import Keys from '$assets/images/keys.png';
+	import Joystick from '$assets/images/joystick.png';
 	import Star from '$assets/images/star.png';
 	import Candy from '$assets/images/candy.png';
 	import Bells from '$assets/images/bells.png';
+
+	const isTouchDevice =
+		'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+
+	const controlText = isTouchDevice
+		? 'swiping left or right'
+		: 'using the arrow buttons on your keyboard';
 </script>
 
 <div class="max-h-screen max-w-screen-lg py-12">
@@ -14,10 +22,9 @@
 			class="py-6 md:py-[4vh] border-b border-b-[#1C2E4F] grid grid-cols-1 md:grid-cols-2 place-items-center"
 		>
 			<p class="md:text-lg leading-relaxed">
-				Catch decorations by moving your sock left or right using the arrow buttons on your
-				keyboard.
+				Catch decorations by moving your sock left or right {controlText}.
 			</p>
-			<img src={Keys} alt="" class="mt-6 max-w-1/2 max-h-[20vh]" />
+			<img src={isTouchDevice ? Joystick : Keys} alt="" class="mt-6 max-w-1/2 max-h-[20vh]" />
 		</div>
 
 		<div
