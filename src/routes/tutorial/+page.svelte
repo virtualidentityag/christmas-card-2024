@@ -5,27 +5,30 @@
 	import Star from '$assets/images/star.png';
 	import Candy from '$assets/images/candy.png';
 	import Bells from '$assets/images/bells.png';
+	import { onMount } from 'svelte';
 
-	const isTouchDevice =
-		'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+	let isTouchDevice = $state(null);
 
-	const controlText = isTouchDevice
-		? 'swiping left or right'
-		: 'using the arrow buttons on your keyboard';
+	onMount(() => {
+		isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+	});
 </script>
 
 <div class="max-h-screen max-w-screen-lg py-12">
 	<div class="h-full flex flex-col md:pt-16">
 		<h1 class="text-2xl md:text-5xl">How to play</h1>
-
-		<div
-			class="py-6 md:py-[4vh] border-b border-b-[#1C2E4F] grid grid-cols-1 md:grid-cols-2 place-items-center"
-		>
-			<p class="md:text-lg leading-relaxed">
-				Catch decorations by moving your sock left or right {controlText}.
-			</p>
-			<img src={isTouchDevice ? Joystick : Keys} alt="" class="mt-6 max-w-1/2 max-h-[20vh]" />
-		</div>
+		{#if isTouchDevice !== null}
+			<div
+				class="py-6 md:py-[4vh] border-b border-b-[#1C2E4F] grid grid-cols-1 md:grid-cols-2 place-items-center"
+			>
+				<p class="md:text-lg leading-relaxed">
+					Catch decorations by moving your sock left or right {isTouchDevice
+						? 'swiping left or right'
+						: 'using the arrow buttons on your keyboard'}.
+				</p>
+				<img src={isTouchDevice ? Joystick : Keys} alt="" class="mt-6 max-w-1/2 max-h-[20vh]" />
+			</div>
+		{/if}
 
 		<div
 			class="pb-6 md:py-[4vh] border-b border-b-[#1C2E4F] grid grid-cols-1 md:grid-cols-2 items-center"
