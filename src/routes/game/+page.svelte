@@ -112,8 +112,10 @@
 	></virtual-joystick>
 
 	<div class={running ? 'playing' : ''}>
-		<div class="fixed top-0 left-0 w-full h-10 bg-white bg-[auto_100%] text-black">
-			<div class="flex items-center gap-10 h-full px-24">
+		<div
+			class="fixed top-0 left-0 w-full h-10 bg-white bg-[auto_100%] text-black flex justify-center"
+		>
+			<div class="max-w-screen-lg flex items-center gap-10 h-full px-24 w-full">
 				<p>Score: {score}</p>
 				<p>Time: {formatTime(remainingTime)}</p>
 				<div class="flex gap-2 items-center">

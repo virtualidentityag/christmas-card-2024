@@ -15,9 +15,9 @@
 	} = $props();
 </script>
 
-<header class="max-w-screen-lg">
+<header class="max-w-screen-lg flex items-center">
 	<a href="https://www.virtual-identity.com/" target="_blank" class="logo">
-		<img src={logoBlack ? LogoBlack : Logo} alt="" />
+		<img src={logoBlack ? LogoBlack : Logo} alt="" class="max-w-[unset] mt-[-4px]" />
 	</a>
 	<nav class="header__nav">
 		<button onclick={onSoundClick}>
@@ -50,11 +50,6 @@
 		background-color: transparent;
 		border: none;
 		cursor: pointer;
-	}
-
-	.logo img {
-		margin-top: 12px;
-		max-width: unset;
 	}
 
 	nav {

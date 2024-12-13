@@ -55,6 +55,7 @@
 	onInfoClick={openInfoOverlay}
 	onSoundClick={toggleSound}
 	showHome={$page.url.pathname !== '/'}
+	logoBlack={$page.url.pathname === '/game'}
 	soundOn={appState.soundEnabled}
 ></Header>
 <div class="fixed -z-10 w-screen h-screen bg-[#142547]">

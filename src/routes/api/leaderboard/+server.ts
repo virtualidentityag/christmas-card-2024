@@ -53,7 +53,7 @@ const getDB = async () => {
       if (total === 0) {
         return [];
       }
-      scores.push(...data.stories.map(sanitize));
+      scores.push(...data.stories);
       if (total > 100) {
         const pages = Math.ceil(total / 100);
         for (let i = 2; i <= pages; i++) {
@@ -63,11 +63,11 @@ const getDB = async () => {
             per_page: 100,
             page: i,
           });
-          scores.push(...data.stories.map(sanitize));
+          scores.push(...data.stories);
         }
       }
 
-      return scores;
+      return scores.map(sanitize);
     },
   }
 };
