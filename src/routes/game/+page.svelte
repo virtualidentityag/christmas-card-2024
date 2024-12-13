@@ -2,7 +2,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { GameInstance, type GameConfig } from '$lib/game/game-instance.js';
 	import { goto } from '$app/navigation';
-	import type { PowerUp } from '$lib/game/power-up.js';
+	import { PowerUp } from '$lib/game/power-up.js';
 	import { appState } from '$lib/state/appState.svelte';
 
 	let blurHandler;
@@ -31,10 +31,19 @@
 
 		window.addEventListener('blur', blurHandler);
 		window.addEventListener('focus', focusHandler);
+
+		activePowerUps.push(new S(game, 0, 0, ['star_0', 'star_1', 'star_2', 'star_3']));
+		activePowerUps.push(new S(game, 0, 0, ['star_0', 'star_1', 'star_2', 'star_3']));
+		activePowerUps.push(new S(game, 0, 0, ['star_0', 'star_1', 'star_2', 'star_3']));
+		activePowerUps.push(new S(game, 0, 0, ['star_0', 'star_1', 'star_2', 'star_3']));
 	};
 	let score = $state(0);
 	let misses = $state(0);
 	let remainingTime = $state(0);
+	class S extends PowerUp {
+		effectDuration = 10;
+	}
+
 	let activePowerUps = $state([]);
 
 	let running = $state(false);
@@ -62,7 +71,7 @@
 				itemCountIncreaseIntervalInSeconds: 10,
 				maxItemCount: 20,
 				durationInSeconds: 60,
-				powerUpChance: 0.5,
+				powerUpChance: 1,
 				onScoreChange: (scoreUpdate: number) => {
 					score = scoreUpdate;
 				},
@@ -125,8 +134,8 @@
 		>
 			<div class="max-w-screen-lg flex items-center gap-4 h-full px-16 md:px-24 w-full">
 				<p>Score: {formatScore(score)}</p>
-				<p>Time: {formatTime(remainingTime)}</p>
-				<div class="flex gap-2 items-center flex-nowrap md:block hidden">
+				<p class="min-w-[76px]">Time: {formatTime(remainingTime)}</p>
+				<div class="items-center md:flex hidden">
 					<span>Active power up:</span>
 					{#each activePowerUps as powerUp}
 						<img src={powerUp.spritePaths[0]} alt="" class="w-10 h-10" />
