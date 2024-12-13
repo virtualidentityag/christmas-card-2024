@@ -14,7 +14,7 @@ export const soundLibrary = {
   },
   play: (name: strin, noConcurrent: boolean) => {
     const sound = soundLibrary.loaded[name];
-    if (!sound.isLoaded()) {
+    if (!sound?.isLoaded()) {
       return;
     }
     if (sound.isPlaying() && noConcurrent) {
