@@ -11,7 +11,7 @@ const getDB = async () => {
 
   return {
     store: async ({ username, score }) => {
-      if (score < 100) {
+      if (score < 100 || env.NODE_ENV === 'development') {
         return;
       }
       if (!username) {

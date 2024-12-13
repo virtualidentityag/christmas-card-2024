@@ -100,10 +100,18 @@
 	});
 
 	const formatTime = (time: number) => {
+		const ensureTwoDigits = ensureDigits(2);
 		const minutes = Math.floor(time / 60);
 		const seconds = time % 60;
-		return `${minutes}:${seconds}`;
+		return `${ensureTwoDigits(minutes)}:${ensureTwoDigits(seconds)}`;
 	};
+
+	const formatScore = (score: number) => {
+		const ensureThreeDigits = ensureDigits(3);
+		return ensureThreeDigits(score);
+	};
+
+	const ensureDigits = (digits: number) => (num: number) => num.toString().padStart(digits, '0');
 </script>
 
 <div>
@@ -115,11 +123,11 @@
 		<div
 			class="fixed top-0 left-0 w-full h-10 bg-white bg-[auto_100%] text-black flex justify-center"
 		>
-			<div class="max-w-screen-lg flex items-center gap-10 h-full px-24 w-full">
-				<p>Score: {score}</p>
+			<div class="max-w-screen-lg flex items-center gap-4 h-full px-16 md:px-24 w-full">
+				<p>Score: {formatScore(score)}</p>
 				<p>Time: {formatTime(remainingTime)}</p>
-				<div class="flex gap-2 items-center">
-					<p>Active power up:</p>
+				<div class="flex gap-2 items-center flex-nowrap md:block hidden">
+					<span>Active power up:</span>
 					{#each activePowerUps as powerUp}
 						<img src={powerUp.spritePaths[0]} alt="" class="w-10 h-10" />
 					{/each}
