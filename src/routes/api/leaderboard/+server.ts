@@ -11,36 +11,41 @@ const getDB = async () => {
 
   return {
     store: async ({ username, score }) => {
-      if (score < 100 || env.NODE_ENV === 'development') {
-        return;
-      }
-      if (!username) {
-        username = 'Anonymous';
-      }
-      const slug = username.toLowerCase().replace(/\s/g, '-').trim();
-      const res = await Storyblok.get(`spaces/${spaceId}/stories`, {
-        filter_query: {
-          username: {
-            in: username,
+      try {
+        if (score < 100 || env.NODE_ENV === 'development') {
+          return;
+        }
+        if (!username) {
+          username = 'Anonymous';
+        }
+        const slug = username.toLowerCase().replace(/\s/g, '-').trim();
+        const res = await Storyblok.get(`spaces/${spaceId}/stories`, {
+          filter_query: {
+            username: {
+              in: username,
+            },
           },
-        },
-      });
+        });
 
-      const total = res.data.stories.length;
-      const response = await Storyblok.post(`spaces/${spaceId}/stories`, {
-        story: {
-          name: total > 0 ? `${username} ${total}` : username,
-          slug: total > 0 ? `${slug}-${total}` : slug,
-          content: {
-            component: 'score',
-            score: String(score),
-            username: String(username),
-          }
-        },
-        publish: 1,
-      });
+        const total = res.data.stories.length;
+        const response = await Storyblok.post(`spaces/${spaceId}/stories`, {
+          story: {
+            name: total > 0 ? `${username} ${total + 1}` : username,
+            slug: total > 0 ? `${slug}-${total + 1}` : slug,
+            content: {
+              component: 'score',
+              score: String(score),
+              username: String(username),
+            }
+          },
+          publish: 1,
+        });
 
-      return sanitize(response.data.story);
+        return sanitize(response.data.story);
+      } catch (e) {
+        console.error(`ERROR storing user score ${score}`, e);
+      }
+
     },
     getAll: async () => {
       const scores = [];
