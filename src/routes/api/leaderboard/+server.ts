@@ -12,7 +12,7 @@ const getDB = async () => {
   return {
     store: async ({ username, score }) => {
       try {
-        if (score < 100 || env.NODE_ENV === 'development') {
+        if (score < 100) {
           return;
         }
         if (!username) {
@@ -26,8 +26,7 @@ const getDB = async () => {
             },
           },
         });
-
-        const total = res.data.stories.length;
+        const total = res.total;
         const response = await Storyblok.post(`spaces/${spaceId}/stories`, {
           story: {
             name: total > 0 ? `${username} ${total + 1}` : username,
