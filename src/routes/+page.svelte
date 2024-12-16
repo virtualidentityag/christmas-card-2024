@@ -9,6 +9,7 @@
 
 	let showModal = $state(false);
 	let { data }: { data: PageData } = $props();
+	console.log(data);
 </script>
 
 <div class="max-h-screen flex flex-col justify-center items-center text-center">

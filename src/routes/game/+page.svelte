@@ -31,11 +31,6 @@
 
 		window.addEventListener('blur', blurHandler);
 		window.addEventListener('focus', focusHandler);
-
-		activePowerUps.push(new S(game, 0, 0, ['star_0', 'star_1', 'star_2', 'star_3']));
-		activePowerUps.push(new S(game, 0, 0, ['star_0', 'star_1', 'star_2', 'star_3']));
-		activePowerUps.push(new S(game, 0, 0, ['star_0', 'star_1', 'star_2', 'star_3']));
-		activePowerUps.push(new S(game, 0, 0, ['star_0', 'star_1', 'star_2', 'star_3']));
 	};
 	let score = $state(0);
 	let misses = $state(0);
