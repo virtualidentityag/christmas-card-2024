@@ -73,7 +73,9 @@
 	<nav class="inline-block text-white bg-[#1C2B40CC] rounded-t-[8px] px-4 pt-2 pb-3">
 		<a href="https://www.virtual-identity.com/imprint/" target="_blank" class="pr-6">Imprint</a>
 		<a href="#" onclick={openTermsOverlay} class="pr-6">Terms of Use</a>
-		<a href="https://www.virtual-identity.com/privacy-policy/" target="_blank">Privacy</a>
+		<a href="https://www.virtual-identity.com/privacy-policy/#online-games" target="_blank"
+			>Privacy</a
+		>
 	</nav>
 </footer>
 <InfoOverlay bind:show={showInfoOverlay}></InfoOverlay>
