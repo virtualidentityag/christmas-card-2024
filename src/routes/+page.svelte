@@ -4,11 +4,21 @@
 	import Button from '$lib/components/Button.svelte';
 	import DonationCounter from '$lib/components/DonationCounter.svelte';
 	import Leaderboard from '$lib/components/Leaderboard.svelte';
+	import { appState } from '$lib/state/appState.svelte';
 	import { getEuroForScore } from '$lib/util/getEuroForScore';
 	import type { PageData } from './$types';
 
 	let showModal = $state(false);
 	let { data }: { data: PageData } = $props();
+	appState.goalReached =
+		data.leads.reduce((acc, lead) => acc + getEuroForScore(lead.score), 0) >= appState.goal;
+
+	const mainText = appState.goalReached
+		? `Time is ticking! Catch as many decorations as you can to climb the leaderboard and bring your Christmas tree to life. Thanks to you, VI has already hit our €10,000 charity donation target - but the competition isn't over. High scores are still up for grabs!`
+		: `The countdown is on! Virtual Identity is donating 9,000 € to charity this Christmas. You can
+		help to unlock up to 1,000 € on top. Catch as many decorations as you can to deck out your
+		Christmas tree before time runs out. Collect over 100 ornaments, and VI will add an extra €1 to
+		our charity donation.`;
 </script>
 
 <div class="max-h-screen flex flex-col justify-center items-center text-center">
@@ -21,10 +31,7 @@
 	</div>
 
 	<p class="max-w-screen-sm text-center text-sm leading-6 font-light mb-4 mt-12">
-		The countdown is on! Virtual Identity is donating 9,000 € to charity this Christmas. You can
-		help to unlock up to 1,000 € on top. Catch as many decorations as you can to deck out your
-		Christmas tree before time runs out. Collect over 100 ornaments, and VI will add an extra €1 to
-		our charity donation.
+		{mainText}
 	</p>
 
 	<p class="max-w-screen-sm text-center text-sm leading-6 font-bold mb-6 md:mb-12">
@@ -38,7 +45,7 @@
 	<div>
 		<DonationCounter
 			count={data.leads.reduce((acc, lead) => acc + getEuroForScore(lead.score), 0)}
-			total={1000}
+			total={appState.goal}
 		/>
 	</div>
 </div>

@@ -25,13 +25,35 @@
 	};
 
 	const getResultText = (score: number) => {
+		const messages = [
+			`So close! You didn't grab enough decorations this time, but your effort still spread some festive cheer! Give it another go and let's add some extra sparkle to the donations.`,
+			`Great job! You caught enough decorations to give this year's charity a little boost - your holiday spirit is making a real difference! Keep it up and maybe next time you'll land a spot on the leaderboard.`,
+			`Wow, look at you go! Your skills have earned you a spot on the leaderboard, and thanks to you, this year's charity is getting an extra boost. Way to spread the holiday cheer!`
+		];
+
+		const goalReachedMessages = [
+			`Almost there! You didn't quite catch enough decorations this time, but you're getting closer. Try again and see if you can reach the leaderboard next round!`,
+			`Nice job! You've collected a decent number of decorations, just a little more and you'll land a spot on the leaderboard!`,
+			`Great job! You've good chances to land on the leaderboard and shown off your decorative skills. Can you push your score even higher?`
+		];
+
+		if (appState.goalReached) {
+			if (score > 200) {
+				return goalReachedMessages[2];
+			}
+			if (score > 100) {
+				return goalReachedMessages[1];
+			}
+			return goalReachedMessages[0];
+		}
+
 		if (score > 200) {
-			return `Wow, look at you go! Your skills have earned you a spot on the leaderboard, and thanks to you, this year's charity is getting an extra boost. Way to spread the holiday cheer!`;
+			return messages[2];
 		}
 		if (score > 100) {
-			return `Great job! You caught enough decorations to give this year's charity a little boost - your holiday spirit is making a real difference! Keep it up and maybe next time you'll land a spot on the leaderboard.`;
+			return messages[1];
 		}
-		return `So close! You didn't grab enough decorations this time, but your effort still spread some festive cheer! Give it another go and let's add some extra sparkle to the donations.`;
+		return messages[0];
 	};
 
 	let { data }: { data: PageData } = $props();
@@ -46,8 +68,6 @@
 		showUsernameOverlay = false;
 		leaderboard = leaderboardUpdate;
 	};
-
-	let scoreId = $state('');
 
 	const share = async () => {
 		if (navigator.share) {
@@ -85,6 +105,9 @@
 			submit();
 		}
 	});
+
+	appState.goalReached =
+		data.leads.reduce((acc, lead) => acc + getEuroForScore(lead.score), 0) >= appState.goal;
 </script>
 
 <div class="max-h-screen max-w-screen-lg py-16">
@@ -100,13 +123,15 @@
 				<span class="font-bold text-3xl md:text-9xl text-[#E5433E]">{score}</span><br />
 				collected <br /> ornaments.
 			</p>
-			<p class="text-lg mt-6 md:ps-6 md:ps-14 md:mt-0 leading-none">
-				<span class="font-bold text-3xl md:text-9xl text-[#2697E2]"
-					>{getEuroForScore(score)}
-					<span class="md:text-8xl">€</span>
-				</span><br />
-				extra donation <br /> earned
-			</p>
+			{#if !appState.goalReached}
+				<p class="text-lg mt-6 md:ps-6 md:ps-14 md:mt-0 leading-none">
+					<span class="font-bold text-3xl md:text-9xl text-[#2697E2]"
+						>{getEuroForScore(score)}
+						<span class="md:text-8xl">€</span>
+					</span><br />
+					extra donation <br /> earned
+				</p>
+			{/if}
 		</div>
 		<div class="[grid-area:text]">
 			<p class="md:text-lg leading-relaxed mb-4">{getResultText(score)}</p>
